@@ -27,3 +27,9 @@ int		add_shade(int trgb, double shade)
 {
 	return (create_trgb((int)(shade * 255), get_r(trgb), get_g(trgb), get_b(trgb)));
 }
+
+int		get_opposite(int trgb)
+{
+	// Leave t alone
+	return (create_trgb(get_t(trgb), get_r(trgb) ^ 255, get_g(trgb) ^ 255, get_b(trgb) ^ 255));
+}

@@ -1,5 +1,6 @@
 #include "minilibx_mms_20200219/mlx.h"
 #include <stdio.h>
+#include "libft.h"
 
 int func(int a, int b);
 

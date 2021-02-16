@@ -1,4 +1,6 @@
-LIB = libft/libft.a
+LIB	=	libft/libft.a
+CC	=	gcc
+INCLUDES	=	./includes
 
 all: liba
 
@@ -12,5 +14,8 @@ fclean:
 
 clean:
 	make clean -C libft
+
+test-colors:
+	$(CC) -I $(INCLUDES) colors_test.c; ./a.out
 
 re: clean fclean all

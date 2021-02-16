@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "colors.h"
+#include <math.h>
 
 int main()
 {
