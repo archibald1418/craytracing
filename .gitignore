@@ -2,7 +2,8 @@
 *.swp
 *.o
 *.dSYM
-*.zip*.vscode
+*.zip
+*.vscode
 *.idea
 *.a
 *.dylib
