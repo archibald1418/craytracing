@@ -7,4 +7,6 @@
 *.idea
 *.a
 *.dylib
-a.outminilibx_*/
+a.out
+minilibx_*/
+minilibx_*/*
