@@ -1,6 +1,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "colors.h"
 
 int main()
 {
@@ -10,7 +11,7 @@ int main()
 	int i = 0;
 	while (i < 20)
 	{
-		printf("ratio -> %f\talpha -> %f\n", ratio, alpha);
+		printf("ratio -> %f\talpha -> %f\t->\t%d\n", ratio, alpha, (int)alpha);
 		i++;
 		ratio = drand48();
 		alpha = ratio * 255;
