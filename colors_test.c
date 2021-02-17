@@ -4,6 +4,9 @@
 #include "colors.h"
 #include <math.h>
 
+
+
+
 int main()
 {
 	double ratio = drand48();
@@ -17,6 +20,4 @@ int main()
 		ratio = drand48();
 		alpha = ratio * 255;
 	}
-
-	
 }
