@@ -6,7 +6,7 @@
 /*   By: ldonita <ldonita@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 05:22:10 by ldonita           #+#    #+#             */
-/*   Updated: 2021/01/13 10:56:43 by ldonita          ###   ########.fr       */
+/*   Updated: 2021/02/18 16:30:29 by ldonita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void		*ft_memdup(const void *s, size_t size)
 	return (out);
 }
 
-int			parse_buffer(t_last *last, t_list *chunk, char **line)
+int			parse_buffer(t_last *last, t_chnk *chunk, char **line)
 {
 	ssize_t	nli;
-	t_list	*old_tail;
+	t_chnk	*old_tail;
 	size_t	old_len;
 
 	nli = ft_memchri(chunk->text, '\n', chunk->len);
@@ -92,13 +92,13 @@ int			parse_buffer(t_last *last, t_list *chunk, char **line)
 int			get_next_line(int fd, char **line)
 {
 	static t_last	last;
-	t_list			*chunk;
+	t_chnk			*chunk;
 	ssize_t			bytes_read;
 	ssize_t			res;
 
 	if (BUFFER_SIZE == 0 || fd < 0 || line == NULL)
 		return (-1);
-	if (last.head != NULL && (res = parse_buffer(&last, last.head, line)) != 0) 
+	if (last.head != NULL && (res = parse_buffer(&last, last.head, line)) != 0)
 		return (res);
 	bytes_read = 1;
 	while (bytes_read != 0)

@@ -6,18 +6,18 @@
 /*   By: ldonita <ldonita@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 04:59:24 by ldonita           #+#    #+#             */
-/*   Updated: 2021/02/09 04:52:18 by ldonita          ###   ########.fr       */
+/*   Updated: 2021/02/18 16:29:45 by ldonita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-t_list	*ft_lstnew_(size_t len)
+t_chnk	*ft_lstnew_(size_t len)
 {
-	t_list *new;
+	t_chnk *new;
 	size_t i;
 
-	if (!(new = (t_list *)malloc(sizeof(t_list))))
+	if (!(new = (t_chnk *)malloc(sizeof(t_chnk))))
 		return (NULL);
 	if (!(new->text = (char *)malloc(sizeof(char) * len + 1)))
 		return (NULL);
@@ -32,7 +32,7 @@ t_list	*ft_lstnew_(size_t len)
 	return (new);
 }
 
-void	ft_lstappend_back_null(t_last *last, t_list *node)
+void	ft_lstappend_back_null(t_last *last, t_chnk *node)
 {
 	if (node == NULL)
 		return ;
@@ -47,10 +47,10 @@ void	ft_lstappend_back_null(t_last *last, t_list *node)
 	last->tail = node;
 }
 
-ssize_t	ft_lstclear_(t_list **lst)
+ssize_t	ft_lstclear_(t_chnk **lst)
 {
-	t_list *current;
-	t_list *next;
+	t_chnk *current;
+	t_chnk *next;
 
 	current = *lst;
 	while (current)
@@ -66,9 +66,9 @@ ssize_t	ft_lstclear_(t_list **lst)
 	return (-1);
 }
 
-char	*ft_lstjoin(t_list **phead, char **line)
+char	*ft_lstjoin(t_chnk **phead, char **line)
 {
-	t_list	*node;
+	t_chnk	*node;
 	char	*pline;
 	size_t	sumlen;
 
