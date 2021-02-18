@@ -6,7 +6,7 @@
 /*   By: ldonita <ldonita@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 05:01:16 by ldonita           #+#    #+#             */
-/*   Updated: 2021/02/18 16:29:45 by ldonita          ###   ########.fr       */
+/*   Updated: 2021/02/18 18:17:44 by ldonita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ ssize_t				ft_memchri(const void *s, int c, size_t n);
 void				*ft_memdup(const void *s, size_t size);
 void				*ft_memmove(void *dst, const void *src, size_t len);
 t_chnk				*ft_lstnew_(size_t len);
-t_chnk				*ft_lstlast(t_chnk *lst);
 void				ft_lstappend_back_null(t_last *last, t_chnk *node);
 ssize_t				ft_lstclear_(t_chnk **lst);
 char				*ft_lstjoin(t_chnk **phead, char **line);
