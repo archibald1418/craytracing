@@ -31,7 +31,7 @@ int key_hook (int keycode, t_vars *vars)
 {
 
 	if (keycode == ESC)
-		exit(0); // TODO: Exit code OK??
+		close_win(vars);
 	else if (keycode == RIGHT)
 		dprintf(1, "RIGHT\n");
 	else if (keycode == LEFT)
@@ -43,6 +43,11 @@ int mouse_hook(int button, int x, int y, t_vars *vars)
 {
 	dprintf(1, "kek\n");
 	return (0);
+}
+
+int             close_win(t_vars *vars)
+{
+	exit(0);
 }
 
 
@@ -62,5 +67,6 @@ int main(int argc, char **argv)
 	put_square(50, &start1, cyan, vars.mlx, vars.win);
 
 	mlx_key_hook(vars.win, key_hook, &vars);
+	mlx_hook(vars.win, 17, 1L<<17, close_win, &vars);
 	mlx_loop(vars.mlx);
 }
