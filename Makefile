@@ -6,6 +6,8 @@ CC		= gcc
 INCL	= ./includes
 CFLAGS	= -Wall -Wextra -Werror
 
+SRCS	= colors.c
+
 all: $(NAME)
 
 $(LIBA):
@@ -25,7 +27,7 @@ fclean:
 	rm -rf libft.a
 
 $(NAME): $(MLXLL) $(OBJ)
-	$(CC) main.c -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) main.c $(SRCS) -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I $(INCL) -c $< -o $@

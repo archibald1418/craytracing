@@ -24,4 +24,10 @@ typedef struct	s_vars
 	void	*win;
 }				t_vars;
 
+typedef struct	s_res
+{
+	int X;
+	int Y;
+}				t_res;
+
 #endif
