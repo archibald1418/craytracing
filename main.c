@@ -27,17 +27,16 @@ int		func(int a, int b)
 
 int main(int argc, char **argv)
 {
-	void *pa;
-	void *pb;
 	t_point start1 = {250, 250};
 	t_point start2 = {150, 150};
 
+	t_vars vars;
 
-	pa = mlx_init();
-	pb = mlx_new_window(pa, ft_atoi(argv[1]), ft_atoi(argv[2]), "My window");
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, ft_atoi(argv[1]), ft_atoi(argv[2]), "My window");
 	// put_square(150, &start2, lightblue, pa, pb);
-	put_square(50, &start1, get_opposite(add_shade(cyan, 0.9)), pa, pb);
+	put_square(50, &start1, get_opposite(add_shade(cyan, 0.9)), vars.mlx, vars.win);
 
-	mlx_hook(pb, 0, 0, &func, NULL);
-	mlx_loop(pa);
+	mlx_hook(vars.win, 0, 0, &func, NULL);
+	mlx_loop(vars.mlx);
 }

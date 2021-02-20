@@ -1,3 +1,6 @@
+#ifndef COLORS_H
+# define COLORS_H
+
 int		create_trgb(int t, int r, int g, int b);
 int		get_t(int trgb);
 int		get_r(int trgb);
@@ -671,3 +674,5 @@ enum COLOR
 	darkred = 0x8b0000,
 	lightgreen = 0x90ee90,
 };
+
+#endif
