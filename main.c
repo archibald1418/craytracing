@@ -29,12 +29,14 @@ int main(int argc, char **argv)
 {
 	void *pa;
 	void *pb;
-	t_point start = {50, 50};
+	t_point start1 = {250, 250};
+	t_point start2 = {150, 150};
 
 
 	pa = mlx_init();
 	pb = mlx_new_window(pa, ft_atoi(argv[1]), ft_atoi(argv[2]), "My window");
-	put_square(50, &start, add_shade(darkcyan, 0.1), pa, pb);
+	// put_square(150, &start2, lightblue, pa, pb);
+	put_square(50, &start1, add_shade(red, 0.55), pa, pb);
 
 	mlx_hook(pb, 0, 0, &func, NULL);
 	mlx_loop(pa);

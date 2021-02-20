@@ -34,7 +34,8 @@ test-colors:
 	$(CC) -I $(INCLUDES) colors_test.c; ./a.out
 
 test-window:
-	$(CC) main.c colors.c -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) main.c colors.c -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME);
+	./window 500 500
 
 re: clean fclean all
 

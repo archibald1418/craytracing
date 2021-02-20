@@ -26,10 +26,15 @@ int		get_b(int trgb)
 int		add_shade(int trgb, double shade)
 {
 	// return (create_trgb(shade, get_r(trgb), get_g(trgb), get_b(trgb)));
-	return ((int)shade * 255 << 24 | trgb);
+	// FIXME: (d)printf works only with fd
+
+	// dprintf(1, "shade -> %X\n", ((int)(shade * 255)) << 24);
+	// dprintf(1, "shade -> %X\n", ((int)(shade * 255)) << 24);
+	// dprintf(1, "color + shade -> %X\n", ((trgb & 0xFFFFFF) | ((int)(shade * 255)) << 24));
+	return ((trgb & 0xFFFFFF) | (((int)(shade * 255)) << 24));
 }
 
-int		get_opposite(int trgb)
+int		get_opposite(int trgb)ы
 {
 	// Leave t alone
 	return (create_trgb(get_t(trgb), get_r(trgb) ^ 255, get_g(trgb) ^ 255, get_b(trgb) ^ 255));
