@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 	pa = mlx_init();
 	pb = mlx_new_window(pa, ft_atoi(argv[1]), ft_atoi(argv[2]), "My window");
 	// put_square(150, &start2, lightblue, pa, pb);
-	put_square(50, &start1, add_shade(red, 0.55), pa, pb);
+	put_square(50, &start1, get_opposite(add_shade(cyan, 0.9)), pa, pb);
 
 	mlx_hook(pb, 0, 0, &func, NULL);
 	mlx_loop(pa);

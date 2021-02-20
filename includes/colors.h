@@ -1,3 +1,11 @@
+int		create_trgb(int t, int r, int g, int b);
+int		get_t(int trgb);
+int		get_r(int trgb);
+int		get_g(int trgb);
+int		get_b(int trgb);
+int		add_shade(int trgb, double shade);
+int		get_opposite(int trgb);
+
 /*
 ** This is from a generated file with rgb2c.pl and rgb.txt from
 ** the XFree86 distribution.
@@ -663,11 +671,3 @@ enum COLOR
 	darkred = 0x8b0000,
 	lightgreen = 0x90ee90,
 };
-
-
-int		create_trgb(int t, int r, int g, int b);
-int		get_t(int trgb);
-int		get_r(int trgb);
-int		get_g(int trgb);
-int		get_b(int trgb);
-int		add_shade(int trgb, double shade);

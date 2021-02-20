@@ -34,8 +34,8 @@ int		add_shade(int trgb, double shade)
 	return ((trgb & 0xFFFFFF) | (((int)(shade * 255)) << 24));
 }
 
-int		get_opposite(int trgb)ы
+int		get_opposite(int trgb)
 {
 	// Leave t alone
-	return (create_trgb(get_t(trgb), get_r(trgb) ^ 255, get_g(trgb) ^ 255, get_b(trgb) ^ 255));
+	return ((~trgb & 0xFFFFFF) | (trgb & 0xFF000000));
 }
