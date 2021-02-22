@@ -6,7 +6,7 @@ CC		= gcc
 INCL	= ./includes
 CFLAGS	= -Wall -Wextra -Werror
 
-SRCS	= colors.c
+SRCS	= colors.c square.c vectors.c
 
 all: $(NAME)
 
@@ -21,6 +21,7 @@ $(MLXLL): $(LIBA)
 clean:
 	make clean -C libft
 	make clean -C $(MLX)
+	rm -rf *.o *.out *.dSYM $(NAME)
 
 fclean:
 	make fclean -C libft
@@ -36,7 +37,7 @@ test-colors:
 	$(CC) -I $(INCLUDES) colors_test.c; ./a.out
 
 test-window:
-	$(CC) main.c colors.c -g -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) main.c $(SRCS) -g -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
 
 re: clean fclean all
 

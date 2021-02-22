@@ -6,6 +6,7 @@ int		get_t(int trgb);
 int		get_r(int trgb);
 int		get_g(int trgb);
 int		get_b(int trgb);
+int		get_rgb(int trgb);
 int		add_shade(int trgb, double shade);
 int		get_opposite(int trgb);
 
@@ -14,7 +15,7 @@ int		get_opposite(int trgb);
 ** the XFree86 distribution.
 */
 
-enum COLOR
+enum e_COLOR
 {
 	snow = 0xfffafa,
 	ghostwhite = 0xf8f8ff,

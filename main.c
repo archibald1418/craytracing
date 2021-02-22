@@ -1,18 +1,6 @@
 #include "minirt.h"
-#include <time.h>
 #include "tests.h"
-
-// KEYMAPS:
-#define UP   126
-#define LEFT 123
-#define DOWN 125
-#define RIGHT 124
-#define ESC	 53
-
-// EVENTS
- #define DestroyNotify 17
- #define StructureNotifyMask 1L<<17
-
+#include <time.h>
 
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -20,23 +8,6 @@ void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
     dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
     *(unsigned int*)dst = color;
-}
-
-void	put_square (t_square *square, t_vars *vars, t_data *data)
-{
-	int i = 0;
-	int j = 0;
-
-	while (i < square->side)
-	{
-		j = 0;
-		while (j < square->side)
-		{
-			my_mlx_pixel_put(data, j, i, square->color);
-			j++;
-		}
-	i++;
-	}
 }
 
 int key_hook (int keycode, t_vars *vars)
@@ -48,12 +19,6 @@ int key_hook (int keycode, t_vars *vars)
 		dprintf(1, "RIGHT\n");
 	else if (keycode == LEFT)
 		dprintf(1, "LEFT\n");
-	return (0);
-}
-
-int mouse_hook(int button, int x, int y, t_vars *vars)
-{
-	dprintf(1, "kek\n");
 	return (0);
 }
 
@@ -73,16 +38,13 @@ int     render_next_frame(t_params *params)
 	// square->start->y++;
 	//TODO: перенести расчеты отсюда 
 	// TODO: перенести в image
-	if (square->start->x + square->side >= params->res->X)
-		params->speed->x = -5;
 
-	if (square->start->y + square->side >= params->res->Y)
-		params->speed->y = -5;
-
-	if (square->start->x <= 0)
-		params->speed->x = 5;
-	if (square->start->y <= 0)
-		params->speed->y = 5;
+	if (square->start->x <= 0 || \
+		square->start->x + square->side >= params->res->X)
+		params->speed->x *= -1;
+	else if (square->start->y <= 0 || \
+		square->start->y + square->side >= params->res->Y)
+		params->speed->y *= -1;
 
 	square->start->y += params->speed->y;
 	square->start->x += params->speed->x;
@@ -90,13 +52,6 @@ int     render_next_frame(t_params *params)
 	mlx_clear_window(params->vars->mlx, params->vars->win);
 	mlx_put_image_to_window(params->vars->mlx, params->vars->win, params->data->img, square->start->x, square->start->y);
 	return (0);
-}
-
-void	init_square(t_square *square, int side, int color, t_point *start)
-{
-	square->side = side;
-	square->color = color;
-	square->start = start;
 }
 
 int main()

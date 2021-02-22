@@ -8,42 +8,32 @@
 # include <string.h>
 
 # include "mlx.h"
+
 # include "libft.h"
 # include "get_next_line.h"
+
+# include "conf.h"
 # include "colors.h"
+# include "shapes.h"
+# include "vectors.h"
 
-typedef struct  s_data {
-    void        *img;
-    char        *addr;
-    int         bits_per_pixel;
-    int         line_length;
-    int         endian;
-}               t_data;
+// KEYMAPS:
+# define UP		126
+# define LEFT	123
+# define DOWN	125
+# define RIGHT	124
+# define ESC	53
 
-typedef struct	s_point
+// EVENTS
+# define DestroyNotify			17
+# define StructureNotifyMask	1L<<17
+
+
+typedef struct	s_shape
 {
-	int x;
-	int y;
-}				t_point;
-
-typedef struct	s_vars
-{
-	void	*mlx;
-	void	*win;
-}				t_vars;
-
-typedef struct	s_res
-{
-	int X;
-	int Y;
-}				t_res;
-
-typedef struct	s_square
-{
-	t_point	*start;
-	int		side;
-	int		color;
-}				t_square;
+	void		*shape;
+	void		(*calc)(void *shape);
+}				t_shape;
 
 typedef struct	s_params
 {
@@ -52,11 +42,12 @@ typedef struct	s_params
 	t_res		*res; 
 	t_point		*speed;
 	t_data		*data;
+	
 }				t_params;
 
-
-
+void            my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int             close_win(t_vars *vars);
+int 			key_hook (int keycode, t_vars *vars);
 
 
 #endif
