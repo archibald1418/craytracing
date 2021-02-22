@@ -28,17 +28,12 @@ int             close_win(t_vars *vars)
 	return (0);
 }
 
-int     render_next_frame(t_params *params)
+void			calc_square(t_params *params)
 {
 	t_square *square;
 
 	square = params->square;
 	
-	// square->start->x++;
-	// square->start->y++;
-	//TODO: перенести расчеты отсюда 
-	// TODO: перенести в image
-
 	if (square->start->x <= 0 || \
 		square->start->x + square->side >= params->res->X)
 		params->speed->x *= -1;
@@ -48,6 +43,15 @@ int     render_next_frame(t_params *params)
 
 	square->start->y += params->speed->y;
 	square->start->x += params->speed->x;
+}
+
+int     render_next_frame(t_params *params)
+{
+	t_square *square;
+
+	square = params->square;
+	
+	calc_square(params);
 
 	mlx_clear_window(params->vars->mlx, params->vars->win);
 	mlx_put_image_to_window(params->vars->mlx, params->vars->win, params->data->img, square->start->x, square->start->y);

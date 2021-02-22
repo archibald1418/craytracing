@@ -10,6 +10,13 @@ typedef struct	s_square
 	int		color;
 }				t_square;
 
+typedef struct	s_circle
+{
+	t_point	*center;
+	int		rad;
+	int color;
+}				t_circle;
+
 void	init_square(t_square *square, int side, int color, t_point *start);
 void	put_square (t_square *square, t_vars *vars, t_data *data);
 
