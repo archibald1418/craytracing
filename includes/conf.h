@@ -10,11 +10,11 @@ typedef struct  s_data
     int         endian;
 }               t_data;
 
-typedef struct	s_vars
+typedef struct	s_win
 {
 	void	*mlx;
 	void	*win;
-}				t_vars;
+}				t_win;
 
 typedef struct	s_res
 {
@@ -22,4 +22,8 @@ typedef struct	s_res
 	int Y;
 }				t_res;
 
+int     key_hook (int keycode, t_win *vars);
+int     close_win(t_win *vars);
+void	init_window(t_win *vars, t_res *RES, char *title);
+void	init_img(t_data *data, t_win *vars, int width, int height);
 #endif

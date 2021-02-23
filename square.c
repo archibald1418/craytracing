@@ -7,11 +7,13 @@ void	init_square(t_square *square, int side, int color, t_point *start)
 	square->start = start;
 }
 
-void	put_square (t_square *square, t_vars *vars, t_data *data)
+void	put_square (t_square *square, t_win *vars, t_data *data)
 {
-	int i = 0;
-	int j = 0;
+	int i;
+	int j;
 
+	i = 0;
+	j = 0;
 	while (i < square->side)
 	{
 		j = 0;

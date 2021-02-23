@@ -120,7 +120,7 @@ enum e_COLOR
 	beige = 0xf5f5dc,
 	wheat = 0xf5deb3,
 	sandybrown = 0xf4a460,
-	tan = 0xd2b48c,
+	tan0 = 0xd2b48c,
 	chocolate = 0xd2691e,
 	firebrick = 0xb22222,
 	brown = 0xa52a2a,

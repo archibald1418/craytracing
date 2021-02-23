@@ -6,7 +6,7 @@ CC		= gcc
 INCL	= ./includes
 CFLAGS	= -Wall -Wextra -Werror
 
-SRCS	= colors.c square.c vectors.c
+SRCS	= colors.c square.c vectors.c circle.c conf.c
 
 all: $(NAME)
 
