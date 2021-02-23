@@ -25,10 +25,11 @@ void		put_circle(t_circle *circle, t_win *vars, t_data *data)
 
 	i = 0;
 	j = 0;
-	while (i < circle->rad)
+	
+	while (i < circle->center->y + circle->rad)
 	{
 		j = 0;
-		while (j < circle->rad)
+		while (j < circle->center->x + circle->rad)
 		{
 			if (is_in(&(t_point){i, j}, circle))
 				my_mlx_pixel_put(data, j, i, circle->color);
