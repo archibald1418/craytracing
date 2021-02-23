@@ -1,5 +1,13 @@
+int		set_color(int x, int a, int b)
+{
+	x = b ? (x > b) : x;
+	x = a ? (x < a) : x;
+	return (x);
+}
+
 int		create_trgb(int t, int r, int g, int b)
 {
+		
 	return(t << 24 | r << 16 | g << 8 | b);
 }
 
@@ -36,4 +44,14 @@ int		add_shade(int trgb, double shade)
 int		get_opposite(int trgb)
 {
 	return ((~trgb & 0xFFFFFF) | (trgb & 0xFF000000));
+}
+
+int		add_trgb(int trgba, int trgbb)
+{
+	;
+}
+
+int		subtr_trgb(int trgba, int trgbb)
+{
+	;
 }

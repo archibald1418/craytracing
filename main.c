@@ -60,11 +60,11 @@ int main()
 
 	init_window(&vars, &RES, "My window!");
 
-	init_circle(&circle, 100, cyan, &start1);
+	init_circle(&circle, 100, cyan3, &start1);
 
 	init_img(&data, &vars, circle.rad * 2, circle.rad * 2);
 	
-	init_square(&square, circle.rad*2, orange, &starts);
+	init_square(&square, circle.rad*2, magenta, &starts);
 	put_square(&square, &vars, &data);
 	put_circle(&circle, &vars, &data);
 
