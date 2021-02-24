@@ -1,10 +1,3 @@
-int		set_color(int x, int a, int b)
-{
-	x = b ? (x > b) : x;
-	x = a ? (x < a) : x;
-	return (x);
-}
-
 int		create_trgb(int t, int r, int g, int b)
 {
 		
@@ -48,10 +41,34 @@ int		get_opposite(int trgb)
 
 int		add_trgb(int trgba, int trgbb)
 {
-	;
+	int rnew;
+	int gnew;
+	int bnew;
+
+	// TODO: bits is better but how?...
+	rnew = (get_r(trgba) + get_r(trgbb)) % 256;
+	gnew = (get_g(trgba) + get_g(trgbb)) % 256;
+	bnew = (get_b(trgba) + get_b(trgbb)) % 256;
+
+	return (create_trgb(get_t(trgba), rnew, gnew, bnew));
 }
 
 int		subtr_trgb(int trgba, int trgbb)
 {
-	;
+	int rnew;
+	int gnew;
+	int bnew;
+
+	// TODO: bits better but how?...
+	rnew = get_r(trgba) - get_r(trgbb);
+	gnew = get_g(trgba) - get_g(trgbb);
+	bnew = get_b(trgba) - get_b(trgbb);
+
+	rnew *= (rnew > 0);
+	gnew *= (gnew > 0);
+	bnew *= (bnew > 0);
+
+	return (create_trgb(get_t(trgba), rnew, gnew, bnew));
 }
+
+//TODO: gradients

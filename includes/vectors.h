@@ -7,8 +7,6 @@ typedef struct	s_point
 	int y;
 }				t_point;
 
-
-
 typedef struct s_dir
 {
 	double x;
