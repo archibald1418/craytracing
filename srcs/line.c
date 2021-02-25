@@ -18,6 +18,7 @@ void	put_line_naive(t_line *line, t_win *vars, t_data *data)
 	dy = line->B->y - line->A->y;
 	
 	xi = line->A->x;
+	// TODO: do backward direction (xi--)
 	while (xi < line->B->x)
 	{
 		yi = line->A->y + dy * (xi - line->A->x) / dx;

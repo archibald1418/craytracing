@@ -21,16 +21,16 @@ int main()
 
 	//TODO: test funcs
 	t_point start3 = {1, 1};
-	t_point start4 = {RES.X - 1, RES.Y - 1};
+	t_point start4 = {RES.X, RES.Y};
 
-	t_point s5 = {300, 400};
-	t_point s6 = {100, 200};
+	t_point s5 = {RES.X, 1};
+	t_point s6 = {1, RES.Y};
 
 	init_window(&vars, &RES, "My window!");
 	init_img(&data, &vars, RES.X, RES.Y);
 
 	init_line(&line1, &start3, &start4, orange);
-	init_line(&line2, &start1, &start2, magenta);
+	init_line(&line2, &s5, &s6, magenta);
 
 	put_line_naive(&line1, &vars, &data);
 	put_line_naive(&line2, &vars, &data);
