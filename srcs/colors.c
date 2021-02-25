@@ -59,16 +59,28 @@ int		subtr_trgb(int trgba, int trgbb)
 	int gnew;
 	int bnew;
 
-	// TODO: bits better but how?...
 	rnew = get_r(trgba) - get_r(trgbb);
 	gnew = get_g(trgba) - get_g(trgbb);
 	bnew = get_b(trgba) - get_b(trgbb);
 
-	rnew *= (rnew > 0);
-	gnew *= (gnew > 0);
-	bnew *= (bnew > 0);
+	rnew *= (rnew >= 0);
+	gnew *= (gnew >= 0);
+	bnew *= (bnew >= 0);
 
 	return (create_trgb(get_t(trgba), rnew, gnew, bnew));
+}
+
+int		set_lum(int trgb, double lum)
+{
+	int rnew;
+	int gnew;
+	int bnew;
+
+	rnew = (int)((double)get_r(trgb) * lum);
+	gnew = (int)((double)get_g(trgb) * lum);
+	bnew = (int)((double)get_b(trgb) * lum);
+
+	return (create_trgb(get_t(trgb), rnew, gnew, bnew));
 }
 
 //TODO: gradients

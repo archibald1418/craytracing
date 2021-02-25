@@ -15,7 +15,7 @@ void	put_line_naive(t_line *line, t_win *vars, t_data *data)
 	int yi;
 
 	dx = line->B->x - line->A->x;
-	dx = line->B->y - line->A->y;
+	dy = line->B->y - line->A->y;
 	
 	xi = line->A->x;
 	while (xi < line->B->x)

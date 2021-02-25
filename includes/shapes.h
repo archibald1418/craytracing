@@ -12,7 +12,7 @@ typedef struct	s_square
 
 typedef struct	s_circle
 {
-	t_point	*center;
+	t_point *center;
 	int		rad;
 	int		color;
 }				t_circle;
@@ -23,22 +23,6 @@ typedef struct	s_line
 	t_point		*B;
 	int			color;
 }				t_line;
-
-// typedef struct	s_args
-// {
-// 	void	*shape;
-// 	int		side;
-// 	int		color;
-// 	void	*point;
-// }				t_args;
-
-// void 	init_shape(void *shape, void (*draw)(void *shape), void	(*init)(t_args *args));
-// typedef struct	s_shape
-// {
-// 	void		*shape;
-// 	void		(*put)(void *shape);
-// 	void		(*init)(void *shape);
-// }				t_shape;
 
 // Square & circle
 void	init_square(t_square *square, int side, int color, t_point *start);
