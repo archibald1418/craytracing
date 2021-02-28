@@ -19,4 +19,6 @@ typedef struct	s_vector
 	t_dir	*dir;
 }				t_vector;
 
+int		is_equal(t_point *a, t_point *b);
+
 #endif

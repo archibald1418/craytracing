@@ -62,7 +62,7 @@ int main()
 
 	init_square(&square, 40, cyan, &start1);
 	put_square(&square, &vars, &data);
-	mlx_put_image_to_window(vars.mlx, vars.win, data.img, 400, 400);
+	mlx_put_image_to_window(vars.mlx, vars.win, data.img, 200, 200);
 	// init_square(&square, 5, cyan, &start1);
 	// put_square(&square, &vars, &data);
 

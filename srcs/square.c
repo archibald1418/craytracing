@@ -12,12 +12,12 @@ void	put_square (t_square *square, t_win *vars, t_data *data)
 	int i;
 	int j;
 
-	i = 0;
-	j = 0;
-	while (i < square->side)
+	i = square->start->y;
+	j = square->start->x;
+	while (i < square->start->y + square->side)
 	{
-		j = 0;
-		while (j < square->side)
+		j = square->start->x;
+		while (j < square->start->x + square->side)
 		{
 			my_mlx_pixel_put(data, j, i, square->color);
 			j++;
