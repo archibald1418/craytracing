@@ -15,13 +15,13 @@ int main()
 	t_line line1;
 	t_line line2;
 
-	RES.X = ft_atoi("1000");
-	RES.Y = ft_atoi("1000");
+	RES.X = ft_atoi("800");
+	RES.Y = ft_atoi("800");
 
 
 	//TODO: test funcs
 	t_point start3 = {1, 1};
-	t_point start4 = {RES.X, RES.Y};
+	t_point start4 = {300, RES.Y};
 
 	t_point s5 = {RES.X, 1};
 	t_point s6 = {1, RES.Y};
@@ -29,10 +29,10 @@ int main()
 	init_window(&vars, &RES, "My window!");
 	init_img(&data, &vars, RES.X, RES.Y);
 
-	init_line(&line1, &start3, &start4, orange);
-	init_line(&line2, &s5, &s6, magenta);
+	// init_line(&line1, &start3, &start4, orange);
+	init_line(&line2, &start3, &start4, magenta);
 
-	put_line_naive(&line1, &vars, &data);
+	// put_line_naive(&line1, &vars, &data);
 	put_line_naive(&line2, &vars, &data);
 
 	mlx_put_image_to_window(vars.mlx, vars.win, data.img, 0, 0);
