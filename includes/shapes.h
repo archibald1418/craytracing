@@ -24,6 +24,16 @@ typedef struct	s_line
 	int			color;
 }				t_line;
 
+typedef struct	s_triangle
+{
+	t_point *A;
+	t_point *B;
+	t_point	*C;
+	int		color;
+}				t_triangle;
+
+
+
 // Square & circle
 void	init_square(t_square *square, int side, int color, t_point *start);
 void	put_square (t_square *square, t_win *vars, t_data *data);

@@ -25,3 +25,23 @@ void	put_square (t_square *square, t_win *vars, t_data *data)
 	i++;
 	}
 }
+
+// void	put_square_lines (t_square *square, t_point *lowleft, t_win *vars, t_data *data, void (*put_line)(t_line *, t_win *, t_data *))
+// {
+// 	t_line edge;
+// 	int i;
+// 	int yi;
+
+// 	init_line(&edge, square->start, lowleft, square->color);
+// 	i = 0;
+// 	yi = 
+
+// 	while (i < square->side)
+// 	{
+// 		put_line(&edge, vars, data);
+// 		edge->A->
+// 		i++;
+// 	}
+	
+	
+// }

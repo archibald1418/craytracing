@@ -15,13 +15,13 @@ void test_lines (t_win *vars, t_data *data, t_res *res, void (*put_line)(t_line 
 	t_line l2 = {&p3, &p4, magenta};
 
 	// Vertical up
-	t_point p5 = {1, res->Y};
-	t_point p6 = (t_point){1, 1};
+	t_point p5 = {1, 1};
+	t_point p6 = (t_point){res->X - res->X*1/3, res->Y};
 	t_line l3 = {&p5, &p6, red};
 
 	// Vertical down
 	t_point p7 =  (t_point){res->X, 1};
-	t_point p8 = {res->X, res->Y};
+	t_point p8 = {res->X - res->X*1/3, res->Y};
 	t_line l4 = {&p7, &p8, green};
 
 	// Horizontal left
@@ -60,6 +60,11 @@ void test_square (t_win *vars, t_data *img, t_res *res, void (*put_line)(t_line 
 }
 
 void test_circle (t_win *vars, t_data *img, t_res *res)
+{
+	;
+}
+
+void test_triangle (t_win *vars, t_data *img, t_res *res)
 {
 	;
 }
