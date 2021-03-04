@@ -32,6 +32,13 @@ typedef struct	s_triangle
 	int		color;
 }				t_triangle;
 
+typedef struct	s_plane
+{
+	t_line	*a;
+	t_line	*b;
+	int color;
+}				t_plane;
+
 typedef struct	s_grad
 {
 	int dx;

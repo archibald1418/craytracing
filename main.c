@@ -47,8 +47,8 @@ int main()
 
 	t_square square;
 
-	RES.X = ft_atoi("1000");
-	RES.Y = ft_atoi("1000");
+	RES.X = ft_atoi("3000");
+	RES.Y = ft_atoi("3000");
 
 	init_window(&vars, &RES, "My window!");
 
@@ -57,8 +57,8 @@ int main()
 	init_img(&data, &vars, circle.rad * 2, circle.rad * 2);
 	
 	init_square(&square, circle.rad*2, magenta, &starts);
-	put_square(&square, &vars, &data);
-	put_circle(&circle, &vars, &data);
+	put_square(&square, &vars, &conf);
+	put_circle(&circle, &vars, &conf);
 
 	init_square(&square, 40, cyan, &start1);
 	put_square(&square, &vars, &data);

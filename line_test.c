@@ -78,7 +78,7 @@ void test_translate(t_conf *conf)
 	// t_line l5 = {&p9, &p10, magenta};
 	// // t_grad g1 = (t_grad){1, 1};
 
-	t_grad rate = {1, 1};
+	t_grad rate = {-1, -1};
 
 	// Slant +
 	t_grad tmp[sizeof(t_grad)];
