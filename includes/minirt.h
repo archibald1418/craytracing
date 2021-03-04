@@ -30,7 +30,7 @@
 # define DestroyNotify			17
 # define StructureNotifyMask	1L<<17
 
-
+// Anumation
 typedef struct	s_params
 {
 	t_square	*square;
@@ -40,6 +40,7 @@ typedef struct	s_params
 	t_data		*data;
 	
 }				t_params;
+
 
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int             close_win(t_win *vars);

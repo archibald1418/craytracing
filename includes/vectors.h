@@ -20,5 +20,6 @@ typedef struct	s_vector
 }				t_vector;
 
 int		is_equal(t_point *a, t_point *b);
+void	move_point(t_point *a, t_point *offset);
 
 #endif

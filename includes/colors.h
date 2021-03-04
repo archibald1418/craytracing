@@ -8,7 +8,7 @@ int		get_g(int trgb);
 int		get_b(int trgb);
 int		get_rgb(int trgb);
 int		add_shade(int trgb, double shade);
-int		add_brightness(int trgb, double brightness);
+int		set_lum(int trgb, double lum);
 int		add_trgb(int trgba, int trgbb);
 int		subtr_trgb(int trgba, int trgbb);
 int		get_opposite(int trgb);

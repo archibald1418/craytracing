@@ -32,19 +32,27 @@ typedef struct	s_triangle
 	int		color;
 }				t_triangle;
 
+typedef struct	s_grad
+{
+	int dx;
+	int dy;
+}				t_grad;
 
 
 // Square & circle
 void	init_square(t_square *square, int side, int color, t_point *start);
-void	put_square (t_square *square, t_win *vars, t_data *data);
+void	put_square (t_square *square, t_conf *conf);
 void	init_circle(t_circle *circle, int rad, int color, t_point *center);
-void	put_circle(t_circle *circle, t_win *vars, t_data *data);
+void	put_circle(t_circle *circle, t_conf *conf);
 
-// Line
+// Lines
 void	init_line(t_line *line, t_point *A, t_point *B, int color);
-void	put_line_naive(t_line *line, t_win *vars, t_data *data);
-void	put_line_dda(t_line *line);
-void	put_line_bresenheim(t_line *line);
-void	put_line_wu(t_line *line);
+void	put_line_naive(t_line *line, t_conf *conf);
+void	put_line_dda(t_line *line, t_conf *conf);
+void	put_line_bresenheim(t_line *line, t_conf *conf);
+void	put_line_wu(t_line *line, t_conf *conf);
+void	translate_line(t_line *line, t_grad *g, t_conf *conf);
+t_line *copy_line( t_line *dst, t_line* src);
+void	move_line(t_line *line, t_point *offset);
 
 #endif

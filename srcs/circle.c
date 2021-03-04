@@ -18,7 +18,7 @@ void		init_circle(t_circle *circle, int rad, int color, t_point *center)
 	circle->center = center;
 }
 
-void		put_circle(t_circle *circle, t_win *vars, t_data *data)
+void		put_circle(t_circle *circle, t_conf *conf)
 {
 	int i;
 	int j;
@@ -32,7 +32,7 @@ void		put_circle(t_circle *circle, t_win *vars, t_data *data)
 		while (j < circle->center->x + circle->rad)
 		{
 			if (is_in(&(t_point){i, j}, circle))
-				my_mlx_pixel_put(data, j, i, circle->color);
+				my_mlx_pixel_put(conf->img, j, i, circle->color);
 				// mlx_pixel_put(vars->mlx, vars->win, j, i, circle->color);
 			j++;
 		}

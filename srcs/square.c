@@ -7,7 +7,7 @@ void	init_square(t_square *square, int side, int color, t_point *start)
 	square->start = start;
 }
 
-void	put_square (t_square *square, t_win *vars, t_data *data)
+void	put_square (t_square *square, t_conf *conf)
 {
 	int i;
 	int j;
@@ -19,7 +19,7 @@ void	put_square (t_square *square, t_win *vars, t_data *data)
 		j = square->start->x;
 		while (j < square->start->x + square->side)
 		{
-			my_mlx_pixel_put(data, j, i, square->color);
+			my_mlx_pixel_put(conf->img, j, i, square->color);
 			j++;
 		}
 	i++;

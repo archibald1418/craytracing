@@ -69,20 +69,71 @@ void test_triangle (t_win *vars, t_data *img, t_res *res)
 	;
 }
 
+void test_translate(t_conf *conf)
+{
+
+	// // Horizontal left
+	// t_point p9 =  (t_point){conf->res->X, 1};
+	// t_point p10 = {1, 1};
+	// t_line l5 = {&p9, &p10, magenta};
+	// // t_grad g1 = (t_grad){1, 1};
+
+	t_grad rate = {1, 1};
+
+	// Slant +
+	t_grad tmp[sizeof(t_grad)];
+	
+	t_point p1 = {200, 200};
+	t_point p2 = {400, 300};
+	t_line l1 = {&p1, &p2, white};
+
+	// t_point p3 = {400, 200};
+	// t_point p4 = {600, 650};
+	// t_line	l2[sizeof(t_line)];
+	// copy_line(l2, &l1);
+	// move_line(line, (t_point));
+	// t_point offset
+
+	put_line_naive(&l1, conf);
+	ft_memcpy(tmp, &rate, sizeof(t_grad));
+
+	int side = 300;
+	int i = 0;
+	while (i < side - 1)
+	{
+		translate_line(&l1, (t_grad *)&tmp, conf); // TODO: move coords func + translate_line
+		i++;
+		// tmp->dx += rate.dx;
+		// tmp->dy += rate.dy;
+	}
+}
+
+void	render_next_frame()
+{
+	;
+}
+
 int main()
 {
-	t_win vars;
-	t_res res;
-	t_data data;
+	t_win	vars;
+	t_res	res;
+	t_data	img;
 
-	res.X = ft_atoi("700");
-	res.Y = ft_atoi("700");
+	t_conf	conf;
 
+	res.X = ft_atoi("1000");
+	res.Y = ft_atoi("1000");
+
+	conf = (t_conf){&img, &vars, &res};
+	init_window(conf.vars, conf.res, "Line translate!");
+	init_img(conf.img, conf.vars, conf.res->X, conf.res->Y);
+	
+	// put_square(&(t_square){&(t_point){0, 0}, res.X, white}, &conf);
 	// Test lines!
-	test_lines(&vars, &data, &res, put_line_naive);
+	// test_lines(&vars, &img, &res, put_line_naive);
+	test_translate(&conf);
 
-	mlx_put_image_to_window(vars.mlx, vars.win, data.img, 0, 0);
-
+	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, close_win, &vars);
 	mlx_loop(vars.mlx);
