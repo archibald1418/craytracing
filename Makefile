@@ -53,13 +53,18 @@ $(NAME): $(MLXLL) $(OBJ) $(HEADERS)
 	$(CC) main.c $(SOURCE) -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I $(INCL) -c $< -o $@
+	$(CC) $(CFLAGS) -I $(HEADERS) -c $< -o $@
 
 test-colors:
-	$(CC) -I $(INCL) colors_test.c; ./a.out
+	$(CC) colors_test.c $(SOURCE) -g -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
+test-mouse:
+	$(CC) mouse_test.c $(SOURCE) -g -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
 
-test-line:
+test-line: 
 	$(CC) line_test.c $(SOURCE) -g -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
+
+test-text:
+	$(CC) text_test.c $(SOURCE) -g -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
 
 test-window:
 	$(CC) main.c $(SOURCE) -g -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)

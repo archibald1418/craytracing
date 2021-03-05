@@ -36,6 +36,8 @@
 // EVENTS
 # define DestroyNotify			17
 # define StructureNotifyMask	1L<<17
+# define MotionNotify			6
+# define PointerMotionMask 		1L<<6
 
 // Anumation
 typedef struct	s_params

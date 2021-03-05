@@ -48,7 +48,6 @@ int mlx_string_put(void *mlx_ptr, void *win_ptr, int x, int y, int color, char *
       data = (unsigned char *)mlx_get_data_addr(font, &bpp, &size_line, &endian);
       mlx_int_fill(data, size_line);
     }
-
   color = (color&0xFFFFFF)|0xFF000000;
 
   //  dest_w = (FONT_WIDTH*5)/7;   /// ratio with X11 standard mlx_string_put
@@ -68,5 +67,6 @@ int mlx_string_put(void *mlx_ptr, void *win_ptr, int x, int y, int color, char *
       pos ++;
       string ++;
     }
+
   return (0);
 }
