@@ -65,5 +65,9 @@ t_line *copy_line( t_line *dst, t_line* src);
 void	move_line(t_line *line, t_point *offset);
 int		are_parallel(t_line *a, t_line *b);
 
+// Planes
+void 	init_plane(t_plane *p, t_line *a, t_line *b, int color);
+void	put_plane(t_plane *p, t_conf *conf);
+
 
 #endif
