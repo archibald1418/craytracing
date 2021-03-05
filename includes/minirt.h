@@ -27,6 +27,12 @@
 # define RIGHT	124
 # define ESC	53
 
+// MOUSEMAPS:
+# define LCLICK		1
+# define RCLICK		2
+# define ROLLUP		4
+# define ROLLDOWN	5
+
 // EVENTS
 # define DestroyNotify			17
 # define StructureNotifyMask	1L<<17
