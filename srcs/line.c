@@ -83,3 +83,18 @@ void	translate_line(t_line *line, t_grad *g, t_conf *conf)
 	move_line(tmp, (t_point *)g);
 	put_line_naive((t_line *)tmp, conf);
 }
+
+int		are_parallel(t_line *a, t_line *b)
+{
+	double dera;
+	double derb;
+	//double thresh;
+	// FLOATS MAY BEHAVE BADLY
+
+	dera = calc_der(a);
+	derb = calc_der(b);
+
+	return (0);
+	/* FIXME: No, equal ders only tells if lines are copies 
+	Lines of different length also can be parallel!!!*/
+}

@@ -15,14 +15,16 @@ HFILES	=	colors.h \
 			mlx.h \
 			shapes.h \
 			tests.h \
-			vectors.h
+			vectors.h \
+			utils.h
 
 SRCS	= 	circle.c \
 			colors.c \
 			conf.c \
 			line.c \
 			square.c \
-			vectors.c
+			vectors.c \
+			utils.c
 
 DIR		= srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))

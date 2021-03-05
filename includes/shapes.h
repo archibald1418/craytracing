@@ -37,7 +37,9 @@ typedef struct	s_plane
 	t_line	*a;
 	t_line	*b;
 	int color;
-}				t_plane;
+}				t_plane; 
+
+// TODO: two lines is easy for a color gradient 
 
 typedef struct	s_grad
 {
@@ -61,5 +63,7 @@ void	put_line_wu(t_line *line, t_conf *conf);
 void	translate_line(t_line *line, t_grad *g, t_conf *conf);
 t_line *copy_line( t_line *dst, t_line* src);
 void	move_line(t_line *line, t_point *offset);
+int		are_parallel(t_line *a, t_line *b);
+
 
 #endif

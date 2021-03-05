@@ -18,6 +18,7 @@
 # include "colors.h"
 # include "shapes.h"
 # include "vectors.h"
+# include "utils.h"
 
 // KEYMAPS:
 # define UP		126
