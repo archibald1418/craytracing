@@ -6,22 +6,19 @@ typedef struct	s_args
 	t_conf	*conf;
 }				t_args;
 
-int	render (t_args *args)
-{
-	put_text(args->conf, ft_strjoin(ft_strjoin("posx=", ft_itoa(x)), ft_strjoin(" posy=", ft_itoa(y))));
-}
 
 int get_mouse_pos(int x, int y, t_args *args)
 {
 	args->point->x = x;
 	args->point->y = y;
 
-	dprintf(1, "posx=%d, posy=%d\n", args->point->x, args->point->y);
-	ft_bzero(args->conf->img->addr, \
-			args->conf->res->X * args->conf->res->Y * \
-			(args->conf->img->bits_per_pixel / 4));
-	// mlx_clear_window(args->conf->vars->mlx, args->conf->vars->win);
-	put_text(args->conf, ft_strjoin(ft_strjoin("posx=", ft_itoa(x)), ft_strjoin(" posy=", ft_itoa(y))));
+	if (0 <= x && x <= args->conf->res->X && \
+		0 <= y && y <= args->conf->res->Y)
+	{
+		dprintf(1, "posx=%d, posy=%d\n", args->point->x, args->point->y);
+		mlx_clear_window(args->conf->vars->mlx, args->conf->vars->win);
+		put_text(args->conf, ft_strjoin(ft_strjoin("posx=", ft_itoa(x)), ft_strjoin(" posy=", ft_itoa(y))));
+	}
 	return (0);
 }
 

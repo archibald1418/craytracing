@@ -78,7 +78,7 @@ void test_translate(t_conf *conf)
 	// t_line l5 = {&p9, &p10, magenta};
 	// // t_grad g1 = (t_grad){1, 1};
 
-	t_grad rate = {-1, -1};
+	t_grad rate = {1, 1};
 
 	// Slant +
 	t_grad tmp[sizeof(t_grad)];
@@ -136,5 +136,6 @@ int main()
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, close_win, &vars);
+	// mlx_hook(vars.win, MotionNotify, PointerMotionMask, get_mouse_pos, &args);
 	mlx_loop(vars.mlx);
 }
