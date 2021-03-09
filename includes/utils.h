@@ -3,7 +3,7 @@
 
 # include "shapes.h"
 
-void	put_text(t_conf *conf, char *str);
+void	put_text(void *mlx, void *win, char *str, t_point *loc);
 double	calc_der(t_line *a);
 
 #endif
