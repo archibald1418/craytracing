@@ -1,7 +1,14 @@
+#include "minirt.h"
+
+#define r_offset 16
+#define g_offset 8
+#define b_offset 0
+#define t_offset 24
+
 int		create_trgb(int t, int r, int g, int b)
 {
 		
-	return(t << 24 | r << 16 | g << 8 | b);
+	return(t << 24 | r << 16 | g << 8 | b << 0);
 }
 
 int		get_t(int trgb)
@@ -45,10 +52,9 @@ int		add_trgb(int trgba, int trgbb)
 	int gnew;
 	int bnew;
 
-	// TODO: bits is better but how?...
-	rnew = (get_r(trgba) + get_r(trgbb)) % 256;
-	gnew = (get_g(trgba) + get_g(trgbb)) % 256;
-	bnew = (get_b(trgba) + get_b(trgbb)) % 256;
+	rnew = ((get_r(trgba) + get_r(trgbb)) >> r_offset) / 2;
+	gnew = ((get_g(trgba) + get_g(trgbb)) >> g_offset) / 2;
+	bnew = ((get_b(trgba) + get_b(trgbb)) >> b_offset) / 2;
 
 	return (create_trgb(get_t(trgba), rnew, gnew, bnew));
 }
@@ -76,11 +82,19 @@ int		set_lum(int trgb, double lum)
 	int gnew;
 	int bnew;
 
-	rnew = (int)((double)get_r(trgb) * lum);
-	gnew = (int)((double)get_g(trgb) * lum);
-	bnew = (int)((double)get_b(trgb) * lum);
+	rnew = (double)((int)(get_r(trgb)) >> r_offset) * lum;
+	gnew = (double)((int)(get_g(trgb)) >> g_offset) * lum;
+	bnew = (double)((int)(get_b(trgb)) >> b_offset) * lum;
 
 	return (create_trgb(get_t(trgb), rnew, gnew, bnew));
 }
 
 //TODO: gradients
+
+int main()
+{
+	dprintf(1, "cyan rgb ->%d\n", 0x00FFFF);
+	dprintf(1, "yellow rdb ->%d\n", 0xFFFF00);
+
+	dprintf(1, "yellow + cyan\n =\n%d\n", add_trgb(0x00FFFF, 0xFFFF00));
+}

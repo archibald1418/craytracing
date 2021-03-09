@@ -12,9 +12,9 @@ double	calc_der(t_line *a)
 	return (res);	
 }
 
-void	put_text(t_conf *conf, char *str)
+void	put_text(void *mlx, void *win, char *str, t_point *loc)
 {
-	mlx_string_put(conf->vars->mlx, conf->vars->win, 100, 100, white, str);
+	mlx_string_put(mlx, win, loc->x, loc->y, white, str);
 }
 
 
