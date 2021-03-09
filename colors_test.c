@@ -30,8 +30,13 @@ void	test_addition(t_conf *conf)
 	s1 = (t_square){&(t_point){100, 100}, 100, c1};
 	s2 = (t_square){&(t_point){200, 100}, 100, c2};
 
+	cr1 = (t_circle){&(t_point){conf->res->X/2, conf->res->Y/2}, 50, yellow};
+	cr2 = (t_circle){&(t_point){cr1.center->x + 40, cr1.center->y}, 50, magenta};
+
 	put_square(&s1, conf);
 	put_square(&s2, conf);
+	put_circle(&cr1, conf);
+	put_circle(&cr2, conf);
 
 }
 
