@@ -22,6 +22,11 @@ void		put_circle(t_circle *circle, t_conf *conf)
 {
 	int i;
 	int j;
+	unsigned int tmp;
+	unsigned int tmp2;
+
+	tmp = circle->color;
+	tmp2 = tmp;
 
 	i = -circle->rad;
 	j = -circle->rad;
@@ -32,7 +37,11 @@ void		put_circle(t_circle *circle, t_conf *conf)
 		while (j < circle->rad)
 		{
 			if (is_in(&(t_point){j, i}, circle))
-				my_mlx_pixel_put(conf->img, j + circle->center->x, i + circle->center->y, circle->color);
+			{
+				if ((tmp = my_mlx_pixel_get(conf->img, j + circle->center->x, i + circle->center->y)) == black)
+					tmp = circle->color;
+				my_mlx_pixel_put(conf->img, j + circle->center->x, i + circle->center->y, add_trgb(circle->color, tmp));
+			}
 				// mlx_pixel_put(vars->mlx, vars->win, j, i, circle->color);
 			j++;
 		}
