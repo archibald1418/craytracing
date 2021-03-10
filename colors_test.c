@@ -28,7 +28,7 @@ void	test_addition(t_conf *conf)
 	t_circle cr2;
 
 	s1 = (t_square){&(t_point){100, 100}, 100, c1};
-	s2 = (t_square){&(t_point){200, 100}, 100, c2};
+	s2 = (t_square){&(t_point){150, 100}, 100, c2};
 
 	cr1 = (t_circle){&(t_point){conf->res->X/2, conf->res->Y/2}, 50, yellow};
 	cr2 = (t_circle){&(t_point){cr1.center->x + 40, cr1.center->y}, 50, magenta};
@@ -90,6 +90,10 @@ int put_mouse_pos(int x, int y, t_args *args)
 		sprintf((char *)col, "r=%-3d g=%-3d b=%-3d", get_r(rgbval), get_g(rgbval), get_b(rgbval));
 		dprintf(1, "%s", col);
 		put_text(args->conf->vars->mlx, args->outwin, col, &(t_point){10, 70});
+
+		// Put hex color
+		sprintf((char *)col, "#%X", rgbval);
+		put_text(args->conf->vars->mlx, args->outwin, col, &(t_point){10, 100});
 
 	}
 	return (0);
