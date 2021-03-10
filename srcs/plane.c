@@ -13,6 +13,6 @@ void	put_plane(t_plane *p, t_conf *conf)
 	// BUT that also means this func can draw a trapezoid
 
 	/* TODO: In perspective, trapezoid is a midstate between a parallelogram and a triangle!*/
-	// if (!are_parallel())	
+	// if (!are_parallel())
 	;
 }

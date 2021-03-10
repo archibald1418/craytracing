@@ -51,7 +51,25 @@ void	put_line_naive(t_line *line, t_conf *conf)
 
 void	put_line_dda(t_line *line, t_conf *conf)
 {
-	;
+	int dx;
+	int dy;
+	int xi;
+	int yi;
+	int sign;
+
+	dx = line->B->x - line->A->x;
+	dy = line->B->y - line->A->y;
+	
+	xi = line->A->x;
+	yi = line->A->y;
+	if (is_equal(line->A, line->B))
+		return (my_mlx_pixel_put(conf->img, xi, yi, line->color));
+	while (xi != line->B->x)
+	{
+		yi = line->A->y + dy * (xi - line->A->x) / dx;
+		my_mlx_pixel_put(conf->img, xi, yi, line->color);
+		xi += sign;
+	}
 }
 
 void	put_line_bresenheim(t_line *line, t_conf *conf)
@@ -59,7 +77,7 @@ void	put_line_bresenheim(t_line *line, t_conf *conf)
 	;
 }
 
-void	put_line_wu(t_line *line, t_conf *conf)
+void	put_line_wu(t_line *li`ne, t_conf *conf)
 {
 	;
 }

@@ -86,10 +86,17 @@ int		set_lum(int trgb, double lum)
 	gnew = (double)((int)(get_g(trgb))) * lum;
 	bnew = (double)((int)(get_b(trgb))) * lum;
 
-	return (create_trgb(get_t(trgb), rnew, gnew, bnew));
+	return (create_trgb(get_t(trgb), (int)rnew, (int)gnew, (int)bnew));
 }
 
 //TODO: gradients
+
+unsigned int	lum_gradient(int trgb, int midpoints)
+{
+	;
+	return (0);
+}
+
 
 // int main()
 // {

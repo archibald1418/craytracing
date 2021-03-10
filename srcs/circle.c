@@ -23,10 +23,8 @@ void		put_circle(t_circle *circle, t_conf *conf)
 	int i;
 	int j;
 	unsigned int tmp;
-	unsigned int tmp2;
 
 	tmp = circle->color;
-	tmp2 = tmp;
 
 	i = -circle->rad;
 	j = -circle->rad;
