@@ -66,7 +66,10 @@ void test_circle (t_win *vars, t_data *img, t_res *res)
 
 void test_triangle (t_win *vars, t_data *img, t_res *res)
 {
-	;
+	t_triangle tr1;
+
+	t_point p1, p2, p3;
+
 }
 
 void test_translate(t_conf *conf)
