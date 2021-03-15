@@ -1,5 +1,4 @@
 #include "minirt.h"
-#include "tests.h"
 #include <time.h>
 
 void			calc_square(t_params *params)

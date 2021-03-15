@@ -1,10 +1,12 @@
 NAME	= window
 LIBA	= libft/libft.a
+LIBFT	= ./libft
 MLX		= minilibx_mms_20200219
 MLXLL	= $(MLX)/libmlx.dylib
 CC		= gcc
 INCL	= ./includes
 CFLAGS	= -Wall -Wextra -Werror
+TESTDIR = ./tests
 
 HFILES	=	colors.h \
 			conf.h \
@@ -26,9 +28,12 @@ SRCS	= 	circle.c \
 			vectors.c \
 			utils.c
 
-DIR		= srcs/
+DIR			=	srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))
 SOURCE		=	$(addprefix ./srcs/, $(SRCS))
+IFLAG		=	-I $(INCL) -I $(MLX) -I $(LIBFT)
+FRM			=	-framework OpenGL -framework AppKit
+LIBAS		= 	$(MLXLL) $(LIBA)
 
 all: $(NAME)
 
@@ -50,24 +55,19 @@ fclean:
 	rm -rf libft.a
 
 $(NAME): $(MLXLL) $(OBJ) $(HEADERS)
-	$(CC) main.c $(SOURCE) -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) main.c $(SOURCE) $(LIBAS) $(IFLAG) $(FRM) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I $(HEADERS) -c $< -o $@
 
 test-colors:
-	$(CC) colors_test.c $(SOURCE) -g -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
-test-mouse:
-	$(CC) mouse_test.c $(SOURCE) -g -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(TESTDIR)/colors_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
 
 test-line: 
-	$(CC) line_test.c $(SOURCE) -g -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
-
-test-text:
-	$(CC) text_test.c $(SOURCE) -g -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(TESTDIR)/line_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
 
 test-window:
-	$(CC) main.c $(SOURCE) -g -I $(INCL) $(LIBA) $(MLXLL) -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) main.c $(SOURCE) -g $(IFLAG) $(LIBAS) $(FRM) -o $(NAME)
 
 re: clean fclean all
 

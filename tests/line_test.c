@@ -1,12 +1,12 @@
-#include "minirt.h"
 #include "tests.h"
-#include <time.h>
 
-void test_lines (t_win *vars, t_data *data, t_res *res, void (*put_line)(t_line *, t_win *, t_data *))
+void test_lines (t_conf *conf, void (*put_line)(t_line *, t_conf *))
 {
+	t_res *res = conf->res;
+
 	// Diagonal +
 	t_point p1 =  (t_point){0, 0};
-	t_point p2 = {res->X, res->Y};
+	t_point p2 = {800, 300};
 	t_line l1 = {&p1, &p2, cyan};
 
 	// Diagonal -
@@ -39,8 +39,8 @@ void test_lines (t_win *vars, t_data *data, t_res *res, void (*put_line)(t_line 
 	t_point p14 = p13;
 	t_line l7 = {&p13, &p14, black};
 
-	init_window(vars, res, "Line tests!");
-	init_img(data, vars, res->X, res->Y);
+	// init_window(conf->vars, res, "Line tests!");
+	// init_img(conf->img, conf->vars, res->X, res->Y);
 	
 	int i = 0;
 	t_line lines[8] = {l1, l2, l3, l4, l5, l6, l7};
@@ -48,23 +48,23 @@ void test_lines (t_win *vars, t_data *data, t_res *res, void (*put_line)(t_line 
 	while (i < 7)
 	{
 		dprintf(1, "%s", titles[i]);
-		put_line(&(lines[i]), vars, data);
+		put_line(&(lines[i]), conf);
 		i++;
 	}
 
 }
 
-void test_square (t_win *vars, t_data *img, t_res *res, void (*put_line)(t_line *, t_win *, t_data *))
+void test_square (t_conf *conf, void (*put_line)(t_line *, t_conf *))
 {
 	;
 }
 
-void test_circle (t_win *vars, t_data *img, t_res *res)
+void test_circle (t_conf *conf, void (*put_line)(t_line *, t_conf *))
 {
 	;
 }
 
-void test_triangle (t_win *vars, t_data *img, t_res *res)
+void test_triangle (t_conf *conf, void (*put_line)(t_line *, t_conf *))
 {
 	t_triangle tr1;
 
@@ -72,7 +72,7 @@ void test_triangle (t_win *vars, t_data *img, t_res *res)
 
 }
 
-void test_translate(t_conf *conf)
+void test_translate(t_conf *conf, void (*put_line)(t_line *, t_conf *))
 {
 
 	// // Horizontal left
@@ -88,32 +88,18 @@ void test_translate(t_conf *conf)
 	
 	t_point p1 = {200, 200};
 	t_point p2 = {400, 300};
-	t_line l1 = {&p1, &p2, white};
+	t_line l1 = {&p1, &p2, cyan};
 
-	// t_point p3 = {400, 200};
-	// t_point p4 = {600, 650};
-	// t_line	l2[sizeof(t_line)];
-	// copy_line(l2, &l1);
-	// move_line(line, (t_point));
-	// t_point offset
-
-	put_line_naive(&l1, conf);
+	put_line(&l1, conf);
 	ft_memcpy(tmp, &rate, sizeof(t_grad));
 
 	int side = 300;
 	int i = 0;
 	while (i < side - 1)
 	{
-		translate_line(&l1, (t_grad *)&tmp, conf); // TODO: move coords func + translate_line
+		translate_line(&l1, (t_grad *)&tmp, conf, put_line); // TODO: move coords func + translate_line
 		i++;
-		// tmp->dx += rate.dx;
-		// tmp->dy += rate.dy;
 	}
-}
-
-void	render_next_frame()
-{
-	;
 }
 
 int main()
@@ -121,6 +107,7 @@ int main()
 	t_win	vars;
 	t_res	res;
 	t_data	img;
+	t_args args;
 
 	t_conf	conf;
 
@@ -128,17 +115,22 @@ int main()
 	res.Y = ft_atoi("1000");
 
 	conf = (t_conf){&img, &vars, &res};
-	init_window(conf.vars, conf.res, "Line translate!");
+	init_window(conf.vars, conf.res, "Line dda!");
 	init_img(conf.img, conf.vars, conf.res->X, conf.res->Y);
 	
 	// put_square(&(t_square){&(t_point){0, 0}, res.X, white}, &conf);
 	// Test lines!
-	// test_lines(&vars, &img, &res, put_line_naive);
-	test_translate(&conf);
+
+	// Infobar
+	args.outwin = init_infobar(conf.vars->mlx);
+	args.conf = &conf;
+
+	test_lines(&conf, put_line_dda);
+	test_translate(&conf, put_line_dda);
 
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, close_win, &vars);
-	// mlx_hook(vars.win, MotionNotify, PointerMotionMask, get_mouse_pos, &args);
+	mlx_hook(vars.win, MotionNotify, PointerMotionMask, put_mouse_pos, &args);
 	mlx_loop(vars.mlx);
 }

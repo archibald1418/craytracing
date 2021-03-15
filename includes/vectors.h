@@ -19,6 +19,8 @@ typedef struct	s_vector
 	t_dir	*dir;
 }				t_vector;
 
+typedef t_vector t_ray;
+
 int		is_equal(t_point *a, t_point *b);
 void	move_point(t_point *a, t_point *offset);
 
