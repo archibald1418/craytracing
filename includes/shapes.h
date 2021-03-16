@@ -69,5 +69,9 @@ int		are_parallel(t_line *a, t_line *b);
 void 	init_plane(t_plane *p, t_line *a, t_line *b, int color);
 void	put_plane(t_plane *p, t_conf *conf);
 
+// Triangle
+void	init_triangle(t_triangle *tr, t_point *A, t_point *B, t_point *C, int color);
+void	put_triangle(t_triangle *tr, t_conf *conf, void (*put_line)(t_line *, t_conf *));
+
 
 #endif

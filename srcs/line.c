@@ -1,14 +1,5 @@
 #include "minirt.h"
 
-static double	get_sign(double x)
-{
-	if (x < 0)
-		return (-1.0);
-	if (x > 0)
-		return (1.0);
-	return (0.0);
-}
-
 void	init_line(t_line *line, t_point *A, t_point *B, int color)
 {
 	line->A = A;
@@ -91,10 +82,10 @@ void	put_line_dda(t_line *line, t_conf *conf)
 	0.0 <= yi && yi <= (double)conf->res->Y)
 	{
 		if ((tmp = my_mlx_pixel_get(conf->img, xi, yi)) == black)
-			tmp = set_lum(line->color, 1.0);
+			tmp = line->color;
 		my_mlx_pixel_put(conf->img, (int)xi, (int)yi, add_trgb(line->color, tmp));
 		xi += dx;
-		yi += dy * signy;
+		yi += dy;
 		i += 1;
 	}
 }

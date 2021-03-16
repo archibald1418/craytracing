@@ -19,7 +19,7 @@ void	*init_infobar(void *mlx);
 void	test_lines (t_conf *conf, void (*put_line)(t_line *, t_conf *));
 void	test_square (t_conf *conf, void (*put_line)(t_line *, t_conf *));
 void	test_circle (t_conf *conf, void (*put_line)(t_line *, t_conf *));
-void	test_triangle (t_conf *conf, void (*put_line)(t_line *, t_conf *));
+void	test_triangle(t_conf *conf, void (*put_line)(t_line *, t_conf *));
 void	test_translate(t_conf *conf, void (*put_line)(t_line *, t_conf *));
 
 #endif

@@ -25,6 +25,7 @@ SRCS	= 	circle.c \
 			conf.c \
 			line.c \
 			square.c \
+			triangle.c \
 			vectors.c \
 			utils.c
 
@@ -65,6 +66,8 @@ test-colors:
 
 test-line: 
 	$(CC) $(TESTDIR)/line_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
+test-triangle:
+	$(CC) $(TESTDIR)/triangle_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
 
 test-window:
 	$(CC) main.c $(SOURCE) -g $(IFLAG) $(LIBAS) $(FRM) -o $(NAME)

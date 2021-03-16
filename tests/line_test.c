@@ -12,7 +12,7 @@ void test_lines (t_conf *conf, void (*put_line)(t_line *, t_conf *))
 	// Diagonal -
 	t_point p3 =  (t_point){res->X, 0};
 	t_point p4 = {0, res->Y};
-	t_line l2 = {&p3, &p4, magenta};
+	t_line l2 = {&p3, &p4, white};
 
 	// Vertical up
 	t_point p5 = {1, 1};
@@ -88,7 +88,7 @@ void test_translate(t_conf *conf, void (*put_line)(t_line *, t_conf *))
 	
 	t_point p1 = {200, 200};
 	t_point p2 = {400, 300};
-	t_line l1 = {&p1, &p2, cyan};
+	t_line l1 = {&p1, &p2, red};
 
 	put_line(&l1, conf);
 	ft_memcpy(tmp, &rate, sizeof(t_grad));
@@ -125,8 +125,8 @@ int main()
 	args.outwin = init_infobar(conf.vars->mlx);
 	args.conf = &conf;
 
+	test_translate(&conf, put_line_naive);
 	test_lines(&conf, put_line_dda);
-	test_translate(&conf, put_line_dda);
 
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars);
