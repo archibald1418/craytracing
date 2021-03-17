@@ -1,6 +1,13 @@
 #ifndef COLORS_H
 # define COLORS_H
 
+typedef struct	s_color
+{
+	int r;
+	int g;
+	int b;
+}				t_color;
+
 int		create_trgb(int t, int r, int g, int b);
 int		get_t(int trgb);
 int		get_r(int trgb);

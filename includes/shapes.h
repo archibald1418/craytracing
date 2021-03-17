@@ -48,6 +48,7 @@ typedef struct	s_grad
 }				t_grad;
 
 
+
 // Square & circle
 void	init_square(t_square *square, int side, int color, t_point *start);
 void	put_square (t_square *square, t_conf *conf);

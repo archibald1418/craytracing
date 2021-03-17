@@ -19,6 +19,13 @@ typedef struct	s_vector
 	t_dir	*dir;
 }				t_vector;
 
+typedef struct	s_v3d
+{
+	double x;
+	double y;
+	double z;
+}				t_v3d;
+
 typedef t_vector t_ray;
 
 int		is_equal(t_point *a, t_point *b);
