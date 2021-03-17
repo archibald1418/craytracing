@@ -1,6 +1,8 @@
 NAME	= window
 LIBA	= libft/libft.a
 LIBFT	= ./libft
+GNL		= ./gnl
+GNLA	= gnl.a
 MLX		= minilibx_mms_20200219
 MLXLL	= $(MLX)/libmlx.dylib
 CC		= gcc
@@ -32,9 +34,9 @@ SRCS	= 	circle.c \
 DIR			=	srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))
 SOURCE		=	$(addprefix ./srcs/, $(SRCS))
-IFLAG		=	-I $(INCL) -I $(MLX) -I $(LIBFT)
+IFLAG		=	-I $(INCL) -I $(MLX) -I $(LIBFT) -I $(GNL)
 FRM			=	-framework OpenGL -framework AppKit
-LIBAS		= 	$(MLXLL) $(LIBA)
+LIBAS		= 	$(MLXLL) $(LIBA) $(GNLA)
 
 all: $(NAME)
 
@@ -42,18 +44,24 @@ $(LIBA):
 	make -j4 -C libft
 	cp $(LIBA) ./
 
-$(MLXLL): $(LIBA)
+$(GNLA):
+	make -C $(GNL)
+	cp $(GNL)/$(GNLA) ./
+
+$(MLXLL): $(LIBA) $(GNLA)
 	make -C ./$(MLX)
 	cp $(MLXLL) ./
 
 clean:
-	make clean -C libft
+	make clean -C $(LIBFT)
 	make clean -C $(MLX)
+	make clean -C $(GNL)
 	rm -rf *.o *.out *.dSYM $(NAME)
 
 fclean:
-	make fclean -C libft
-	rm -rf libft.a
+	make fclean -C $(LIBFT)
+	make fclean -C $(GNL)
+	rm -rf ./*.a ./*.dylib a.out $(NAME)
 
 $(NAME): $(MLXLL) $(OBJ) $(HEADERS)
 	$(CC) main.c $(SOURCE) $(LIBAS) $(IFLAG) $(FRM) -o $(NAME)
