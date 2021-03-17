@@ -10,7 +10,7 @@
 # include "colors.h"
 # include "camera.h"
 
-# define MAX_CAM 100
+// # define MAX_CAM 100
 # define MAX_SHAPES	100
 
 typedef struct	s_bilist
