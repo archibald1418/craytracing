@@ -125,8 +125,8 @@ int main()
 	args.outwin = init_infobar(conf.vars->mlx);
 	args.conf = &conf;
 
-	test_translate(&conf, put_line_naive);
-	test_lines(&conf, put_line_dda);
+	// test_translate(&conf, put_line_naive);
+	test_lines(&conf, put_line_bresenham);
 
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars);

@@ -73,6 +73,9 @@ void	put_plane(t_plane *p, t_conf *conf);
 // Triangle
 void	init_triangle(t_triangle *tr, t_point *A, t_point *B, t_point *C, int color);
 void	put_triangle(t_triangle *tr, t_conf *conf, void (*put_line)(t_line *, t_conf *));
+t_triangle	*copy_triangle(t_triangle *dst, t_triangle *src);
+void	translate_triangle(t_triangle *tr, t_grad *g, t_conf *conf, void (*put_line)(t_line *, t_conf *));
+void	move_triangle(t_triangle *tr, t_point *offset);
 
 
 #endif

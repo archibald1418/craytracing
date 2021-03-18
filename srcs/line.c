@@ -81,7 +81,7 @@ void	put_line_dda(t_line *line, t_conf *conf)
 	0.0 <= xi && xi <= (double)conf->res->X && \
 	0.0 <= yi && yi <= (double)conf->res->Y)
 	{
-		if ((tmp = my_mlx_pixel_get(conf->img, xi, yi)) == black)
+		if ((tmp = my_mlx_pixel_get(conf->img, (int)xi, (int)yi)) == black)
 			tmp = line->color;
 		my_mlx_pixel_put(conf->img, (int)xi, (int)yi, add_trgb(line->color, tmp));
 		xi += dx;
@@ -92,8 +92,35 @@ void	put_line_dda(t_line *line, t_conf *conf)
 
 void	put_line_bresenham(t_line *line, t_conf *conf)
 {
-	;
+	int x0 = line->A->x;
+	int x1 = line->B->x;
+	int y0 = line->A->y;
+	int y1 = line->B->y;
+
+	int dx =  abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
+	int dy = -abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
+	long err = dx + dy, e2;
+	while (0 <= x0 && x0 <= )
+	{
+		my_mlx_pixel_put(conf->img, x0, y0, line->color);
+		e2 = 2 * err;
+		if (e2 >= dy)
+		{
+			if (x0 == x1)
+				break;
+			err += dy;
+			x0 += sx;
+		}
+		if (e2 <= dx)
+		{
+			if (y0 == y1)
+				break;
+			err += dx; 
+			y0 += sy;
+		}
+	}
 }
+
 
 void	put_line_wu(t_line *line, t_conf *conf)
 {

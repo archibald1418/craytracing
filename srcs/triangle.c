@@ -23,6 +23,28 @@ void	put_triangle(t_triangle *tr, t_conf *conf, void (*put_line)(t_line *, t_con
 	put_line(&c, conf);
 }
 
+t_triangle	*copy_triangle(t_triangle *dst, t_triangle *src)
+{
+	return ((t_triangle *)ft_memcpy(dst, src, sizeof(t_triangle)));
+}
+
+void	move_triangle(t_triangle *tr, t_point *offset)
+{
+	move_point(tr->A, offset);
+	move_point(tr->B, offset);
+	move_point(tr->C, offset);
+}
+
+void	translate_triangle(t_triangle *tr, t_grad *g, t_conf *conf, void (*put_line)(t_line *, t_conf *))
+{
+	t_triangle tmp[sizeof(t_triangle)];
+
+	copy_triangle(tmp, tr);
+	move_triangle(tmp, (t_point *)g);
+	put_triangle((t_triangle *)tmp, conf, put_line);
+}
+
+
 // int main()
 // {
 // 	t_win	vars;
