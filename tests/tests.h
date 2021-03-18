@@ -2,10 +2,13 @@
 # define TESTS_H
 
 # include "../includes/minirt.h"
+# include "../libft/tests/tests.h"
 # include <time.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
+# include <limits.h>
+# include <float.h>
 
 typedef struct	s_args
 {

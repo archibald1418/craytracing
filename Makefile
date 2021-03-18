@@ -27,7 +27,10 @@ SRCS	= 	circle.c \
 			triangle.c \
 			vectors.c \
 			utils.c \
-			parser.c
+			parser.c \
+			parser_utils.c \
+			ft_strsplit.c \
+			ft_atof.c
 
 DIR			=	srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))
@@ -80,6 +83,9 @@ test-window:
 
 test-gnl: $(GNLA)
 	$(CC) $(TESTDIR)/gnl_test.c -g $(IFLAG) -I $(TESTDIR) $(FRM) $< -o gnl.o
+
+test-atof: $(LIBA)
+	gcc $(TESTDIR)/ft_atof_test.c  -g $(IFLAG) -I $(TESTDIR) $< -o atof
 
 re: fclean all
 

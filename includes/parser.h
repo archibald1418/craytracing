@@ -37,4 +37,8 @@ typedef struct	s_rt
 	t_cams		*cams;
 }				t_rt;
 
+double	ft_atof(char *s);
+char	**ft_strsplit(char const *s, char *set);
+void	**free_arr(void **arr, size_t len);
+
 #endif
