@@ -1,8 +1,8 @@
 NAME	= window
-LIBA	= libft/libft.a
 LIBFT	= ./libft
+LIBA	= $(LIBFT)/libft.a
 GNL		= ./gnl
-GNLA	= gnl.a
+GNLA	= $(GNL)/gnl.a
 MLX		= minilibx_mms_20200219
 MLXLL	= $(MLX)/libmlx.dylib
 CC		= gcc
@@ -12,12 +12,9 @@ TESTDIR = ./tests
 
 HFILES	=	colors.h \
 			conf.h \
-			libft.h \
-			get_next_line.h \
-			libft.h \
 			minirt.h \
-			mlx.h \
 			shapes.h \
+			parser.h \
 			tests.h \
 			vectors.h \
 			utils.h
@@ -29,7 +26,8 @@ SRCS	= 	circle.c \
 			square.c \
 			triangle.c \
 			vectors.c \
-			utils.c
+			utils.c \
+			parser.c
 
 DIR			=	srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))
@@ -46,7 +44,7 @@ $(LIBA):
 
 $(GNLA):
 	make -C $(GNL)
-	cp $(GNL)/$(GNLA) ./
+	cp $(GNLA) ./
 
 $(MLXLL): $(LIBA) $(GNLA)
 	make -C ./$(MLX)
@@ -56,7 +54,7 @@ clean:
 	make clean -C $(LIBFT)
 	make clean -C $(MLX)
 	make clean -C $(GNL)
-	rm -rf *.o *.out *.dSYM $(NAME)
+	rm -rf *.o *.out *.dSYM
 
 fclean:
 	make fclean -C $(LIBFT)
