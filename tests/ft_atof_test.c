@@ -9,7 +9,7 @@ void	test_atof(void)
 	char *s2 = "";
 	char *s3 = " 345.4 ass";
 	char s4[100];
-	char *s5 = "47568.3454387569123e+10";
+	char *s5 = "5e+6";
 
 	// sprintf(s4, "      %f", FLT_MAX);
 

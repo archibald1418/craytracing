@@ -1,8 +1,16 @@
 #include "libft.h"
 
-static int		is_int(long num)
+static double	calc_mantissa(int e, double num, int esign)
 {
-	return (INT_MIN <= num && num <= INT_MAX);
+	double mult;
+
+	mult = (esign > 0) ? 10.0 : 0.1;
+	while (e != 0)
+	{
+		num *= mult;
+		e -= esign;
+	}
+	return (num);
 }
 
 static char		*iter_spaces(char *c)
@@ -14,19 +22,19 @@ static char		*iter_spaces(char *c)
 	return (c);
 }
 
-static long		iter_digits(const char *str, int sign)
+static double		iter_digits(const char **str, int sign, int is_e)
 {
-	long num;
+	double num;
 
-	num = 0;
-	str += (sign != 0);
-	while (ft_isdigit((int)*str) && is_int(num))
+	num = 0.0;
+	*str += (sign != 0);
+	while (ft_isdigit((int)**str))
 	{
-		num = num * 10 + ((int)*str - 48);
-		str++;
+		num = num * 10.0 + (double)((int)**str - 48);
+		(*str)++;
 	}
-	if (sign < 0)
-		return (num * -1);
+	if (sign < 0 && !is_e)
+		return (num * -1.0);
 	return (num);
 }
 
@@ -42,5 +50,27 @@ static int		get_sign(const char *str)
 
 double	ft_atof(char *s)
 {
-	return (0.0);
+	int		e;
+	double	num;
+	int		sign;
+	int		i;
+
+	sign = get_sign(s);
+	e = 0;
+	i = 0;
+	num = iter_digits(s, sign, 0);
+	if (*s == '.')
+		while (*s && ft_isdigit(*s))
+		{
+			num = num * 10.0 + (double)((int)**str - 48);
+			e -= 1;
+			s++;
+		}
+	if (*s == 'e' || *s == 'E')
+	{
+		i = (int)(iter_digits(s, sign = get_sign(s), 1));
+		sign = (sign == 0) ? 1 : sign;
+	}
+	e += (i * sign);
+	return (calc_mantissa(e, num, sign));
 }
