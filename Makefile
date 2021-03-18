@@ -56,7 +56,7 @@ clean:
 	make clean -C $(GNL)
 	rm -rf *.o *.out *.dSYM
 
-fclean:
+fclean: clean
 	make fclean -C $(LIBFT)
 	make fclean -C $(GNL)
 	rm -rf ./*.a ./*.dylib a.out $(NAME)
@@ -78,6 +78,9 @@ test-triangle:
 test-window:
 	$(CC) main.c $(SOURCE) -g $(IFLAG) $(LIBAS) $(FRM) -o $(NAME)
 
-re: clean fclean all
+test-gnl: $(GNLA)
+	$(CC) $(TESTDIR)/gnl_test.c -g $(IFLAG) -I $(TESTDIR) $(FRM) $< -o gnl.o
 
-.PHONY: fclean clean all
+re: fclean all
+
+.PHONY: fclean clean all gnl
