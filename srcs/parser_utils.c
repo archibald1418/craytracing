@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "minirt.h"
 
 void			**free_arr(void **arr, size_t len)
 {

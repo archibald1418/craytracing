@@ -11,6 +11,8 @@
 # include "camera.h"
 # include "utils.h"
 
+
+
 // # define MAX_CAM 100
 # define MAX_SHAPES	100
 
@@ -41,5 +43,6 @@ typedef struct	s_rt
 double	ft_atof(char *s);
 char	**ft_strsplit(char const *s, char *set);
 void	**free_arr(void **arr, size_t len);
+void	parser(char *path);
 
 #endif

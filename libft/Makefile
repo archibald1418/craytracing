@@ -23,7 +23,7 @@ $(NAME): $(OBJS)
 	ar rc $(NAME) $?
 	ranlib $(NAME)
 bonus: ${OBJS} ${OBJBONUS}
-	ar rc ${NAME} ${OBJS} ${OBJBONUS}
+	ar rc ${NAME} $?
 	ranlib ${NAME}
 $(OBJS): libft.h
 test: $(TESTS) bonus

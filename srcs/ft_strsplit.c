@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "minirt.h"
 
 static int		is_in(char const c, char const *set)
 {
