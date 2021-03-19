@@ -13,7 +13,7 @@ void	test_atof(void)
 
 	// sprintf(s4, "      %f", FLT_MAX);
 
-	printf("|%f|\n", atof(s5));
+	printf("|%.10f|\n", FLT_EPSILON);
 }
 
 void	test_ft_atof(void)
@@ -21,16 +21,26 @@ void	test_ft_atof(void)
 	;
 }
 
-// int argc, char **argv
-int main()
+
+int main(int argc, char **argv)
 {
-	// int i = 1;
-	// while (i++ < 4)
-	// 	test_atof();
-	// 		// printf("|%f|\n", atof(argv[i++]));s
+	int i = 1;
+	double out;
+	while (i < 2)
+	{
+		if ((out = ft_atof(argv[i])) == EPSILON)
+		{
+			printf("FLOAT NOT CALCULABLE...\n");
+			return (0);
+		}
+		printf("|%f|\n", ft_atof(argv[i++]));
+	}
+	// test_atof();
 
-	char *d1 = "456.1234";
+	// char *d1 = "-080098769.-0";
+	// sprintf(d1, "%f", FLT_MAX);
+	
 
-	dprintf(1, "|%f|\n", ft_atof(d1));
+	// dprintf(1, "|%f|\n", ft_atof(d1));
 
 }

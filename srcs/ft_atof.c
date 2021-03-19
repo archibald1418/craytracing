@@ -1,4 +1,4 @@
-#include "parser.c"
+#include "minirt.h"
 
 static double	calc_mantissa(int e, double num, int esign)
 {
@@ -13,27 +13,20 @@ static double	calc_mantissa(int e, double num, int esign)
 	return (num);
 }
 
-static char		*iter_spaces(char *c)
-{
-	while (*c != '\0' && ((*c == 32) || (9 <= *c && *c <= 13)))
-	{
-		c++;
-	}
-	return (c);
-}
-
-static double		iter_digits(char **str, int sign, int is_e)
+static double		iter_digits(char **str, int sgn, int is_e)
 {
 	double num;
 
 	num = 0.0;
-	*str += (sign != 0);
+	*str += (sgn != 0);
 	while (ft_isdigit((int)**str))
 	{
-		num = num * 10.0 + (double)((int)**str - 48);
+		num = num * 10.0 + (double)((int)**str - '0');
 		(*str)++;
 	}
-	if (sign < 0 && !is_e)
+	if ((**str == '.' && is_e) || (is_e && **str != '\0'))
+		return (EPSILON); // FIXME: WHAT VALUE TO RETURN???
+	if (sgn < 0 && !is_e)
 		return (num * -1.0);
 	return (num);
 }
@@ -58,19 +51,24 @@ double	ft_atof(char *s)
 	sgn = get_sign(s);
 	e = 0;
 	i = 0;
-	num = iter_digits(&s, sgn, 0);
+	if ((num = iter_digits(&s, sgn, 0)) == EPSILON)
+		return (EPSILON);
 	if (*s++ == '.')
 		while (*s && ft_isdigit(*s))
 		{
-			num = num * 10.0 + (double)((int)((*s) - 48));
+			num = num * 10.0 + (double)((int)((*s) - '0'));
 			e -= 1;
 			s++;
 		}
 	if (*s == 'e' || *s == 'E')
 	{
-		i = (int)(iter_digits(&s, sgn = get_sign(++s), 1));
+		sgn = get_sign(++s);
+		if ((i = (double)(iter_digits(&s, sgn, 1))) == EPSILON)
+			return (EPSILON);
+		sgn = (sgn >= 0) ? 1 : -1;
 		e += (i * sgn);
 	}
-	sgn = (e >= 0) ? 1 : -1;
-	return (calc_mantissa(e, num, sgn));
+	// if (!ft_isdigit(*s) || *s != '\0')
+	// 	return (nan(""));
+	return (calc_mantissa(e, num, sign(e)));
 }

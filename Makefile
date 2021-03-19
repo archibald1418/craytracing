@@ -84,8 +84,8 @@ test-window:
 test-gnl: $(GNLA)
 	$(CC) $(TESTDIR)/gnl_test.c -g $(IFLAG) -I $(TESTDIR) $(FRM) $< -o gnl.o
 
-test-atof: $(LIBA)
-	gcc $(TESTDIR)/ft_atof_test.c srcs/ft_atof.c $(LIBA) -g $(IFLAG) -I $(TESTDIR)  $< -o atof
+test-atof: $(MLXLL)
+	gcc $(TESTDIR)/ft_atof_test.c $(SOURCE) $(LIBA) -g $(IFLAG) -I $(TESTDIR)  $< -o atof
 
 re: fclean all
 
