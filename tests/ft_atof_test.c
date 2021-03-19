@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 	double out;
 	while (i < 2)
 	{
-		if ((out = ft_atof(argv[i])) == EPSILON)
+		if (isnan(out = ft_atof(argv[i])))
 		{
 			printf("FLOAT NOT CALCULABLE...\n");
 			return (0);

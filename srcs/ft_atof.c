@@ -4,7 +4,7 @@ static double	calc_mantissa(int e, double num, int esign)
 {
 	double mult;
 
-	mult = (esign > 0) ? 10.0 : 0.1;
+	mult = (esign >= 0) ? 10.0 : 0.1;
 	while (e != 0)
 	{
 		num *= mult;
@@ -24,8 +24,6 @@ static double		iter_digits(char **str, int sgn, int is_e)
 		num = num * 10.0 + (double)((int)**str - '0');
 		(*str)++;
 	}
-	if ((**str == '.' && is_e) || (is_e && **str != '\0'))
-		return (EPSILON); // FIXME: WHAT VALUE TO RETURN???
 	if (sgn < 0 && !is_e)
 		return (num * -1.0);
 	return (num);
@@ -48,27 +46,24 @@ double	ft_atof(char *s)
 	int		sgn;
 	int		i;
 
-	sgn = get_sign(s);
 	e = 0;
 	i = 0;
-	if ((num = iter_digits(&s, sgn, 0)) == EPSILON)
-		return (EPSILON);
-	if (*s++ == '.')
-		while (*s && ft_isdigit(*s))
+	sgn = get_sign(s);
+	num = iter_digits(&s, sgn, 0);
+	if (*s == '.')
+		while (ft_isdigit(*++s))
 		{
 			num = num * 10.0 + (double)((int)((*s) - '0'));
 			e -= 1;
-			s++;
 		}
 	if (*s == 'e' || *s == 'E')
 	{
 		sgn = get_sign(++s);
-		if ((i = (double)(iter_digits(&s, sgn, 1))) == EPSILON)
-			return (EPSILON);
+		i = (double)(iter_digits(&s, sgn, 1));
 		sgn = (sgn >= 0) ? 1 : -1;
 		e += (i * sgn);
 	}
-	// if (!ft_isdigit(*s) || *s != '\0')
-	// 	return (nan(""));
+	if (*s != '\0')
+		return ((double)NAN);
 	return (calc_mantissa(e, num, sign(e)));
 }
