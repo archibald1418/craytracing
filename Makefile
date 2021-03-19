@@ -15,7 +15,6 @@ HFILES	=	colors.h \
 			minirt.h \
 			shapes.h \
 			parser.h \
-			tests.h \
 			vectors.h \
 			utils.h
 
@@ -42,7 +41,7 @@ LIBAS		= 	$(MLXLL) $(LIBA) $(GNLA)
 all: $(NAME)
 
 $(LIBA):
-	make -j4 -C libft
+	make bonus -j4 -C libft
 	cp $(LIBA) ./
 
 $(GNLA):
@@ -86,6 +85,9 @@ test-gnl: $(GNLA)
 
 test-atof: $(MLXLL)
 	gcc $(TESTDIR)/ft_atof_test.c $(SOURCE) $(LIBA) -g $(IFLAG) -I $(TESTDIR)  $< -o atof
+
+test-parser: $(LIBAS)
+	gcc $(TESTDIR)/parser_test.c $(TESTDIR)/test_funcs.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) -o parser
 
 re: fclean all
 
