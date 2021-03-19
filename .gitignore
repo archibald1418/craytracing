@@ -13,3 +13,5 @@ minilibx_*/*
 libft/*
 gnl/*
 window
+parser
+atof

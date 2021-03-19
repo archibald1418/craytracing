@@ -33,8 +33,8 @@ typedef t_bilist	t_cams;
 
 typedef struct	s_rt
 {
-	t_res		res;
-	t_lamb		lamb;
+	t_res		*res;
+	t_lamb		*lamb;
 	t_shapes	*shapes;
 	t_lsrcs		*lsrcs;
 	t_cams		*cams;
@@ -44,5 +44,8 @@ double	ft_atof(char *s);
 char	**ft_strsplit(char const *s, char *set);
 void	**free_arr(void **arr, size_t len);
 void	parser(char *path);
+void	init_rt(t_rt *rt);
+int		check_rt(t_rt *rt);
+int		is_in_arr(char *s, char **arr);
 
 #endif
