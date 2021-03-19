@@ -8,5 +8,4 @@ t_list	*ft_lstlast(t_list *lst)
 	while (node->next)
 		node = node->next;
 	return (node);
-		
 }

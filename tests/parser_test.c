@@ -10,4 +10,5 @@ void	test_parser(void)
 int main()
 {
 	test_parser();
+	// sleep(100);
 }

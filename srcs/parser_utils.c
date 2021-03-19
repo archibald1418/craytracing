@@ -11,5 +11,6 @@ void			**free_arr(void **arr, size_t len)
 		i++;
 	}
 	free(arr);
+	arr = NULL;
 	return ((void **)NULL);
 }

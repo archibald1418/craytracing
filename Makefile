@@ -86,8 +86,8 @@ test-gnl: $(GNLA)
 test-atof: $(MLXLL)
 	gcc $(TESTDIR)/ft_atof_test.c $(SOURCE) $(LIBA) -g $(IFLAG) -I $(TESTDIR)  $< -o atof
 
-test-parser: $(LIBAS)
-	gcc $(TESTDIR)/parser_test.c $(TESTDIR)/test_funcs.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) -o parser
+test-parser: $(LIBA) $(GNLA)
+	gcc -g $(TESTDIR)/parser_test.c $(TESTDIR)/test_funcs.c srcs/parser.c srcs/parser_utils.c srcs/ft_strsplit.c $(LIBA) $(GNLA) $(IFLAG) -I $(TESTDIR) -o parser
 
 re: fclean all
 

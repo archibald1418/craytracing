@@ -30,6 +30,7 @@ void	parser(char *path)
 		{
 			arr = ft_strsplit(line, SPACES);
 			ft_putstrarr(arr, ft_count_words(line, SPACES));
+			free_arr((void**)arr, ft_count_words(line, SPACES));
 		}
 		i++;
 		free(line);
