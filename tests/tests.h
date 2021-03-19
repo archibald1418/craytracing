@@ -1,8 +1,7 @@
 #ifndef TESTS_H
 # define TESTS_H
 
-# include "../includes/minirt.h"
-# include "../libft/tests/tests.h"
+# include "minirt.h"
 # include <time.h>
 # include <stdlib.h>
 # include <stdio.h>

@@ -13,12 +13,12 @@ void	put_line_naive(t_line *line, t_conf *conf)
 	int dy;
 	int xi;
 	int yi;
-	int sign;
+	int sgn;
 
 	dx = line->B->x - line->A->x;
 	dy = line->B->y - line->A->y;
 
-	sign = get_sign(dx);
+	sgn = sign(dx);
 	
 	xi = line->A->x;
 	yi = line->A->y;
@@ -29,13 +29,13 @@ void	put_line_naive(t_line *line, t_conf *conf)
 		{
 			yi = line->A->y + dy * (xi - line->A->x) / dx;
 			my_mlx_pixel_put(conf->img, xi, yi, line->color);
-			xi += sign;
+			xi += sgn;
 		}
 	else 
 	{
-		sign = get_sign(dy);
+		sgn = sign(dy);
 		while (yi != line->B->y)
-			my_mlx_pixel_put(conf->img, xi, yi += sign, line->color);
+			my_mlx_pixel_put(conf->img, xi, yi += sgn, line->color);
 	}
 	
 }
@@ -60,8 +60,8 @@ void	put_line_dda(t_line *line, t_conf *conf)
 	dx = (double)(line->B->x - line->A->x);
 	dy = (double)(line->B->y - line->A->y);
 	
-	signx = get_sign(dx);
-	signy = get_sign(dy);
+	signx = sign(dx);
+	signy = sign(dy);
 	xi = (double)line->A->x;
 	yi = (double)line->A->y;
 	if (is_equal(line->A, line->B))

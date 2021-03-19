@@ -24,8 +24,13 @@ void	test_ft_atof(void)
 // int argc, char **argv
 int main()
 {
-	int i = 1;
-	while (i++ < 4)
-		test_atof();
-			// printf("|%f|\n", atof(argv[i++]));
+	// int i = 1;
+	// while (i++ < 4)
+	// 	test_atof();
+	// 		// printf("|%f|\n", atof(argv[i++]));s
+
+	char *d1 = "456.1234";
+
+	dprintf(1, "|%f|\n", ft_atof(d1));
+
 }

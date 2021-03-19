@@ -9,6 +9,7 @@
 # include "shapes.h"
 # include "colors.h"
 # include "camera.h"
+# include "utils.h"
 
 // # define MAX_CAM 100
 # define MAX_SHAPES	100

@@ -19,6 +19,7 @@
 # include "shapes.h"
 # include "vectors.h"
 # include "utils.h"
+# include "parser.h"
 
 // KEYMAPS:
 # define UP		126

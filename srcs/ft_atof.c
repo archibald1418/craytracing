@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "parser.c"
 
 static double	calc_mantissa(int e, double num, int esign)
 {
@@ -22,7 +22,7 @@ static char		*iter_spaces(char *c)
 	return (c);
 }
 
-static double		iter_digits(const char **str, int sign, int is_e)
+static double		iter_digits(char **str, int sign, int is_e)
 {
 	double num;
 
@@ -38,7 +38,7 @@ static double		iter_digits(const char **str, int sign, int is_e)
 	return (num);
 }
 
-static int		get_sign(const char *str)
+static int		get_sign(char *str)
 {
 	if (*(unsigned char *)str == '+')
 		return (1);
@@ -52,25 +52,25 @@ double	ft_atof(char *s)
 {
 	int		e;
 	double	num;
-	int		sign;
+	int		sgn;
 	int		i;
 
-	sign = get_sign(s);
+	sgn = get_sign(s);
 	e = 0;
 	i = 0;
-	num = iter_digits(s, sign, 0);
-	if (*s == '.')
+	num = iter_digits(&s, sgn, 0);
+	if (*s++ == '.')
 		while (*s && ft_isdigit(*s))
 		{
-			num = num * 10.0 + (double)((int)**str - 48);
+			num = num * 10.0 + (double)((int)((*s) - 48));
 			e -= 1;
 			s++;
 		}
 	if (*s == 'e' || *s == 'E')
 	{
-		i = (int)(iter_digits(s, sign = get_sign(s), 1));
-		sign = (sign == 0) ? 1 : sign;
+		i = (int)(iter_digits(&s, sgn = get_sign(++s), 1));
+		e += (i * sgn);
 	}
-	e += (i * sign);
-	return (calc_mantissa(e, num, sign));
+	sgn = (e >= 0) ? 1 : -1;
+	return (calc_mantissa(e, num, sgn));
 }

@@ -17,7 +17,7 @@ void	put_text(void *mlx, void *win, char *str, t_point *loc)
 	mlx_string_put(mlx, win, loc->x, loc->y, white, str);
 }
 
-double	get_sign(double x)
+double	sign(double x)
 {
 	if (x < 0)
 		return (-1.0);
