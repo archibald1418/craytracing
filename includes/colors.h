@@ -19,6 +19,7 @@ int		set_lum(int trgb, double lum);
 int		add_trgb(int trgba, int trgbb);
 int		subtr_trgb(int trgba, int trgbb);
 int		get_opposite(int trgb);
+void	set_color(t_color *col, int r, int g, int b);
 
 /*
 ** This is from a generated file with rgb2c.pl and rgb.txt from

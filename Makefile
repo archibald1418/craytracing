@@ -29,7 +29,8 @@ SRCS	= 	circle.c \
 			parser.c \
 			parser_utils.c \
 			ft_strsplit.c \
-			ft_atof.c
+			ft_atof.c \
+			checkers.c
 
 DIR			=	srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))
