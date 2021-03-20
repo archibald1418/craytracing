@@ -44,9 +44,9 @@ int		check_rgb(char ***tokens, t_color *color)
 	if (isnan(r = (double)ft_atof((*tokens)[0])) || (int)r < 0 || (int)r > 255)
 		return (dprintf(1, "BAD RED COLOR!"));
 	if (isnan(g = (double)ft_atof((*tokens)[1])) || (int)g < 0 || (int)g > 255)
-		return (dprintf(1, "BAD RED COLOR!"));
+		return (dprintf(1, "BAD GREEN COLOR!"));
 	if (isnan(b = (double)ft_atof((*tokens)[2])) || (int)b < 0 || (int)b > 255)
-		return (dprintf(1, "BAD RED COLOR!"));
+		return (dprintf(1, "BAD BLUE COLOR!"));
 	if (r - (double)((int)r) > 0.0 || g - (double)((int)g) > 0.0 || \
 		b - (double)((int)b) > 0.0)
 		return (dprintf(1, "COLOR MUST BE AN INT!"));
@@ -55,13 +55,13 @@ int		check_rgb(char ***tokens, t_color *color)
 }
 
 
-int		check_amb(char **tokens, t_rt *rt)
+int		check_lamb(char **tokens, t_rt *rt)
 {
 	double lum;
 	char **rgb;
 	int i;
-	int tmp;
 	t_color	color;
+	t_lamb	lamb;
 
 	i = 0;
 	if (rt->lamb)
@@ -71,13 +71,14 @@ int		check_amb(char **tokens, t_rt *rt)
 			return (dprintf(1, "TOO MANY ELEMENTS IN AMBIENCE!"));
 	if (i < 3)
 		return (dprintf(1, "TOO FEW ELEMENTS IN AMBEINCE!"));
-	if (isnan(lum = (double)ft_atof(tokens[1])) || (int)lum < 0)
+	if (isnan(lum = (double)ft_atof(tokens[1])))
 		return (dprintf(1, "BAD LUMINANCE!"));
+	if (lum < 0 || lum > 1)
+		return (dprintf(1, "LUMINANCE OUT OF RANGE [0,1]"));
 	if (!(rgb = ft_strsplit(tokens[2], ",")))
 		return (-1);
-	if (check_rgb(&tokens, &color) != 1)
+	if (check_rgb(&rgb, &color) != 1)
 		return (dprintf(1, "BAD COLOR!"));
-	rt->lamb->col = color;
-	rt->lamb->lum = lum;
+	set_lamb(&lamb, lum, &color);
 	return (1);
 }

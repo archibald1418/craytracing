@@ -7,14 +7,14 @@
 typedef struct	s_lamb
 {
 	double	lum;
-	t_color	col;
+	t_color	*col;
 }				t_lamb;
 
 typedef struct	s_lsrc
 {
 	double	lum;
-	t_color	col;
-	t_v3d	p;
+	t_color	*col;
+	t_v3d	*p;
 }				t_lsrc;
 
 #endif

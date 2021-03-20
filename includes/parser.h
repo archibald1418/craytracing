@@ -46,12 +46,13 @@ void	**free_arr(void **arr, size_t len);
 void	parser(char *path);
 void	init_rt(t_rt *rt);
 void	set_color(t_color *col, int r, int g, int b);
+ void	set_lamb(t_lamb *lamb, double lum, t_color *col);
 
 // Scene checkers
 int		check_rt(t_rt *rt);
 int		check_res (char **tokens, t_rt *rt);
 int		check_rgb(char ***tokens, t_color *color);
-int		check_amb(char **tokens, t_rt *rt);
+int		check_lamb(char **tokens, t_rt *rt);
 int		check_rt(t_rt *rt);
 
 int		is_in_arr(char *s, char **arr);

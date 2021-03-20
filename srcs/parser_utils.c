@@ -26,12 +26,6 @@ int			is_in_arr(char *s, char **arr)
 	return (0);
 }
 
-void		set_color(t_color *col, int r, int g, int b)
-{
-	col->r = r;
-	col->g = g;
-	col->b = g;
-}
 
 double	sign(double x)
 {

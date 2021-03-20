@@ -67,7 +67,6 @@ void	init_rt(t_rt *rt)
 	rt->cams	= NULL;
 }
 
-
 void	parser(char *path)
 {
 	char	*line;
