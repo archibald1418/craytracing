@@ -97,11 +97,9 @@ unsigned int	lum_gradient(int trgb, int midpoints)
 	return (0);
 }
 
-
-// int main()
-// {
-// 	dprintf(1, "cyan rgb ->%d\n", 0x00FFFF);
-// 	dprintf(1, "yellow rdb ->%d\n", 0xFFFF00);
-
-// 	dprintf(1, "yellow + cyan\n =\n%d\n", add_trgb(0x00FFFF, 0xFFFF00));
-// }
+void		set_color(t_color *col, int r, int g, int b)
+{
+	col->r = r;
+	col->g = g;
+	col->b = g;
+}

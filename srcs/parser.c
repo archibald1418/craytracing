@@ -65,44 +65,6 @@ void	init_rt(t_rt *rt)
 	rt->cams	= NULL;
 }
 
-int		check_rt(t_rt *rt)
-{
-	return (rt->res || rt->lamb || rt->shapes || rt->lsrcs || rt->cams);
-}
-
-int		check_res (char **tokens, t_rt *rt)
-{
-	double X;
-	double Y;
-	int i;
-	int n;
-
-	n = 3;
-	i = 0;
-	if (rt->res)
-		return (printf("RESOLUION IS ALREADY SET!\n"));
-	while (tokens[i] != NULL)
-		if (i > n)
-			return (printf("TOO MANY ELEMENTS IN RESOLUTION"));
-	if (i < n)
-		return (printf("TOO FEW ELEMENTS IN RESOLUTION"));
-	if (isnan(X = (double)ft_atof((*tokens)[1])) || (int)X <= 0)
-		return (printf("BAD WINDOW WIDTH"));
-	if (isnan(Y = (double)ft_atof((*tokens)[1])) || (int)Y <= 0)
-		return (printf("BAD WINDOW HEIGHT"));
-	// TODO: silently adjust resolution to max_screen_size
-	rt->res = &(t_res){(int)X, (int)Y};
-	return (1);
-}
-int		check_amb(char **tokens, t_rt *rt)
-{
-	double lum;
-	int r;
-	int g; 
-	int b;
-
-}
-
 
 void	parser(char *path)
 {
