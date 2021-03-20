@@ -45,6 +45,7 @@ char	**ft_strsplit(char const *s, char *set);
 void	**free_arr(void **arr, size_t len);
 void	parser(char *path);
 void	init_rt(t_rt *rt);
+void	set_color(t_color *col, int r, int g, int b);
 
 // Scene checkers
 int		check_rt(t_rt *rt);

@@ -96,10 +96,3 @@ unsigned int	lum_gradient(int trgb, int midpoints)
 	;
 	return (0);
 }
-
-void		set_color(t_color *col, int r, int g, int b)
-{
-	col->r = r;
-	col->g = g;
-	col->b = g;
-}
