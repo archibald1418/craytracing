@@ -82,7 +82,7 @@ void	put_line_dda(t_line *line, t_conf *conf)
 	0.0 <= yi && yi <= (double)conf->res->Y)
 	{
 		if ((tmp = my_mlx_pixel_get(conf->img, (int)xi, (int)yi)) == black)
-			tmp = line->color;
+			tmp = set_lum(line->color, 0.3);
 		my_mlx_pixel_put(conf->img, (int)xi, (int)yi, add_trgb(line->color, tmp));
 		xi += dx;
 		yi += dy;

@@ -126,7 +126,7 @@ int main()
 	args.conf = &conf;
 
 	// test_translate(&conf, put_line_naive);
-	test_lines(&conf, put_line_bresenham);
+	test_lines(&conf, put_line_dda);
 
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars);
