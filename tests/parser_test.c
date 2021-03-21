@@ -14,7 +14,7 @@ void	test_parser(void)
 	char **tokens2;
 
 	line1 = "R	 180 180";
-	line2 = "A 		1	 78,2,5";
+	line2 = "A 		1	 256,2,5";
 
 	tokens1 = ft_strsplit(line1, SPACES);
 	tokens2 = ft_strsplit(line2, SPACES);

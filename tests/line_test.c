@@ -15,13 +15,13 @@ void test_lines (t_conf *conf, void (*put_line)(t_line *, t_conf *))
 	t_line l2 = {&p3, &p4, white};
 
 	// Vertical up
-	t_point p5 = {1, 1};
-	t_point p6 = (t_point){res->X - res->X*1/3, res->Y};
+	t_point p5 = {res->X - res->X/3, 1};
+	t_point p6 = (t_point){res->X - res->X/3, res->Y-res->Y/3};
 	t_line l3 = {&p5, &p6, red};
 
 	// Vertical down
-	t_point p7 =  (t_point){res->X, 1};
-	t_point p8 = {res->X - res->X*1/3, res->Y};
+	t_point p7 =  (t_point){res->X/2, 1};
+	t_point p8 = {res->X/2, res->Y};
 	t_line l4 = {&p7, &p8, green};
 
 	// Horizontal left

@@ -100,7 +100,8 @@ void	put_line_bresenham(t_line *line, t_conf *conf)
 	int dx =  abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
 	int dy = -abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
 	long err = dx + dy, e2;
-	while (0 <= x0 && x0 <= conf->res->X)
+	while (0 <= x0 && x0 < conf->res->X && \
+	0 <= y0 && y0 < conf->res->Y)
 	{
 		my_mlx_pixel_put(conf->img, x0, y0, line->color);
 		e2 = 2 * err;

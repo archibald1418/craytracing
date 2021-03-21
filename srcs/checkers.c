@@ -2,7 +2,7 @@
 
 int		check_rt(t_rt *rt)
 {
-	return (rt->res || rt->lamb || rt->shapes || rt->lsrcs || rt->cams);
+	return (rt->res && rt->lamb && rt->shapes && rt->lsrcs && rt->cams);
 }
 
 int		check_res (char **tokens, t_rt *rt)

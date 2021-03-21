@@ -1,5 +1,5 @@
 #include "minirt.h"
-#include "tests.h"
+// #include "tests.h"
 
 // z = l/2*30*P/180
 /* 
@@ -86,7 +86,7 @@ void	parser(char *path)
 		if ((out = get_next_line(fd, &line)) > 0 && *line != '\0')
 		{
 			arr = ft_strsplit(line, SPACES);
-			ft_putstrarr(arr, ft_count_words(line, SPACES));
+			// ft_putstrarr(arr, ft_count_words(line, SPACES));
 			free_arr((void**)arr, ft_count_words(line, SPACES));
 		}
 		i++;
