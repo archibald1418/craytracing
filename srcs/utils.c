@@ -11,8 +11,3 @@ double	calc_der(t_line *a)
 	res = abs(dy/dx);
 	return (res);	
 }
-
-void	put_text(void *mlx, void *win, char *str, t_point *loc)
-{
-	mlx_string_put(mlx, win, loc->x, loc->y, white, str);
-}

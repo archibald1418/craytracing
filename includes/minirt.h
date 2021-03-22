@@ -59,6 +59,7 @@ void            my_mlx_pixel_put(t_data *data, int x, int y, int color);
 unsigned int	my_mlx_pixel_get(t_data *data, int x, int y);
 int             close_win(t_win *vars);
 int 			key_hook (int keycode, t_win *vars);
+void			put_text(void *mlx, void *win, char *str, t_point *loc);
 
 
 #endif

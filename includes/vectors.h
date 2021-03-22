@@ -26,7 +26,9 @@ typedef struct	s_v3d
 	double z;
 }				t_v3d;
 
-typedef t_vector t_ray;
+typedef t_v3d		t_norm3d;
+// typedef t_v2d		t_norm2d;
+typedef t_vector	t_ray;
 
 int		is_equal(t_point *a, t_point *b);
 void	move_point(t_point *a, t_point *offset);

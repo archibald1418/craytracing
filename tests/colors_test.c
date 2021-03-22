@@ -26,8 +26,8 @@ void	test_addition(t_conf *conf)
 
 	put_square(&s1, conf);
 	put_square(&s2, conf);
-	put_circle(&cr1, conf);
 	put_circle(&cr2, conf);
+	put_circle(&cr1, conf);
 
 }
 

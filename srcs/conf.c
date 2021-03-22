@@ -50,3 +50,8 @@ unsigned int	my_mlx_pixel_get(t_data *data, int x, int y)
     dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
     return (*(unsigned int*)dst);
 }
+
+void	put_text(void *mlx, void *win, char *str, t_point *loc)
+{
+	mlx_string_put(mlx, win, loc->x, loc->y, white, str);
+}
