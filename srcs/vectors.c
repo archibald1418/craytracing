@@ -50,20 +50,22 @@ double	get_len(t_v3d *v)
 }
 
 
-
-t_v3d		*scaldiv(t_v3d *v, double s)
+void		scaldiv(t_v3d *u, t_v3d *v, double s)
 {
-	t_v3d u;
 	if (s == 0)
 	{
 		printf("DIVISION BY ZERO ERROR!\n");
 		return (NULL);
 	}
-	init_v3d(&u, v->x / s, v->y / s, v->z / s);
-	return (&u);
+	init_v3d(u, v->x / s, v->y / s, v->z / s);
 }
 
-t_norm3d	*normalize(t_v3d *v)
+void		scalmult(t_v3d *u, t_v3d *v, double s)
+{
+	init_v3d(u, v->x * s, v->y * s, v->z * s);
+}
+
+void		normalize(t_norm3d *n, t_v3d *v)
 {
 	double len = get_len(v);
 	if (len == 0)
@@ -71,7 +73,8 @@ t_norm3d	*normalize(t_v3d *v)
 		printf("ZERO VECTOR CAN'T BE NORMALIZED!\n");
 		return (NULL);
 	}
-	return (scaldiv(v, len));
+	
+	return (scaldiv(v, n, len));
 }
 
 double		dot(t_v3d *v, t_v3d *u)
@@ -86,13 +89,13 @@ double		dotAlpha(t_v3d *v, double angle)
 
 double		cosSim(t_v3d *v, t_v3d *u)
 {
-	double len = get_len(v);
-	if (len == 0)
+	double lenV = get_len(v);
+	if (lenV == 0)
 	{
-		printf("ZERO VECTOR CAN'T BE NORMALIZED!\n");
+		printf("ZERO VECTOR CAN'T BE MEASURED!\n");
 		return ((double)NAN);
 	}
-	return (dot(v, u) / (get_len(v) * get_len(u)));
+	return (dot(v, u) / (lenV * get_len(u)));
 }
 
 void		vecMult(t_v3d *v, t_v3d *u)
@@ -115,4 +118,17 @@ void	cross(t_v3d *c, t_v3d *v, t_v3d *u)
 	v->y * u->z - v->z * u->y,\
 	v->z * u->x - v->x * u->z,\
 	v->x * u->y - v->y * u->x);
+}
+
+void	draw_vector(t_vector *vec, t_conf *conf, void* put_line(t_line*, t_conf*), int scalar)
+{
+	double len = get_len(vec->loc);
+	t_line line;
+	t_point end;
+
+	end = (t_point){vec->dir->x * scalar + vec->loc->x, vec->dir->y * scalar + vec->loc->y};
+
+	init_line(&line, vec->loc, &end, white);
+	put_line(&line, conf);
+	
 }

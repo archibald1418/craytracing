@@ -15,7 +15,7 @@ typedef struct s_dir
 
 typedef struct	s_vector
 {
-	t_point *point;
+	t_point *loc;
 	t_dir	*dir;
 }				t_vector;
 
@@ -38,12 +38,13 @@ t_v3d		*vecAdd(t_v3d *v, t_v3d *u);
 t_v3d		*vecSub(t_v3d *v, t_v3d *u);
 double		get_len(t_v3d *v);
 t_v3d		*scaldiv(t_v3d *v, double s);
-t_norm3d	*normalize(t_v3d *v);
+t_norm3d	*norm3d(t_v3d *v);
 double		dot(t_v3d *v, t_v3d *u);
 double		dotAlpha(t_v3d *v, double angle);
 double		cosSim(t_v3d *v, t_v3d *u);
 void		vecMult(t_v3d *v, t_v3d *u);
 double		det2(t_point *v, t_point *u);
 void		cross(t_v3d *c, t_v3d *v, t_v3d *u);
+void		draw_vector(t_vector *vec, t_conf *conf, void* put_line(t_line*, t_conf*), int scalar);
 
 #endif
