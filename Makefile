@@ -91,7 +91,7 @@ test-atof: $(MLXLL)
 test-parser: $(LIBA) $(GNLA)
 	gcc -g $(TESTDIR)/parser_test.c $(TESTDIR)/test_funcs.c srcs/setters.c srcs/checkers.c srcs/parser.c srcs/parser_utils.c srcs/ft_strsplit.c srcs/ft_atof.c $(LIBA) $(GNLA) $(IFLAG) -I $(TESTDIR) -o parser
 
-test-vectors: 
+test-vectors: $(MLXLL) $(LIBA)
 	$(CC) $(TESTDIR)/vectors_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
 
 re: fclean all

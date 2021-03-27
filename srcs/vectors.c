@@ -28,20 +28,14 @@ void	move_point(t_point *a, t_point *offset)
 	a->y += offset->y;
 }
 
-t_v3d	*vecAdd(t_v3d *v, t_v3d *u)
+void	vecAdd(t_v3d *c,t_v3d *v, t_v3d *u)
 {
-	t_v3d c;
-
-	init_v3d(&c, v->x + u->x, v->y + u->y, v->z + u->z);
-	return (&c);
+	init_v3d(c, v->x + u->x, v->y + u->y, v->z + u->z);
 }
 
-t_v3d	*vecSub(t_v3d *v, t_v3d *u)
+void	vecSub(t_v3d *c, t_v3d *v, t_v3d *u)
 {
-	t_v3d c;
-
-	init_v3d(&c, v->x - u->x, v->y - u->y, v->z - u->z);
-	return (&c);
+	init_v3d(c, v->x - u->x, v->y - u->y, v->z - u->z);
 }
 
 double	get_len(t_v3d *v)
@@ -50,31 +44,33 @@ double	get_len(t_v3d *v)
 }
 
 
-void		scaldiv(t_v3d *u, t_v3d *v, double s)
+void		scaldiv(t_v3d *c, t_v3d *v, double s)
 {
+	c = NULL;
 	if (s == 0)
 	{
 		printf("DIVISION BY ZERO ERROR!\n");
-		return (NULL);
+		return ;
 	}
-	init_v3d(u, v->x / s, v->y / s, v->z / s);
+	init_v3d(c, v->x / s, v->y / s, v->z / s);
 }
 
-void		scalmult(t_v3d *u, t_v3d *v, double s)
+void		scalmult(t_v3d *c, t_v3d *v, double s)
 {
-	init_v3d(u, v->x * s, v->y * s, v->z * s);
+	init_v3d(c, v->x * s, v->y * s, v->z * s);
 }
 
 void		normalize(t_norm3d *n, t_v3d *v)
 {
+	n = NULL;
 	double len = get_len(v);
 	if (len == 0)
 	{
 		printf("ZERO VECTOR CAN'T BE NORMALIZED!\n");
-		return (NULL);
+		return ;
 	}
 	
-	return (scaldiv(v, n, len));
+	scaldiv(v, n, len);
 }
 
 double		dot(t_v3d *v, t_v3d *u)
@@ -98,13 +94,9 @@ double		cosSim(t_v3d *v, t_v3d *u)
 	return (dot(v, u) / (lenV * get_len(u)));
 }
 
-void		vecMult(t_v3d *v, t_v3d *u)
+void		vecMult(t_v3d *c, t_v3d *v, t_v3d *u)
 {
-	t_v3d c;
-
-	init_v3d(&c, v->x * u->x, v->y * u->y, v->z * u->z);
-
-	return (&c);
+	init_v3d(c, v->x * u->x, v->y * u->y, v->z * u->z);
 }
 
 double	det2(t_point *v, t_point *u)
@@ -114,7 +106,7 @@ double	det2(t_point *v, t_point *u)
 
 void	cross(t_v3d *c, t_v3d *v, t_v3d *u)
 {
-	init_vec3d(c, 
+	init_v3d(c, 
 	v->y * u->z - v->z * u->y,\
 	v->z * u->x - v->x * u->z,\
 	v->x * u->y - v->y * u->x);

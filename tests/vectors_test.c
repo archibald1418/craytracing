@@ -15,7 +15,7 @@ double	get_veclen(t_point *end)
 void	init_v2d(t_vector *v, t_point *loc, t_point *dir)
 {
 	v->loc = loc;
-	v->dir = dir;
+	v->dir = (t_dir *)dir;
 }
 
 char	*get_vecinfo(t_vector *v, t_vector *end, char *label, int scalar)
@@ -90,7 +90,7 @@ int main()
 	args.conf = &conf;
 
 	// test_translate(&conf, put_line_naive);
-	test_lines(&conf, put_line_dda);
+	// test_lines(&conf, put_line_dda);
 
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars);
