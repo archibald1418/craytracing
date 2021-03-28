@@ -30,8 +30,8 @@ int put_mouse_pos(int x, int y, t_args *args)
 	return (0);
 }
 
-void	*init_infobar(void *mlx)
+void	*init_infobar(void *mlx, int sizex, int sizey, char *title)
 {
-	void *infobar = mlx_new_window(mlx, 210, 210, "Coords!");
+	void *infobar = mlx_new_window(mlx, sizex, sizey, title);
 	return (infobar);
 }

@@ -122,7 +122,7 @@ int main()
 	// Test lines!
 
 	// Infobar
-	args.outwin = init_infobar(conf.vars->mlx);
+	args.outwin = init_infobar(conf.vars->mlx, 210, 210, "RGB !");
 	args.conf = &conf;
 
 	// test_translate(&conf, put_line_naive);

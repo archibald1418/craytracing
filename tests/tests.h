@@ -23,7 +23,7 @@ typedef struct	s_args
 
 int		put_mouse_pos(int x, int y, t_args *args);
 
-void	*init_infobar(void *mlx);
+void	*init_infobar(void *mlx, int sizex, int sizey, char *title);
 void	test_lines (t_conf *conf, void (*put_line)(t_line *, t_conf *));
 void	test_square (t_conf *conf, void (*put_line)(t_line *, t_conf *));
 void	test_circle (t_conf *conf, void (*put_line)(t_line *, t_conf *));

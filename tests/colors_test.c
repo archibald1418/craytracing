@@ -7,7 +7,7 @@
 void	test_addition(t_conf *conf)
 {
 	int c1 = violet;
-	int c2 = gray;
+	int c2 = cyan;
 
 	int c3 = yellow;
 	int c4 = magenta;
@@ -21,7 +21,7 @@ void	test_addition(t_conf *conf)
 	s1 = (t_square){&(t_point){100, 100}, 100, c1};
 	s2 = (t_square){&(t_point){150, 100}, 100, c2};
 
-	cr1 = (t_circle){&(t_point){conf->res->X/2, conf->res->Y/2}, 50, yellow};
+	cr1 = (t_circle){&(t_point){conf->res->X/2, conf->res->Y/2}, 50, green};
 	cr2 = (t_circle){&(t_point){cr1.center->x + 40, cr1.center->y}, 50, magenta};
 
 	put_square(&s1, conf);
@@ -48,7 +48,7 @@ int main()
 	init_img(conf.img, conf.vars, conf.res->X, conf.res->Y);
 	
 	// Infobar
-	args.outwin = init_infobar(conf.vars->mlx);
+	args.outwin = init_infobar(conf.vars->mlx, 210, 210, "RGB!");
 	args.conf = &conf;
 
 	test_addition(&conf);

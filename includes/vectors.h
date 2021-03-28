@@ -10,6 +10,12 @@ typedef struct	s_p3d
 	double z;
 }				t_p3d;
 
+typedef struct	s_p2d
+{
+	double x;
+	double y;
+}				t_p2d;
+
 typedef struct s_dir
 {
 	double x;
@@ -18,8 +24,8 @@ typedef struct s_dir
 
 typedef struct	s_vector
 {
-	t_point *loc;
-	t_dir	*dir;
+	t_p2d	*loc;
+	t_p2d	*dir;
 }				t_vector;
 
 typedef struct	s_v3d
@@ -40,13 +46,13 @@ void		vecSub(t_v3d *c, t_v3d *v, t_v3d *u);
 double		get_len(t_v3d *v);
 void		scaldiv(t_v3d *c, t_v3d *v, double s);
 void		scalmult(t_v3d *c, t_v3d *v, double s);
-void		normalize(t_norm3d *n, t_v3d *v);
+void		normalize(t_v3d *n, t_v3d *v);
 double		dot(t_v3d *v, t_v3d *u);
 double		dotAlpha(t_v3d *v, double angle);
 double		cosSim(t_v3d *v, t_v3d *u);
 void		vecMult(t_v3d *c, t_v3d *v, t_v3d *u);
 double		det2(t_point *v, t_point *u);
 void		cross(t_v3d *c, t_v3d *v, t_v3d *u);
-void		draw_vector(t_vector *vec, t_conf *conf, void* put_line(t_line*, t_conf*), int scalar);
+void		draw_vector(t_vector *v, t_p2d *end, t_conf *conf, void (*put_line)(t_line *, t_conf *));
 
 #endif
