@@ -10,6 +10,15 @@ math.fdim (x, y) -> abs(x - y)
 math.copysign (-8, 154) -> 8 (magnitude of x + sign of y)
 */
 
+void	init_p3d(t_p3d *p, double x, double y, double z)
+{
+	p->x = x;
+	p->y = y;
+	p->z = z;
+}
+
+
+
 void	init_v3d(t_v3d *v, double x, double y, double z)
 {
 	v->loc->x = x;
@@ -33,21 +42,22 @@ void	move_point(t_point *a, t_point *offset)
 	a->y += offset->y;
 }
 
-void	vecAdd(t_v3d *c,t_v3d *v, t_v3d *u)
+void	p_add(t_p3d *c,t_p3d *v, t_p3d *u)
 {
-	init_v3d(c,\
-	v->loc->x + u->loc->x,\
-	v->loc->y + u->loc->y,\
-	v->loc->z + u->loc->z);
+	init_p3d(c,\
+	v->x + u->x,\
+	v->y + u->y,\
+	v->z + u->z);
 }
 
-void	vecSub(t_v3d *c, t_v3d *v, t_v3d *u)
+void	p_add(t_p3d *c, t_p3d *v, t_p3d *u)
 {
 	init_v3d(c,\
-	v->loc->x - u->loc->x,\
-	v->loc->y - u->loc->y,\
-	v->loc->z - u->loc->z);
+	v->x - u->x,\
+	v->y - u->y,\
+	v->z - u->z);
 }
+
 
 double	get_len(t_v3d *v)
 {
@@ -55,7 +65,7 @@ double	get_len(t_v3d *v)
 }
 
 
-void		scaldiv(t_v3d *c, t_v3d *v, double s)
+void		scaldiv(t_p3d *c, t_p3d *v, double s)
 {
 	c = NULL;
 	if (s == 0)
@@ -63,7 +73,7 @@ void		scaldiv(t_v3d *c, t_v3d *v, double s)
 		printf("DIVISION BY ZERO ERROR!\n");
 		return ;
 	}
-	init_v3d(c, v->loc->x / s, v->loc->y / s, v->loc->z / s);
+	init_v3d(c, v->x / s, v->y / s, v->z / s);
 }
 
 void		scalmult(t_v3d *c, t_v3d *v, double s)
@@ -71,7 +81,7 @@ void		scalmult(t_v3d *c, t_v3d *v, double s)
 	init_v3d(c, v->loc->x * s, v->loc->y * s, v->loc->z * s);
 }
 
-void		normalize(t_v3d *n, t_v3d *v)
+void		normalize(t_p3d *n, t_p3d *v)
 {
 	n = NULL;
 	double len = get_len(v);
@@ -82,8 +92,6 @@ void		normalize(t_v3d *n, t_v3d *v)
 	}
 	
 	scaldiv(n, v, len);
-	// n->loc = &(t_p3d){0, 0};
-	//FIXME: if normal is a vector what location should it have?? (or should it??)
 }
 
 double		dot(t_v3d *v, t_v3d *u)
