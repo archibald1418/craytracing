@@ -4,14 +4,14 @@
 
 
 
-t_v3d	*get_nearest(t_ray *ray, t_shapes *shapes)
-{
-	t_v3d tmp;
+// t_v3d	*get_nearest(t_ray *ray, t_shapes *shapes)
+// {
+// 	t_v3d tmp;
 
-	init_v3d(&tmp, INF, INF, INF);	
+// 	init_v3d(&tmp, INF, INF, INF);	
 
-	return (&tmp);
-}
+// 	return (&tmp);
+// }
 
 void	init_ray(t_ray *ray, int W, int H, int px, int py, double fov) // TODO: pass t_res as resolution and t_point as pixel point
 {
@@ -36,6 +36,24 @@ void	init_ray(t_ray *ray, int W, int H, int px, int py, double fov) // TODO: pas
 	// TODO: cam to world matrix for rotation and translation
 }
 
+int main()
+{
+	t_ray ray;
+
+	int i = 0;
+	int w = 10;
+	int h = 10;
+	while (i < w * h)
+	{
+		init_ray(&ray, w, h, i % w, i % h, 60.0);
+		printf("(%d,%d) -> ray:(\n.loc (%5.2f,%5.2f)\n.dir (%5.2f,%5.2f)\n\n", 
+		i % w,
+		i % h,
+		ray.loc->x, ray.loc->y,
+		ray.dir->x, ray.dir->y);
+		i++;
+	}
+}
 
 
 

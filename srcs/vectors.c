@@ -50,18 +50,18 @@ void	p_add(t_p3d *c,t_p3d *v, t_p3d *u)
 	v->z + u->z);
 }
 
-void	p_add(t_p3d *c, t_p3d *v, t_p3d *u)
+void	p_sub(t_p3d *c, t_p3d *v, t_p3d *u)
 {
-	init_v3d(c,\
+	init_p3d(c,\
 	v->x - u->x,\
 	v->y - u->y,\
 	v->z - u->z);
 }
 
 
-double	get_len(t_v3d *v)
+double	get_len(t_p3d *v)
 {
-	return (sqrt(pow(v->loc->x, 2) + pow(v->loc->y, 2) + pow(v->loc->z, 2)));
+	return (sqrt(pow(v->x, 2) + pow(v->y, 2) + pow(v->z, 2)));
 }
 
 
@@ -73,12 +73,12 @@ void		scaldiv(t_p3d *c, t_p3d *v, double s)
 		printf("DIVISION BY ZERO ERROR!\n");
 		return ;
 	}
-	init_v3d(c, v->x / s, v->y / s, v->z / s);
+	init_p3d(c, v->x / s, v->y / s, v->z / s);
 }
 
-void		scalmult(t_v3d *c, t_v3d *v, double s)
+void		scalmult(t_p3d *c, t_p3d *v, double s)
 {
-	init_v3d(c, v->loc->x * s, v->loc->y * s, v->loc->z * s);
+	init_p3d(c, v->x * s, v->y * s, v->z * s);
 }
 
 void		normalize(t_p3d *n, t_p3d *v)
@@ -94,30 +94,31 @@ void		normalize(t_p3d *n, t_p3d *v)
 	scaldiv(n, v, len);
 }
 
-double		dot(t_v3d *v, t_v3d *u)
+double		dot(t_p3d *v, t_p3d *u)
 {
-	return (v->loc->x * u->loc->x + v->loc->y * u->loc->y + v->loc->z * u->loc->z);
+	return (v->x * u->x + v->y * u->y + v->z * u->z);
 }
 
-double		dotAlpha(t_v3d *v, double angle)
+double		dot_alpha(t_p3d *v, double angle)
 {
 	return (get_len(v) * cos(angle));
 }
 
-double		cosSim(t_v3d *v, t_v3d *u)
+double		cos_sim(t_p3d *v, t_p3d *u)
 {
-	double lenV = get_len(v);
-	if (lenV == 0)
+	double len_v;
+	len_v = get_len(v);
+	if (len_v == 0)
 	{
 		printf("ZERO VECTOR CAN'T BE MEASURED!\n");
 		return ((double)NAN);
 	}
-	return (dot(v, u) / (lenV * get_len(u)));
+	return (dot(v, u) / (len_v * get_len(u)));
 }
 
-void		vecMult(t_v3d *c, t_v3d *v, t_v3d *u)
+void		p_mult(t_p3d *c, t_p3d *v, t_p3d *u)
 {
-	init_v3d(c, v->loc->x * u->loc->x, v->loc->y * u->loc->y, v->loc->z * u->loc->z);
+	init_p3d(c, v->x * u->x, v->y * u->y, v->z * u->z);
 }
 
 double	det2(t_point *v, t_point *u)
@@ -125,18 +126,18 @@ double	det2(t_point *v, t_point *u)
 	return (v->x * u->y - u->x * v->y);
 }
 
-void	cross(t_v3d *c, t_v3d *v, t_v3d *u)
+void	cross(t_p3d *c, t_p3d *v, t_p3d *u)
 {
-	init_v3d(c, 
-	v->loc->y * u->loc->z - v->loc->z * u->loc->y,\
-	v->loc->z * u->loc->x - v->loc->x * u->loc->z,\
-	v->loc->x * u->loc->y - v->loc->y * u->loc->x);
+	init_p3d(c, 
+	v->y * u->z - v->z * u->y,\
+	v->z * u->x - v->x * u->z,\
+	v->x * u->y - v->y * u->x);
 }
 
-void	draw_vector(t_vector *v, t_p2d *end, t_conf *conf, void (*put_line)(t_line *, t_conf *))
+void	draw_vector(t_p2d *loc, t_p2d *end, t_conf *conf, void (*put_line)(t_line *, t_conf *))
 {
 	t_line line;
 
-	init_line(&line, &(t_point){v->loc->x, v->loc->y}, &(t_point){end->x, end->y}, red);
+	init_line(&line, &(t_point){loc->x, loc->y}, &(t_point){end->x, end->y}, red);
 	put_line(&line, conf);
 }

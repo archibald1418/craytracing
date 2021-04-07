@@ -14,6 +14,7 @@ double	get_veclen(t_vector *v, t_p2d *end)
 	return ((double)hypot(end->x - v->loc->x, end->y - v->loc->y));
 }
 
+
 void	init_v2d(t_vector *v, t_p2d *loc, t_p2d *dir)
 {
 	v->loc = loc;
@@ -54,7 +55,6 @@ int		put_vec_pos(int x, int y, t_info *info)
 	t_p2d end;
 	double len;
 
-	// SEGFAULTS...
 	t_args *args = info->args;
 	
 	int		i = 0;
@@ -82,12 +82,11 @@ int		put_vec_pos(int x, int y, t_info *info)
 		if ((0 <= end.x && end.x < args->conf->res->X) || \
 			(0 <= end.y && end.y < args->conf->res->Y))
 		{
-			draw_vector(v, &end, args->conf, put_line_bresenham);
+			draw_vector(v->loc, &end, args->conf, put_line_dda);
 			put_vecinfo(v, &end, "A", &(t_point){10, 30}, args); 
 			mlx_put_image_to_window(args->conf->vars->mlx, args->conf->vars->win, args->conf->img->img, 0, 0);
 		}
 	}
-	// ft_bzero(args->conf->img, sizeof(*args->conf->img));
 	return (0);
 }
 

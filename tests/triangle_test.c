@@ -76,7 +76,7 @@ int main()
 	// Test lines!
 
 	// Infobar
-	args.outwin = init_infobar(conf.vars->mlx);
+	args.outwin = init_infobar(conf.vars->mlx, 500, 500, "Triangle!");
 	args.conf = &conf;
 
 	// test_translate(&conf, put_line_naive);
