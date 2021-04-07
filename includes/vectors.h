@@ -36,7 +36,7 @@ typedef struct	s_v3d
 
 typedef t_v3d		t_norm3d;
 // typedef t_v2d		t_norm2d;
-typedef t_vector	t_ray;
+typedef t_v3d		t_ray;
 
 void		init_v3d(t_v3d *v, double x, double y, double z);
 int			is_equal(t_point *a, t_point *b);
@@ -53,5 +53,6 @@ void		p_mult(t_p3d *c, t_p3d *v, t_p3d *u);
 double		det2(t_point *v, t_point *u);
 void		cross(t_p3d *c, t_p3d *v, t_p3d *u);
 void		draw_vector(t_p2d *v, t_p2d *end, t_conf *conf, void (*put_line)(t_line *, t_conf *));
+void		init_ray(t_ray *ray, int W, int H, int px, int py, double fov);
 
 #endif

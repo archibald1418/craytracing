@@ -67,7 +67,6 @@ double	get_len(t_p3d *v)
 
 void		scaldiv(t_p3d *c, t_p3d *v, double s)
 {
-	c = NULL;
 	if (s == 0)
 	{
 		printf("DIVISION BY ZERO ERROR!\n");
@@ -83,8 +82,8 @@ void		scalmult(t_p3d *c, t_p3d *v, double s)
 
 void		normalize(t_p3d *n, t_p3d *v)
 {
-	n = NULL;
-	double len = get_len(v);
+	double len;
+	len = get_len(v);
 	if (len == 0)
 	{
 		printf("ZERO VECTOR CAN'T BE NORMALIZED!\n");

@@ -31,7 +31,8 @@ SRCS	= 	circle.c \
 			ft_strsplit.c \
 			ft_atof.c \
 			checkers.c \
-			setters.c
+			setters.c \
+			rays.c
 
 DIR			=	srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))
@@ -93,6 +94,9 @@ test-parser: $(LIBA) $(GNLA)
 
 test-vectors: $(MLXLL) $(LIBA)
 	$(CC) $(TESTDIR)/vectors_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
+
+test-rays: $(MLXLL) $(LIBA)
+	$(CC) $(TESTDIR)/rays_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
 
 re: fclean all
 
