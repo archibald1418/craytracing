@@ -19,7 +19,7 @@ int main()
 	init_img(conf.img, conf.vars, conf.res->X, conf.res->Y);
 	
 	// Infobar
-	args.outwin = init_infobar(conf.vars->mlx);
+	args.outwin = init_infobar(conf.vars->mlx, 210, 210, "RGB");
 	args.conf = &conf;
 
 	// test_addition(&conf);

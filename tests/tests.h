@@ -41,11 +41,11 @@ size_t	ft_strsize(char *str);
 void	ft_putcharvals(char *str, size_t len);
 void	ft_putblock(void *ptr, size_t len, size_t count);
 void	ft_putstrarr(char **arr, size_t len);
-int		ft_is_in(char const c, char const *set);
-size_t	ft_iter_chars(char const *s, char *set, size_t flag);
-size_t	ft_count_words(char const *s, char *set);
-size_t  ft_count_digits(int n, size_t i);
-char	**ft_free_arr(char **arr, size_t len);
+// int		ft_is_in(char const c, char const *set);
+// size_t	ft_iter_chars(char const *s, char *set, size_t flag);
+// size_t	ft_count_words(char const *s, char *set);
+// size_t  ft_count_digits(int n, size_t i);
+// char	**ft_free_arr(char **arr, size_t len);
 	// Linked lists
 void	ft_putnode(t_list *node);
 void	ft_putlist(t_list *head_node);

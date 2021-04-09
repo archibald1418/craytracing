@@ -1,11 +1,7 @@
 #ifndef SHAPES_H
 # define SHAPES_H
+# include "vectors.h"
 
-typedef struct	s_point
-{
-	int x;
-	int y;
-}				t_point;
 
 typedef struct	s_square
 {
@@ -43,6 +39,13 @@ typedef struct	s_plane
 	int color;
 }				t_plane; 
 
+typedef struct	s_sphere
+{
+	t_p3d	*c;
+	double	d;
+	int color;
+}				t_sphere;
+
 // TODO: two lines is easy for a color gradient 
 
 typedef struct	s_grad
@@ -69,6 +72,7 @@ void	translate_line(t_line *line, t_grad *g, t_conf *conf, void (*put_line)(t_li
 t_line *copy_line( t_line *dst, t_line* src);
 void	move_line(t_line *line, t_point *offset);
 int		are_parallel(t_line *a, t_line *b);
+void	draw_vector(t_p2d *v, t_p2d *end, t_conf *conf, void (*put_line)(t_line *, t_conf *));
 
 // Planes
 void 	init_plane(t_plane *p, t_line *a, t_line *b, int color);

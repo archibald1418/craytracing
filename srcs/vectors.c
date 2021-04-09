@@ -120,7 +120,7 @@ void		p_mult(t_p3d *c, t_p3d *v, t_p3d *u)
 	init_p3d(c, v->x * u->x, v->y * u->y, v->z * u->z);
 }
 
-double	det2(t_point *v, t_point *u)
+double	det2(t_p2d *v, t_p2d *u)
 {
 	return (v->x * u->y - u->x * v->y);
 }

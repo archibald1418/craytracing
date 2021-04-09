@@ -24,7 +24,8 @@ void	test_parser(void)
 
 	// NOTE: we use init only if in need to validate fields in struct
 	init_rt(&rt);
-
+	// free_arr((void**)tokens1, ft_count_words(line1, SPACES));
+	// free_arr((void**)tokens2, ft_count_words(line2, SPACES));
 	// check_res(tokens1, &rt);
 	check_lamb(tokens2, &rt);
 	// parser(PATH);
@@ -34,5 +35,6 @@ void	test_parser(void)
 int main()
 {
 	test_parser();
-	// sleep(100);
+	// sleep(200);
+	system("leaks parser");
 }
