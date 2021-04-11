@@ -31,9 +31,9 @@ double	get_min_pos_root(double disc, double a, double b)
 	r2 = (-b - sqd) / (2 * a);
 	if (r1 >= 0 & r2 >= 0)
 		return ((double)fmin(r1, r2));
-	if (r1 > 0)
+	if (r1 >= 0)
 		return (r1);
-	if (r2 > 0)
+	if (r2 >= 0)
 		return (r2);
 	return ((double)NAN);
 }
