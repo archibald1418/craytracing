@@ -28,21 +28,18 @@ typedef struct s_dir
 
 typedef struct	s_vector
 {
-	t_p2d	*loc;
-	t_p2d	*dir;
+	t_p2d	loc;
+	t_p2d	dir;
 }				t_vector;
 
 typedef struct	s_v3d
 {
-	t_p3d	*loc;
-	t_p3d	*dir;
+	t_p3d	loc;
+	t_p3d	dir;
 }				t_v3d;
 
-typedef t_v3d		t_norm3d;
-// typedef t_v2d		t_norm2d;
-typedef t_v3d		t_ray;
-
 void		init_v3d(t_v3d *v, double x, double y, double z);
+void		init_p3d(t_p3d *p, double x, double y, double z);
 int			is_equal(t_point *a, t_point *b);
 void		move_point(t_point *a, t_point *offset);
 double		get_len(t_p3d *v);
@@ -57,6 +54,6 @@ double		cosSim(t_v3d *v, t_v3d *u);
 void		p_mult(t_p3d *c, t_p3d *v, t_p3d *u);
 double		det2(t_p2d *v, t_p2d *u);
 void		cross(t_p3d *c, t_p3d *v, t_p3d *u);
-void		init_ray(t_ray *ray, t_res *res, int px, int py, double fov);
+void		init_ray(t_v3d *ray, t_res *res, int px, int py, double fov);
 
 #endif

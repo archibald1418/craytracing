@@ -21,14 +21,14 @@ void	init_p3d(t_p3d *p, double x, double y, double z)
 
 void	init_v3d(t_v3d *v, double x, double y, double z)
 {
-	v->loc->x = x;
-	v->loc->y = y;
-	v->loc->z = z;
+	v->loc.x = x;
+	v->loc.y = y;
+	v->loc.z = z;
 
 	// If direction is (0, 0, 0), vector has no direction
-	v->dir->x = 0;
-	v->dir->y = 0;
-	v->dir->z = 0;
+	v->dir.x = 0;
+	v->dir.y = 0;
+	v->dir.z = 0;
 }
 
 int		is_equal(t_point *a, t_point *b)
