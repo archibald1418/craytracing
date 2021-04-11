@@ -40,19 +40,19 @@ double	get_min_pos_root(double disc, double a, double b)
 
 double 	sphere_intersect(t_sphere *sp, t_v3d *r, double *root)
 {
-	t_p3d	*o_minus_c;
+	t_p3d	o_minus_c;
 	double a;
 	double b;
 	double c;
 	double d;
 	double prod;
 
-	init_p3d(o_minus_c, 0, 0, 0);
-	p_sub(o_minus_c, &r->loc, sp->c);
-	prod = dot(&r->dir, o_minus_c);
+	init_p3d(&o_minus_c, 0, 0, 0);
+	p_sub(&o_minus_c, &r->loc, sp->c);
+	prod = dot(&r->dir, &o_minus_c);
 	b = 2 * prod;
 	a = dot(&r->dir, &r->dir);
-	c = dot(o_minus_c, o_minus_c) - pow(sp->d/2, 2);
+	c = dot(&o_minus_c, &o_minus_c) - pow(sp->d/2, 2);
 	d = pow(b, 2) - 4 * a * c;
 	if (d < 0)
 		return ((double)(NAN));
