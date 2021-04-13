@@ -41,9 +41,9 @@ typedef struct	s_plane
 
 typedef struct	s_sphere
 {
-	t_p3d	*c;
+	t_p3d	c;
 	double	d;
-	int color;
+	int 	color;
 }				t_sphere;
 
 // TODO: two lines is easy for a color gradient 
