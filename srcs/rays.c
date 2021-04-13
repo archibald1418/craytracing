@@ -30,7 +30,7 @@ void	init_ray(t_ray *ray, t_res *res, int px, int py, double fov) // TODO: pass 
 	// Ray construction
 	ray->loc = (t_p3d){0, 0, 0}; // TODO: pass actual camera origin to here. Zeros are default origin
 	ray->dir = (t_p3d){0, 0, 0};
-	p_sub(&ray->dir, (t_p3d){camx, camy, -1.0}, ray->loc); // z = -1 => camera is unit away from the canvas (in camera coords)
+	p_sub(&ray->dir, (t_p3d){camx, camy, 1.0}, ray->loc); // z = -1 => camera is unit away from the canvas (in camera coords)
 	// normalize direction
 	normalize(&ray->dir, ray->dir);
 

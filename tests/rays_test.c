@@ -27,16 +27,12 @@ double	get_min_pos_root(double disc, double a, double prod)
 	sqd = sqrt(disc);
 	r1 = -prod + sqd;
 	r2 = -prod - sqd;
-	if ((r1 * r2 >= 0.0))
-		return ((double)fmin(r1, r2));
-	if (r1 > 0)
-		return (r1);
-	if (r2 > 0)
-		return (r2);
+	if (r1 * r2 >= 0)
+		return (fmin(r1, r2));
 	return ((double)NAN);
 }
 
-t_p3d	*sphere_intersect(t_sphere *sp, t_ray *r, t_p3d *ipoint)
+double	sphere_intersect(t_sphere *sp, t_ray *r)
 {
 	t_p3d	ray_to_c;
 	double	prod;
@@ -49,12 +45,12 @@ t_p3d	*sphere_intersect(t_sphere *sp, t_ray *r, t_p3d *ipoint)
 	d = pow(prod, 2) - (dot(ray_to_c, ray_to_c) - pow((double)(sp->d/2), 2));
 	a = dot(r->dir, r->dir);
 	if (d < 0)
-		return (NULL);
+		return ((double)NAN);
 	if (isnan((double)(root = get_min_pos_root(d, a, prod))))
-		return (NULL);
+		return ((double)NAN);
 	// scalmult(ipoint, r->dir, root);
 	// p_add(ipoint, ipoint, r->loc);
-	return (ipoint);
+	return (root);
 }
 void trace_sphere(t_conf *conf, t_sphere **sps, double fov)
 {
@@ -63,15 +59,21 @@ void trace_sphere(t_conf *conf, t_sphere **sps, double fov)
 	int		i;
 	int 	j;
 	t_res	*res;
+	t_sphere *minsp;
+	double mindist;
+	double dist;
 	int k;
 	// t_sphere *minsp;
 
 	i = 0;
 	j = 0;
 	res = conf->res;
-	ipoint.x = 0;
-	ipoint.y = 0;
-	ipoint.z = 0;
+	// ipoint.x = 0;
+	// ipoint.y = 0;
+	// ipoint.z = 0;
+	mindist = INFINITY;
+	dist = INFINITY;
+	minsp = NULL;
 	while (j < conf->res->Y)
 	{
 		i = 0;
@@ -80,11 +82,24 @@ void trace_sphere(t_conf *conf, t_sphere **sps, double fov)
 			init_ray(&ray, res, i, j, fov);
 			while (sps[k] != NULL)
 			{
-				if ((sphere_intersect(sps[k], &ray, &ipoint)))
-					my_mlx_pixel_put(conf->img, i, j, sps[k]->color);
+				if (!(isnan(dist = sphere_intersect(sps[k], &ray))))
+				{
+					if (dist < mindist)
+					{
+						mindist = dist;
+						minsp = sps[k];
+					}
+				}
 				k++;
 			}
+			if (minsp != NULL)
+			{
+				// printf("color => %X; z = %.1f\n", minsp->color, minsp->c.z);
+				my_mlx_pixel_put(conf->img, i, j, minsp->color);
+			}
 			k = 0;
+			mindist = INFINITY;
+			minsp = NULL;
 			i++;
 		}
 	j++;
@@ -101,9 +116,9 @@ int main()
 	t_conf	conf;
 	t_args args;
 	double fov;
-	t_sphere sp;
-	t_sphere sp2;
-	t_sphere sp3;
+	t_sphere spwhite;
+	t_sphere spgreen;
+	t_sphere spmagenta;
 
 	// Spheres
 	t_sphere *sps[4];
@@ -123,14 +138,14 @@ int main()
 	args.conf = &conf;
 
 	// Trace sphere Sphere
-	init_sphere(&sp, (t_p3d){0, 0, 50}, 19, white);
-	init_sphere(&sp2, (t_p3d){0, 0, 12}, 8, green);
-	init_sphere(&sp3, (t_p3d){0, 0, 5}, 3, magenta);
+	init_sphere(&spwhite, (t_p3d){0, 0, 15}, 19, white);
+	init_sphere(&spgreen, (t_p3d){0, 0, 12}, 15, green);
+	init_sphere(&spmagenta, (t_p3d){0, 0, 4}, 1, magenta);
 
 	// Fill array of spheres
-	sps[0] = &sp;
-	sps[2] = &sp2;
-	sps[1] = &sp3;
+	sps[2] = &spwhite;
+	sps[1] = &spgreen;
+	sps[0] = &spmagenta;
 	sps[3] = NULL;
 
 	fov = 180;
