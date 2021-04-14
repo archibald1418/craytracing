@@ -42,45 +42,45 @@ void	move_point(t_point *a, t_point *offset)
 	a->y += offset->y;
 }
 
-void	p_add(t_p3d *c,t_p3d *v, t_p3d *u)
+void	p_add(t_p3d *c, t_p3d v, t_p3d u)
 {
 	init_p3d(c,\
-	v->x + u->x,\
-	v->y + u->y,\
-	v->z + u->z);
+	v.x + u.x,\
+	v.y + u.y,\
+	v.z + u.z);
 }
 
-void	p_sub(t_p3d *c, t_p3d *v, t_p3d *u)
+void	p_sub(t_p3d *c, t_p3d v, t_p3d u)
 {
 	init_p3d(c,\
-	v->x - u->x,\
-	v->y - u->y,\
-	v->z - u->z);
+	v.x - u.x,\
+	v.y - u.y,\
+	v.z - u.z);
 }
 
 
-double	get_len(t_p3d *v)
+double	get_len(t_p3d v)
 {
-	return (sqrt(pow(v->x, 2) + pow(v->y, 2) + pow(v->z, 2)));
+	return (sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2)));
 }
 
 
-void		scaldiv(t_p3d *c, t_p3d *v, double s)
+void		scaldiv(t_p3d *c, t_p3d v, double s)
 {
 	if (s == 0)
 	{
 		printf("DIVISION BY ZERO ERROR!\n");
 		return ;
 	}
-	init_p3d(c, v->x / s, v->y / s, v->z / s);
+	init_p3d(c, v.x / s, v.y / s, v.z / s);
 }
 
-void		scalmult(t_p3d *c, t_p3d *v, double s)
+void		scalmult(t_p3d *c, t_p3d v, double s)
 {
-	init_p3d(c, v->x * s, v->y * s, v->z * s);
+	init_p3d(c, v.x * s, v.y * s, v.z * s);
 }
 
-void		normalize(t_p3d *n, t_p3d *v)
+void		normalize(t_p3d *n, t_p3d v)
 {
 	double len;
 	len = get_len(v);
@@ -93,17 +93,17 @@ void		normalize(t_p3d *n, t_p3d *v)
 	scaldiv(n, v, len);
 }
 
-double		dot(t_p3d *v, t_p3d *u)
+double		dot(t_p3d v, t_p3d u)
 {
-	return (v->x * u->x + v->y * u->y + v->z * u->z);
+	return (v.x * u.x + v.y * u.y + v.z * u.z);
 }
 
-double		dot_alpha(t_p3d *v, double angle)
+double		dot_alpha(t_p3d v, double angle)
 {
 	return (get_len(v) * cos(angle));
 }
 
-double		cos_sim(t_p3d *v, t_p3d *u)
+double		cos_sim(t_p3d v, t_p3d u)
 {
 	double len_v;
 	len_v = get_len(v);
@@ -115,22 +115,22 @@ double		cos_sim(t_p3d *v, t_p3d *u)
 	return (dot(v, u) / (len_v * get_len(u)));
 }
 
-void		p_mult(t_p3d *c, t_p3d *v, t_p3d *u)
+void		p_mult(t_p3d *c, t_p3d v, t_p3d u)
 {
-	init_p3d(c, v->x * u->x, v->y * u->y, v->z * u->z);
+	init_p3d(c, v.x * u.x, v.y * u.y, v.z * u.z);
 }
 
-double	det2(t_p2d *v, t_p2d *u)
+double	det2(t_p2d v, t_p2d u)
 {
-	return (v->x * u->y - u->x * v->y);
+	return (v.x * u.y - u.x * v.y);
 }
 
-void	cross(t_p3d *c, t_p3d *v, t_p3d *u)
+void	cross(t_p3d *c, t_p3d v, t_p3d u)
 {
 	init_p3d(c, 
-	v->y * u->z - v->z * u->y,\
-	v->z * u->x - v->x * u->z,\
-	v->x * u->y - v->y * u->x);
+	v.y * u.z - v.z * u.y,\
+	v.z * u.x - v.x * u.z,\
+	v.x * u.y - v.y * u.x);
 }
 
 void	draw_vector(t_p2d *loc, t_p2d *end, t_conf *conf, void (*put_line)(t_line *, t_conf *))
