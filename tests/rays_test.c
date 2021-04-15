@@ -29,6 +29,10 @@ double	get_min_pos_root(double disc, double a, double b)
 	r2 = -b - sqd;
 	if (r1 * r2 >= 0)
 		return (fmin(r1, r2));
+	if (r1 >= 0)
+		return (r1);
+	if (r2 >= 0)
+		return (r2);
 	return ((double)NAN);
 }
 
@@ -128,7 +132,7 @@ int main()
 	char *test = "SPHERE!";
 
 	// Window
-	res.X = ft_atoi("1500");
+	res.X = ft_atoi("1800");
 	res.Y = ft_atoi("1500");
 	conf = (t_conf){&img, &vars, &res};
 	init_window(conf.vars, conf.res, test);
@@ -139,9 +143,9 @@ int main()
 	args.conf = &conf;
 
 	// Trace sphere Sphere
-	init_sphere(&spwhite, (t_p3d){0, 0, 40}, 19, white);
-	init_sphere(&spgreen, (t_p3d){0, 5, 30}, 8, green);
-	init_sphere(&spmagenta, (t_p3d){-5, 0, 20}, 1, magenta);
+	init_sphere(&spwhite, (t_p3d){0,0, 100}, 20, white);
+	init_sphere(&spgreen, (t_p3d){4, -2, 30}, 7, green);
+	init_sphere(&spmagenta, (t_p3d){-15, 20, 100}, 10, magenta);
 
 	// Fill array of spheres
 	sps[2] = &spwhite;
@@ -160,5 +164,6 @@ int main()
 	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, close_win, &vars);
 	mlx_hook(vars.win, MotionNotify, PointerMotionMask, put_mouse_pos, &args);
 	mlx_hook(args.outwin, DestroyNotify, StructureNotifyMask, close_win, &args);
+	printf("gss gave -> %d\n\n", mlx_get_screen_size(conf.img, &conf.res->X, &conf.res->Y));
 	mlx_loop(vars.mlx);
 }

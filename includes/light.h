@@ -7,7 +7,7 @@
 typedef struct	s_lamb
 {
 	double	lum;
-	t_color	*col;
+	t_color	col;
 }				t_lamb;
 
 typedef struct	s_lsrc

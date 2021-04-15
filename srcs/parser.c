@@ -23,7 +23,9 @@
 #define	CY		"cy"
 #define TR		"tr"
 
-#define IDS		{RES, AMB, CAM, LS, PL, SP, SQ, CY, TR, NULL}
+#define IDLEN	9
+
+const char *g_ids[] = {RES, AMB, CAM, LS, PL, SP, SQ, CY, TR, NULL};
 
 /*
 
@@ -60,40 +62,96 @@ RES: 2 positive numbers
 
 void	init_rt(t_rt *rt)
 {
-	rt->res		= NULL;
-	rt->lamb	= NULL;
+	rt->res		= (t_res){0, 0};
+	rt->lamb	= (t_lamb){0, (t_color){0, 0, 0}};
 	rt->shapes	= NULL;
 	rt->lsrcs	= NULL;
 	rt->cams	= NULL;
 }
 
-void	parser(char *path)
+static int	has_single_id(char **tokens)
+{
+	int flags[IDLEN];
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (i < IDLEN)
+		flags[i++] = 0;
+	while (tokens[j] != NULL)
+	{
+		i = 0;
+		while (((char**)g_ids)[i] != NULL)
+		{
+			if (ft_strncmp(((char**)g_ids)[i], tokens[j], 2) == 0)
+				flags[i] += 1;
+			if (flags[i] > 1)
+				return (0);
+			i++;
+		}
+		j++;
+	}
+	return (1);
+
+}
+
+int	check_line(t_rt *rt, char **tokens)
+{
+	char *id;
+	id = tokens[0];
+	if (!(is_in_arr(id, (char**)g_ids)))
+		return (printf("IDENTIFIER '%s' IS NOT VALID\n", id));
+	if (!(has_single_id(tokens)))
+		return (printf("MORE THAN ONE IDENTIFIER IN LINE\n"));
+	if (ft_strncmp(id, (char*)RES, ft_strlen((char*)RES)) == 0)
+		if (check_res(tokens, rt) != 1)
+			return (printf("RESOLUTION ERROR...\n"));
+	if (ft_strncmp(id, (char*)AMB, ft_strlen((char*)AMB)) == 0)
+		if (check_lamb(tokens, rt) != 1)
+			return (printf("\nAMBIENT LIGHT ERROR...\n"));
+	//TODO:
+	/*
+	check_cam
+	check_lsrc
+	check_sp
+	check_pl
+	check_tr
+	check_sq
+	check_cy
+	*/
+	return (1);
+
+	
+}
+
+int		parser(const char *path, t_rt *rt)
 {
 	char	*line;
 	int		fd;
 	int		out;
 	int		i;
-	char	**arr;
-	t_rt	rt;
+	char	**tokens;
 
-	init_rt(&rt);
-
+	init_rt(rt);
 	i = 1;
 	fd = open(path, O_RDONLY);
 	out = 1;
 	while (out > 0)
 	{
-		if ((out = get_next_line(fd, &line)) > 0 && *line != '\0')
+		if ((out = get_next_line(fd, &line)) >= 0 && *line != '\0')
 		{
-			arr = ft_strsplit(line, SPACES);
-			// ft_putstrarr(arr, ft_count_words(line, SPACES));
-			free_arr((void**)arr, ft_count_words(line, SPACES));
+			tokens = ft_strsplit(line, SPACES);
+			if (check_line(rt, tokens) != 1)
+				return (printf("\nCONFIGURATION ERROR. TRY ANOTHER FILE\n"));
+			free_arr((void**)tokens, ft_count_words(line, SPACES));
 		}
 		i++;
 		free(line);
 	}
-	if (out >= 0)
+	if (out == 0)
 		close(fd);
 	else
-		dprintf(1, "FILE ERROR...\n");
+		return(printf("\nFILE ERROR...\n"));
+	return (1);
 }

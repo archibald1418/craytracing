@@ -33,17 +33,17 @@ typedef t_bilist	t_cams;
 
 typedef struct	s_rt
 {
-	t_res		*res;
-	t_lamb		*lamb;
+	t_res		res;
+	t_lamb		lamb;
 	t_shapes	*shapes;
-	t_lsrcs		*lsrcs;
-	t_cams		*cams;
+	t_list		*lsrcs;
+	t_bilist	*cams;
 }				t_rt;
 
 double	ft_atof(char *s);
 char	**ft_strsplit(char const *s, char *set);
 void	**free_arr(void **arr, size_t len);
-void	parser(char *path);
+int		parser(const char *path, t_rt *rt);
 void	init_rt(t_rt *rt);
 void	set_color(t_color *col, int r, int g, int b);
  void	set_lamb(t_lamb *lamb, double lum, t_color *col);
