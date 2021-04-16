@@ -32,7 +32,8 @@ SRCS	= 	circle.c \
 			ft_atof.c \
 			checkers.c \
 			setters.c \
-			rays.c
+			rays.c \
+			camera.c
 
 DIR			=	srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))
