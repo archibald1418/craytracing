@@ -5,9 +5,11 @@
 
 typedef struct	s_cam
 {
-	t_v3d	vp;
-	t_v3d	dir;
+	t_p3d	loc;
+	t_p3d	dir;
 	int		fov;
 }				t_cam;
+
+void	init_camera(t_cam *cam, t_p3d loc, t_p3d dir, int fov);
 
 #endif

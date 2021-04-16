@@ -1,22 +1,87 @@
 #include "minirt.h"
 
-#define MAXRESX 2560
-#define MAXRESY 1600
+int		check_fov(int fov)
+{
+	if (!(0 <= fov && fov <= 180))
+		return (dprintf(1, "FOV NOT IN RANGE [0, 180]\n"));
+	// TODO: check zero fov at raycasting stage
+	return (1);
+}
 
-// FIXME: Not optimal - mlx_get_screen_size doesn't - wrong mlx.h lol
+int		check_point(char ***tokens, t_p3d *p, int is_normal)
+{
+	int i;
+	const char *msgs[] = {"POINT", "NORMAL"};
+	double x;
+	double y;
+	double z;
 
-// int		check_rt(t_rt *rt)
-// {
-// 	return (rt->res && rt->lamb && rt->shapes && rt->lsrcs && rt->cams);
-// }
+	i = 0;
+	while ((*tokens)[i] != NULL)
+		if (++i > 3)
+			return (dprintf(1, "TOO MANY COORDS IN %s", msgs[is_normal]));
+	if (i < 3)
+		return (dprintf(1, "TOO FEW COORDS IN %s!\n", msgs[is_normal]));
+	if (isnan(x = (double)ft_atof((*tokens)[0])))
+		return (dprintf(1, "BAD X COORD IN %s!\n", msgs[is_normal]));
+	if (isnan(y = (double)ft_atof((*tokens)[1])))
+		return (dprintf(1, "BAD Y COORD IN %s!\n", msgs[is_normal]));
+	if (isnan(z = (double)ft_atof((*tokens)[2])))
+		return (dprintf(1, "BAD Z COORD IN %s!\n", msgs[is_normal]));
+	if (is_normal)
+		if (x == 0 && y == 0 && z == 0)
+			return ("ZERO NORMAL ERROR...\n");
+	init_p3d(p, x, y, z);
+	return (1);
+	//
+}
+
+int		check_cam (char **tokens, t_cam *cam)
+{
+	int i;
+	t_p3d loc;
+	t_p3d dir;
+	double fov;
+	char **ploc;
+	char **pdir;
+
+	i = 0;
+	while (tokens[i] != NULL)
+		if (++i > 3)
+			return (dprintf(1, "TOO MANY ELEMENTS IN CAMERA\n"));
+	if (i < 3)
+		return (dprintf(1, "TOO FEW ELEMENTS IN CAMERA\n"));
+
+	// Parse location
+	if (!(ploc = ft_strsplit(tokens[1], ",")))
+		return (-1);
+	if (check_point(ploc, &loc, 0) != 1)
+		return (dprintf(1, "CAMERA LOCATION ERROR...\n"));
+
+	// Parse direction
+	if (!(pdir = ft_strsplit(tokens[2], ",")))
+		return (-1);
+	if (check_point(pdir, &dir, 1) != 1)
+		return (dprintf(1, "CAMERA DIRECTION ERROR\n"));
+
+	// Parse fov
+	if (isnan(fov = (double)ft_atof(tokens[2])))
+		return(printf("BAD FOV\n"));
+	if (!check_fov((int)fov))
+		return (printf("FOV ERROR\n"));
+
+	init_camera(cam, loc, dir, fov);
+	return (1);
+	//TODO: camera setter should also add to a list...
+	//TODO: tests
+
+}
 
 int		check_res (char **tokens, t_rt *rt)
 {
 	double X;
 	double Y;
 	int i;
-	const int maxresx;
-	const int maxresy;
 
 	i = 0;
 	if (rt->res.X != 0 && rt->res.Y != 0)
@@ -86,7 +151,7 @@ int		check_lamb(char **tokens, t_rt *rt)
 	if (!(rgb = ft_strsplit(tokens[2], ",")))
 		return (-1);
 	if (check_rgb(&rgb, &color) != 1)
-		return (dprintf(1, "BAD COLOR!\n"));
+		return (dprintf(1, "BAD AMBIENT COLOR!\n"));
 	set_lamb(&rt->lamb, lum, &color);
 	return (1);
 }
