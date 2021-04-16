@@ -37,7 +37,7 @@ SRCS	= 	circle.c \
 DIR			=	srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))
 SOURCE		=	$(addprefix ./srcs/, $(SRCS))
-IFLAG		=	-I $(INCL) -I $(MLX) -I $(LIBFT) -I $(GNL)
+IFLAG		=	-I$(INCL) -I./$(MLX) -I$(LIBFT) -I$(GNL)
 FRM			=	-framework OpenGL -framework AppKit
 LIBAS		= 	$(MLXLL) $(LIBA) $(GNLA)
 
@@ -90,7 +90,7 @@ test-atof: $(MLXLL)
 	gcc $(TESTDIR)/ft_atof_test.c $(SOURCE) $(LIBA) -g $(IFLAG) -I $(TESTDIR)  $< -o atof
 
 test-parser: $(LIBA) $(GNLA)
-	gcc -g $(TESTDIR)/parser_test.c $(TESTDIR)/test_funcs.c srcs/setters.c srcs/checkers.c srcs/parser.c srcs/parser_utils.c srcs/ft_strsplit.c srcs/ft_atof.c $(LIBA) $(GNLA) $(IFLAG) -I $(TESTDIR) -o parser
+	gcc -g $(TESTDIR)/parser_test.c $(TESTDIR)/test_funcs.c srcs/setters.c srcs/checkers.c srcs/parser.c srcs/parser_utils.c srcs/ft_strsplit.c srcs/ft_atof.c $(LIBA) $(GNLA) $(IFLAG) -I$(TESTDIR) -o parser
 
 test-vectors: $(MLXLL) $(LIBA)
 	$(CC) $(TESTDIR)/vectors_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)

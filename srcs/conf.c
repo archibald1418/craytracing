@@ -25,7 +25,15 @@ int             close_win(t_win *vars)
 
 void	init_window(t_win *vars, t_res *RES, char *title)
 {
+	int maxresx;
+	int maxresy;
+
 	vars->mlx = mlx_init();
+	mlx_get_screen_size(vars->mlx, &maxresx, &maxresy);
+	printf("%d - %d\n", maxresx, maxresy);
+	RES->X = (int)fmin(maxresx, RES->X);
+	RES->Y = (int)fmin(maxresx, RES->Y);
+
 	vars->win = mlx_new_window(vars->mlx, RES->X, RES->Y, title);
 }
 

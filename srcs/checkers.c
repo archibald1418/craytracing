@@ -2,6 +2,7 @@
 
 #define MAXRESX 2560
 #define MAXRESY 1600
+
 // FIXME: Not optimal - mlx_get_screen_size doesn't - wrong mlx.h lol
 
 // int		check_rt(t_rt *rt)
@@ -14,6 +15,8 @@ int		check_res (char **tokens, t_rt *rt)
 	double X;
 	double Y;
 	int i;
+	const int maxresx;
+	const int maxresy;
 
 	i = 0;
 	if (rt->res.X != 0 && rt->res.Y != 0)
@@ -27,8 +30,8 @@ int		check_res (char **tokens, t_rt *rt)
 		return (dprintf(1, "BAD WINDOW WIDTH\n"));
 	if (isnan(Y = (double)ft_atoi(tokens[2])) || (int)Y <= 0)
 		return (dprintf(1, "BAD WINDOW HEIGHT\n"));
-	rt->res.X = (int)(fmin(X, MAXRESX));
-	rt->res.Y = (int)(fmin(Y, MAXRESY));
+	rt->res.X = (int)X;
+	rt->res.Y = (int)Y;
 	return (1);
 }
 

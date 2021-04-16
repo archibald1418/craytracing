@@ -132,8 +132,8 @@ int main()
 	char *test = "SPHERE!";
 
 	// Window
-	res.X = ft_atoi("1800");
-	res.Y = ft_atoi("1500");
+	res.X = ft_atoi("3000");
+	res.Y = ft_atoi("3000");
 	conf = (t_conf){&img, &vars, &res};
 	init_window(conf.vars, conf.res, test);
 	init_img(conf.img, conf.vars, conf.res->X, conf.res->Y);
@@ -157,13 +157,12 @@ int main()
 	trace_sphere(&conf, sps, fov);
 	// trace_sphere(&conf, &sp2, fov);
 	// trace_sphere(&conf, &sp3, fov);
-	
 
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, close_win, &vars);
 	mlx_hook(vars.win, MotionNotify, PointerMotionMask, put_mouse_pos, &args);
 	mlx_hook(args.outwin, DestroyNotify, StructureNotifyMask, close_win, &args);
-	printf("gss gave -> %d\n\n", mlx_get_screen_size(conf.img, &conf.res->X, &conf.res->Y));
+	// printf("gss gave -> %d\n\n", mlx_get_screen_size(conf.img, &conf.res->X, &conf.res->Y));
 	mlx_loop(vars.mlx);
 }
