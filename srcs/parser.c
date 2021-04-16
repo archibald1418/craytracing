@@ -143,7 +143,10 @@ int		parser(const char *path, t_rt *rt)
 		{
 			tokens = ft_strsplit(line, SPACES);
 			if (check_line(rt, tokens) != 1)
+			{
+				free(line);
 				return (printf("\nCONFIGURATION ERROR. TRY ANOTHER FILE\n"));
+			}
 			free_arr((void**)tokens, ft_count_words(line, SPACES));
 		}
 		i++;
