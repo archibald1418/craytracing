@@ -1,7 +1,7 @@
 #include "tests.h"
 
 // #define PATH	"/Users/ldonita/42cursus/minirt/1.rt"
-#define PATH	"tests/check.rt"
+#define PATH	"1.rt"
 
 #define SPACES "\v\t \r\f"
 
