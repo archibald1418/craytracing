@@ -19,6 +19,7 @@ int             close_win(t_win *vars)
 	helps with leaks
 	NOTE to self: I have two windows :)
 	*/
+	// TODO: clear all structs and stuff
 	exit(0);
 	return (0);
 }
@@ -30,7 +31,6 @@ void	init_window(t_win *vars, t_res *RES, char *title)
 
 	vars->mlx = mlx_init();
 	mlx_get_screen_size(vars->mlx, &maxresx, &maxresy);
-	printf("%d - %d\n", maxresx, maxresy);
 	RES->X = (int)fmin(maxresx, RES->X);
 	RES->Y = (int)fmin(maxresx, RES->Y);
 
