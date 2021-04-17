@@ -6,7 +6,7 @@
 /*   By: ldonita <ldonita@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 02:54:23 by ldonita           #+#    #+#             */
-/*   Updated: 2020/12/03 16:36:11 by ldonita          ###   ########.fr       */
+/*   Updated: 2021/04/17 02:54:40 by ldonita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@ typedef struct	s_list
 	void			*content;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct	s_bilist
+{
+	void			*content;
+	struct s_bilist	*next;
+	struct s_bilist	*prev;
+}				t_bilist;
+
+typedef struct	s_bilast
+{
+	t_bilist	*head;
+	t_bilist	*tail;
+}				t_bilast;
+
 
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
@@ -71,5 +85,14 @@ void			ft_lstdelone(t_list *lst, void (*del)(void*));
 void			ft_lstclear(t_list **lst, void (*del)(void*));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),void (*del)(void *));
+
+/*
+**	Doubly linked lists
+*/
+
+void		ft_bilist_append_back(t_bilist **bilast, t_bilist *node);
+t_bilist 	*ft_bilistnew(void *content, size_t size);
+void		ft_bilistdelone(t_bilist *lst, void(*del)(void *));
+void		ft_bilistclear(t_bilist **lst, void (*f)(void *));
 
 #endif

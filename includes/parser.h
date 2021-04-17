@@ -18,8 +18,9 @@
 
 typedef struct	s_bilist
 {
-	t_list *list;
-	t_list *prev;
+	t_list	*next;
+	t_list	*prev;
+	void	*content;
 }				t_bilist;
 
 typedef struct	s_shapes
@@ -55,7 +56,13 @@ int		check_rgb(char ***tokens, t_color *color);
 int		check_lamb(char **tokens, t_rt *rt);
 int		check_rt(t_rt *rt);
 
+int		check_cam (char **tokens, t_cam *cam);
+int		check_point(char ***tokens, t_p3d *p, int is_normal);
+int		check_fov(int fov);
+
 int		is_in_arr(char *s, char **arr);
+
+// Bilist methods
 
 
 

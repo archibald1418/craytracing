@@ -99,6 +99,8 @@ static int	has_single_id(char **tokens)
 int	check_line(t_rt *rt, char **tokens)
 {
 	char *id;
+	t_cam cam;
+
 	id = tokens[0];
 	if (!(is_in_arr(id, (char**)g_ids)))
 		return (printf("IDENTIFIER '%s' IS NOT VALID\n", id));
@@ -110,9 +112,13 @@ int	check_line(t_rt *rt, char **tokens)
 	if (ft_strncmp(id, (char*)AMB, ft_strlen((char*)AMB)) == 0)
 		if (check_lamb(tokens, rt) != 1)
 			return (printf("\nAMBIENT LIGHT ERROR...\n"));
+	if (ft_strncmp(id, (char*)AMB, ft_strlen((char*)AMB)) == 0)
+		if (check_cam(tokens, &cam) != 1)
+			return (printf("CAMERA ERROR...\n"));
+
 	//TODO:
 	/*
-	check_cam
+	check_cam : add to bilist
 	check_lsrc
 	check_sp
 	check_pl
