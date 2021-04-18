@@ -16,12 +16,12 @@
 // # define MAX_CAM 100
 # define MAX_SHAPES	100
 
-typedef struct	s_bilist
-{
-	t_list	*next;
-	t_list	*prev;
-	void	*content;
-}				t_bilist;
+// typedef struct	s_bilist
+// {
+// 	t_list	*next;
+// 	t_list	*prev;
+// 	void	*content;
+// }				t_bilist;
 
 typedef struct	s_shapes
 {

@@ -132,11 +132,3 @@ void	cross(t_p3d *c, t_p3d v, t_p3d u)
 	v.z * u.x - v.x * u.z,\
 	v.x * u.y - v.y * u.x);
 }
-
-void	draw_vector(t_p2d *loc, t_p2d *end, t_conf *conf, void (*put_line)(t_line *, t_conf *))
-{
-	t_line line;
-
-	init_line(&line, &(t_point){loc->x, loc->y}, &(t_point){end->x, end->y}, red);
-	put_line(&line, conf);
-}

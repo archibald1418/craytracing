@@ -162,3 +162,11 @@ int		are_parallel(t_line *a, t_line *b)
 	/* FIXME: No, equal ders only tells if lines are copies 
 	Lines of different length also can be parallel!!!*/
 }
+
+void	draw_vector(t_p2d *loc, t_p2d *end, t_conf *conf, void (*put_line)(t_line *, t_conf *))
+{
+	t_line line;
+
+	init_line(&line, &(t_point){loc->x, loc->y}, &(t_point){end->x, end->y}, red);
+	put_line(&line, conf);
+}
