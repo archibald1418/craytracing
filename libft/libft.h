@@ -6,7 +6,7 @@
 /*   By: ldonita <ldonita@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 02:54:23 by ldonita           #+#    #+#             */
-/*   Updated: 2021/04/17 02:54:40 by ldonita          ###   ########.fr       */
+/*   Updated: 2021/04/18 19:51:23 by ldonita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),void (*del)(void *));
 **	Doubly linked lists
 */
 
-void		ft_bilist_append_back(t_bilist **bilast, t_bilist *node);
+void		ft_bilist_append_back(t_bilast **bilast, t_bilist *node);
 t_bilist 	*ft_bilistnew(void *content, size_t size);
 void		ft_bilistdelone(t_bilist *lst, void(*del)(void *));
 void		ft_bilistclear(t_bilist **lst, void (*f)(void *));
