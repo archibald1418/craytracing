@@ -124,16 +124,17 @@ int main()
 	t_sphere spwhite;
 	t_sphere spgreen;
 	t_sphere spmagenta;
+	t_sphere	 spyellow;
 
 	// Spheres
-	t_sphere *sps[4];
+	t_sphere *sps[5];
 
 
 	char *test = "SPHERE!";
 
 	// Window
-	res.X = ft_atoi("3000");
-	res.Y = ft_atoi("3000");
+	res.X = ft_atoi("1000");
+	res.Y = ft_atoi("1000");
 	conf = (t_conf){&img, &vars, &res};
 	init_window(conf.vars, conf.res, test);
 	init_img(conf.img, conf.vars, conf.res->X, conf.res->Y);
@@ -146,12 +147,14 @@ int main()
 	init_sphere(&spwhite, (t_p3d){0,0, 100}, 20, white);
 	init_sphere(&spgreen, (t_p3d){4, -2, 30}, 7, green);
 	init_sphere(&spmagenta, (t_p3d){-15, 20, 100}, 10, magenta);
+	init_sphere(&spyellow, (t_p3d){15, -20, 20}, 10, yellow);
 
 	// Fill array of spheres
 	sps[2] = &spwhite;
 	sps[0] = &spmagenta;
 	sps[1] = &spgreen;
-	sps[3] = NULL;
+	sps[3] = &spyellow;
+	sps[4] = NULL;
 
 	fov = 66;
 	trace_sphere(&conf, sps, fov);
