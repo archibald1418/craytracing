@@ -6,7 +6,7 @@
 /*   By: ldonita <ldonita@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 18:20:11 by ldonita           #+#    #+#             */
-/*   Updated: 2020/12/03 17:43:43 by ldonita          ###   ########.fr       */
+/*   Updated: 2021/04/20 23:52:13 by ldonita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 t_list	*ft_lstnew(void *content, size_t size)
 {
-	t_list *new;
+	t_list *newnode;
 
-	new = malloc(sizeof(t_list *));
-	if (new != NULL)
+	newnode = (t_list *)malloc(sizeof(t_list *));
+	if (newnode != NULL)
 	{
-		new->content = ft_memdup(content, size);
-		new->next = NULL;
+		newnode->content = ft_memdup(content, size);
+		newnode->next = NULL;
 	}
-	return (new);
+	return (newnode);
 }
