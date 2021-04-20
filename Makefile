@@ -1,8 +1,6 @@
 NAME	= window
 LIBFT	= ./libft
 LIBA	= $(LIBFT)/libft.a
-GNL		= ./gnl
-GNLA	= $(GNL)/gnl.a
 MLX		= minilibx_mms_20200219
 MLXLL	= $(MLX)/libmlx.dylib
 CC		= gcc
@@ -38,9 +36,9 @@ SRCS	= 	circle.c \
 DIR			=	srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))
 SOURCE		=	$(addprefix ./srcs/, $(SRCS))
-IFLAG		=	-I$(INCL) -I./$(MLX) -I$(LIBFT) -I$(GNL)
+IFLAG		=	-I$(INCL) -I./$(MLX) -I$(LIBFT)
 FRM			=	-framework OpenGL -framework AppKit
-LIBAS		= 	$(MLXLL) $(LIBA) $(GNLA)
+LIBAS		= 	$(MLXLL) $(LIBA)
 
 all: $(NAME)
 
@@ -48,23 +46,17 @@ $(LIBA):
 	make bonus -j4 -C libft
 	cp $(LIBA) ./
 
-$(GNLA):
-	make -C $(GNL)
-	cp $(GNLA) ./
-
-$(MLXLL): $(LIBA) $(GNLA)
+$(MLXLL): $(LIBA)
 	make -C ./$(MLX)
 	cp $(MLXLL) ./
 
 clean:
 	make clean -C $(LIBFT)
 	make clean -C $(MLX)
-	make clean -C $(GNL)
 	rm -rf *.o *.out *.dSYM
 
 fclean: clean
 	make fclean -C $(LIBFT)
-	make fclean -C $(GNL)
 	rm -rf ./*.a ./*.dylib a.out $(NAME)
 
 $(NAME): $(MLXLL) $(OBJ) $(HEADERS)
@@ -84,14 +76,11 @@ test-triangle:
 test-window:
 	$(CC) main.c $(SOURCE) -g $(IFLAG) $(LIBAS) $(FRM) -o $(NAME)
 
-test-gnl: $(GNLA)
-	$(CC) $(TESTDIR)/gnl_test.c -g $(IFLAG) -I $(TESTDIR) $(FRM) $< -o gnl.o
-
 test-atof: $(MLXLL)
 	gcc $(TESTDIR)/ft_atof_test.c $(SOURCE) $(LIBA) -g $(IFLAG) -I $(TESTDIR)  $< -o atof
 
-test-parser: $(LIBA) $(GNLA)
-	gcc -g \
+test-parser: $(MLXLL) $(HEADERS)
+	gcc -g  $(LIBA) $(IFLAG) -I$(TESTDIR)  -o parser \
 	$(TESTDIR)/parser_test.c $(TESTDIR)/test_funcs.c \
 	srcs/setters.c \
 	srcs/checkers.c \
@@ -100,8 +89,7 @@ test-parser: $(LIBA) $(GNLA)
 	srcs/ft_strsplit.c \
 	srcs/ft_atof.c \
 	srcs/camera.c \
-	srcs/vectors.c \
-	$(LIBA) $(GNLA) $(IFLAG) -I$(TESTDIR) -o parser
+	srcs/vectors.c
 
 test-vectors: $(MLXLL) $(LIBA)
 	$(CC) $(TESTDIR)/vectors_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
@@ -111,4 +99,4 @@ test-rays: $(MLXLL) $(LIBA)
 
 re: fclean all
 
-.PHONY: fclean clean all gnl
+.PHONY: fclean clean all

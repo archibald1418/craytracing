@@ -9,7 +9,8 @@ SRCS =	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 		ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c \
 		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 		ft_bilistnew.c ft_bilistdelone.c ft_bilistclear.c \
-		ft_bilistappend_back.c
+		ft_bilistappend_back.c \
+		get_next_line.c get_next_line_utils.c
 
 BONUSSRCS = ft_lstadd_front.c ft_lstadd_back.c \
 			ft_lstnew.c ft_lstsize.c ft_lstmap.c \
@@ -27,7 +28,7 @@ $(NAME): $(OBJS)
 bonus: ${OBJS} ${OBJBONUS}
 	ar rc ${NAME} $?
 	ranlib ${NAME}
-$(OBJS): libft.h
+$(OBJS): libft.h get_next_line.h
 test: $(TESTS) bonus
 	$(CC) -g $(TESTS) -L. -lft -o test
 	./test
