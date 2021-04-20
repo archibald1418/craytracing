@@ -55,7 +55,7 @@ int		check_cam (char **tokens, t_cam *cam)
 
 	i = 0;
 	// TODO: check_tokens func for all checkers
-	if (check_tokens(&tokens, 3, "ELEMENT", "CAMERA") != 1)
+	if (check_tokens(&tokens, 4, "ELEMENT", "CAMERA") != 1)
 		return (dprintf(1, "CAMERA ERROR ¯\\_(ツ)_/¯\n"));
 
 	// Parse location
@@ -71,7 +71,7 @@ int		check_cam (char **tokens, t_cam *cam)
 		return (dprintf(1, "CAMERA DIRECTION ERROR ¯\\_(ツ)_/¯\n"));
 
 	// Parse fov
-	if (isnan(fov = (double)ft_atof(tokens[2])))
+	if (isnan(fov = (double)ft_atof(tokens[3])))
 		return(printf("BAD FOV ...\n"));
 	if (!check_fov((int)fov))
 		return (printf("FOV ERROR ...\n"));

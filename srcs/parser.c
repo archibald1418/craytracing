@@ -112,7 +112,7 @@ int	check_line(t_rt *rt, char **tokens)
 	if (ft_strncmp(id, (char*)AMB, ft_strlen((char*)AMB)) == 0)
 		if (check_lamb(tokens, rt) != 1)
 			return (printf("\nAMBIENT LIGHT ERROR...\n"));
-	if (ft_strncmp(id, (char*)AMB, ft_strlen((char*)AMB)) == 0)
+	if (ft_strncmp(id, (char*)CAM, ft_strlen((char*)CAM)) == 0)
 		if (check_cam(tokens, &cam) != 1)
 			return (printf("CAMERA ERROR...\n"));
 
