@@ -10,6 +10,29 @@ void	del_cam(t_cam *node)
 	;
 }
 
+void	print_lsrc(t_lsrc *lsrc, int i)
+{
+	printf("LS%i : \n.loc=(%2.f, %2.f, %2.f)\n.rgb=(%d, %d, %d)\n.lum=%.2f\n\n", \
+	i,
+	lsrc->loc.x, lsrc->loc.y, lsrc->loc.z,\
+	lsrc->col.r, lsrc->col.g, lsrc->col.b,\
+	lsrc->lum);
+}
+
+void	print_lsrcs(t_bilast *lsrcs)
+{
+	t_bilist *node;
+	int i;
+	node = lsrcs->head;
+	i = 1;
+	while (node)
+	{
+		print_lsrc((t_lsrc *)node->content, i);
+		node = node->next;
+		i++;
+	}
+}
+
 void	print_cam(t_cam *cam, int i)
 {
 	printf("CAM%i :\n.loc=(%2.f, %2.f, %2.f)\n.dir=(%2.f, %2.f, %2.f)\nfov=%d\n\n",\
@@ -56,6 +79,7 @@ void	print_rt(t_rt *rt)
 	rt->lamb.col.g,
 	rt->lamb.col.b);
     print_cams(&rt->cams);
+	print_lsrcs(&rt->lsrcs);
 }
 
 void	test_parser(void)

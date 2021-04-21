@@ -56,12 +56,13 @@ R19201080A0.2255,255,255c-50,0,200,0,070
 
 void	init_rt(t_rt *rt)
 {
-	rt->res		= (t_res){0, 0};
-	rt->lamb	= (t_lamb){0, (t_color){0, 0, 0}};
-	rt->shapes	= NULL;
-	rt->lsrcs	= NULL;
-	rt->cams.head = NULL;
-	rt->cams.tail = NULL;
+	rt->res			= (t_res){0, 0};
+	rt->lamb		= (t_lamb){0, (t_color){0, 0, 0}};
+	rt->shapes		= NULL;
+	rt->lsrcs.head	= NULL;
+	rt->lsrcs.tail	= NULL;
+	rt->cams.head	= NULL;
+	rt->cams.tail	= NULL;
 }
 
 static int	has_single_id(char **tokens)
@@ -88,7 +89,6 @@ static int	has_single_id(char **tokens)
 		j++;
 	}
 	return (1);
-
 }
 
 void	quit_cleanly(t_rt *rt, char ***tokens, char **line)
@@ -100,19 +100,26 @@ int	check_line(t_rt *rt, char **tokens)
 {
 	char *id;
 	t_cam cam;
+	t_lsrc lsrc;
 	t_bilist *camnode;
+	t_bilist *lightnode;
 
+	// Check id
 	id = tokens[0];
 	if (!(is_in_arr(id, (char**)g_ids)))
 		return (printf("IDENTIFIER '%s' IS NOT VALID\n", id));
 	if (!(has_single_id(tokens)))
 		return (printf("MORE THAN ONE IDENTIFIER IN LINE\n"));
+
+	// Ceck res and amb
 	if (ft_strncmp(id, (char*)RES, ft_strlen((char*)RES)) == 0)
 		if (check_res(tokens, rt) != 1)
 			return (printf("RESOLUTION ERROR...\n"));
 	if (ft_strncmp(id, (char*)AMB, ft_strlen((char*)AMB)) == 0)
 		if (check_lamb(tokens, rt) != 1)
 			return (printf("\nAMBIENT LIGHT ERROR...\n"));
+
+	// Check Camera
 	if (ft_strncmp(id, (char*)CAM, ft_strlen((char*)CAM)) == 0)
 	{
 		if (check_cam(tokens, &cam) != 1)
@@ -120,6 +127,16 @@ int	check_line(t_rt *rt, char **tokens)
 		if (!(camnode = ft_bilistnew(&cam, sizeof(t_cam))))
 			return (-1);
 		ft_bilist_append_back(&rt->cams, camnode);
+	}
+
+	// Check light source
+	if (ft_strncmp(id, (char *)LS, ft_strlen((char*)LS)) == 0)
+	{
+		if (check_lsrc(tokens, &lsrc) != 1)
+			return (printf("\nLIGHT SOURCE ERROR...\n"));
+		if (!(lightnode = ft_bilistnew(&lsrc, sizeof(t_lsrc))))
+			return (-1);
+		ft_bilist_append_back(&rt->lsrcs, lightnode);
 	}
 
 	//TODO:

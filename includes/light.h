@@ -14,7 +14,7 @@ typedef struct	s_lsrc
 {
 	double	lum;
 	t_color	col;
-	t_v3d	p;
+	t_p3d	loc;
 }				t_lsrc;
 
 #endif

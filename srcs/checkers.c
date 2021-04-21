@@ -67,8 +67,6 @@ int		check_cam (char **tokens, t_cam *cam)
 		return (dprintf(1, "CAMERA LOCATION ERROR ¯\\_(ツ)_/¯\n"));
 	}
 
-	// FIXME: split leaks - do pre-parsing
-
 	// Parse direction
 	if (!(pdir = ft_strsplit(tokens[2], ",")))
 		return (-1);
@@ -154,7 +152,6 @@ int		check_lamb(char **tokens, t_rt *rt)
 	if (lum < 0 || lum > 1)
 		return (dprintf(1, "LUMINANCE OUT OF RANGE [0,1]\n"));
 
-	//FIXME: split leaks
 	if (!(rgb = ft_strsplit(tokens[2], ",")))
 		return (-1);
 	if (check_rgb(&rgb, &color) != 1)
@@ -168,28 +165,39 @@ int		check_lamb(char **tokens, t_rt *rt)
 }
 
 
-int		check_lsrc(char **tokens, t_rt *rt)
+int		check_lsrc(char **tokens, t_lsrc *lsrc)
 {
 	t_p3d p;
 	double lum;
 	char **rgb;
 	t_color color;
-	t_lsrc lsrc;
+	char **ploc;
 
-	if (check_tokens(&tokens, 4, "ELEMENT", "AMBIENCE") != 1)
+	if (check_tokens(&tokens, 4, "ELEMENT", "LIGHT SOURCE") != 1)
 		return (dprintf(1, "LIGHT ERROR... \n"));
-	if (isnan(lum = (double)ft_atof(tokens[1])))
+	if (isnan(lum = (double)ft_atof(tokens[2])))
 		return (dprintf(1, "BAD LUMINANCE!\n"));
 	if (lum < 0 || lum > 1)
 		return (dprintf(1, "LUMINANCE OUT OF RANGE [0,1]\n"));
-	if (!(rgb = ft_strsplit(tokens[2], ",")))
+	if (!(rgb = ft_strsplit(tokens[3], ",")))
 		return (-1);
 	if (check_rgb(&rgb, &color) != 1)
 	{
 		free_arr((void**)rgb, 3);
-		return (dprintf(1, "BAD AMBIENT COLOR!\n"));
+		return (dprintf(1, "BAD LIGHT COLOR!\n"));
 	}
-	set_lsrc(&lsrc, lum, &color);
+	
+	// Parse location
+	if (!(ploc = ft_strsplit(tokens[1], ",")))
+		return (-1);
+	if (check_point(&ploc, &p, 0) != 1)
+	{
+		free_arr((void**)ploc, 3);
+		free_arr((void**)rgb, 3);
+		return (dprintf(1, "LIGHT LOCATION ERROR ¯\\_(ツ)_/¯\n"));
+	}
+	set_lsrc(lsrc, lum, color, p);
 	free_arr((void**)rgb, 3);
+	free_arr((void**)ploc, 3);
 	return (1);
 }
