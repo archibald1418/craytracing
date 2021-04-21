@@ -58,7 +58,10 @@ void	init_rt(t_rt *rt)
 {
 	rt->res			= (t_res){0, 0};
 	rt->lamb		= (t_lamb){0, (t_color){0, 0, 0}};
-	rt->shapes		= NULL;
+
+	// nullify shapes
+	ft_bzero(rt->shapes.shapes, MAX_SHAPES);
+
 	rt->lsrcs.head	= NULL;
 	rt->lsrcs.tail	= NULL;
 	rt->cams.head	= NULL;
@@ -129,7 +132,7 @@ int	check_line(t_rt *rt, char **tokens)
 		ft_bilist_append_back(&rt->cams, camnode);
 	}
 
-	// Check light source
+	// Check light source[]
 	if (ft_strncmp(id, (char *)LS, ft_strlen((char*)LS)) == 0)
 	{
 		if (check_lsrc(tokens, &lsrc) != 1)
@@ -138,6 +141,19 @@ int	check_line(t_rt *rt, char **tokens)
 			return (-1);
 		ft_bilist_append_back(&rt->lsrcs, lightnode);
 	}
+
+	// Check shapes
+	if (is_in_arr(id, (char*)PL))
+	{
+		// update top
+		if (check_shapes() != 1)
+			return (printf("SHAPES ERROR..."));
+		rt->shapes.top++;
+		if (rt->shapes.top > MAX_SHAPES)
+			return (printf("\n MAX SHAPES EXCEEDED. ABORT..."));
+	}
+
+	// PL, SP, SQ, CY, TR	
 
 	//TODO:
 	/*

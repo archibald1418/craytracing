@@ -44,15 +44,47 @@ typedef struct	s_sphere
 	t_p3d	c;
 	double	d;
 	int 	color;
-}				t_sphere;
-
-// TODO: two lines is easy for a color gradient 
+}				t_sphere; 
 
 typedef struct	s_grad
 {
 	int dx;
 	int dy;
 }				t_grad;
+
+// Parsing
+typedef struct	s_pl
+{
+	t_p3d dir;
+	t_p3d p;
+	t_color	color;
+}				t_pl;
+
+typedef struct	s_sq
+{
+	t_p3d	c;
+	t_p3d	dir;
+	int		side;
+	t_color	color;
+}				t_sq;
+
+typedef struct	s_cy
+{
+	t_p3d	c; // center of mass
+	t_p3d	dir;
+	double	d;
+	double	h;
+	t_color	color;
+}				t_cy;
+
+typedef struct	s_tr
+{
+	t_p3d	A;
+	t_p3d	B;
+	t_p3d	C;
+	t_color	color;
+}				t_tr;
+
 
 
 

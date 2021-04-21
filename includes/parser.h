@@ -25,7 +25,7 @@
 
 typedef struct	s_shapes
 {
-	void		*shapes[MAX_SHAPES];
+	void		*shapes[MAX_SHAPES + 1];
 	int			top; //	 Заполненность массива
 }				t_shapes;
 
@@ -36,7 +36,7 @@ typedef struct	s_rt
 {
 	t_res		res;
 	t_lamb		lamb;
-	t_shapes	*shapes;
+	t_shapes	shapes;
 	t_bilast	lsrcs;
 	t_bilast	cams;
 }				t_rt;
