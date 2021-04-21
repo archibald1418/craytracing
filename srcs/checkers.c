@@ -7,7 +7,7 @@ int		check_tokens(char ***tokens, int len, char *token_name, char *unit)
 	i = 0;
 	while ((*tokens)[i] != NULL)
 		if (++i > len)
-			return (dprintf(1, "TOO MANY %ss IN %s!\n", token_name, unit));
+			return (dprintf(1, "TOO MANY %sS IN %s!\n", token_name, unit));
 	if (i < len)
 		return (dprintf(1, "TOO FEW %sS IN %s!\n", token_name, unit));
 	return (1);
@@ -48,7 +48,8 @@ int		check_cam (char **tokens, t_cam *cam)
 {
 	int i;
 	t_p3d loc;
-	t_p3d dir;
+	t_p3d dir1;
+	t_p3d dir2;
 	double fov;
 	char **ploc;
 	char **pdir;
@@ -67,7 +68,7 @@ int		check_cam (char **tokens, t_cam *cam)
 	// Parse direction
 	if (!(pdir = ft_strsplit(tokens[2], ",")))
 		return (-1);
-	if (check_point(&pdir, &dir, 1) != 1)
+	if (check_point(&pdir, &dir2, 1) != 1)
 		return (dprintf(1, "CAMERA DIRECTION ERROR ¯\\_(ツ)_/¯\n"));
 
 	// Parse fov
@@ -75,8 +76,8 @@ int		check_cam (char **tokens, t_cam *cam)
 		return(printf("BAD FOV ...\n"));
 	if (!check_fov((int)fov))
 		return (printf("FOV ERROR ...\n"));
-
-	init_camera(cam, loc, dir, fov);
+	normalize(&dir1, dir2);
+	init_camera(cam, loc, dir1, fov);
 	return (1);
 	//TODO: camera setter should also add to a list ¯\\_(ツ)_/¯
 	//TODO: tests
@@ -140,7 +141,7 @@ int		check_lamb(char **tokens, t_rt *rt)
 		return(dprintf(1, "AMBIENCE IS ALREADY SET!\n"));
 		// No brightness results in no render
 	if (check_tokens(&tokens, 3, "ELEMENT", "AMBIENCE") != 1)
-		return (dprintf(1, "AMBIENCE ERROR... o()xxxx[{::::::::::::::::::>\n"));
+		return (dprintf(1, "AMBIENCE ERROR... \n"));
 	if (isnan(lum = (double)ft_atof(tokens[1])))
 		return (dprintf(1, "BAD LUMINANCE!\n"));
 	if (lum < 0 || lum > 1)

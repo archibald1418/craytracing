@@ -66,7 +66,8 @@ void	init_rt(t_rt *rt)
 	rt->lamb	= (t_lamb){0, (t_color){0, 0, 0}};
 	rt->shapes	= NULL;
 	rt->lsrcs	= NULL;
-	rt->cams	= NULL;
+	rt->cams.head = NULL;
+	rt->cams.tail = NULL;
 }
 
 static int	has_single_id(char **tokens)
@@ -100,6 +101,7 @@ int	check_line(t_rt *rt, char **tokens)
 {
 	char *id;
 	t_cam cam;
+	t_bilist *camnode;
 
 	id = tokens[0];
 	if (!(is_in_arr(id, (char**)g_ids)))
@@ -113,8 +115,13 @@ int	check_line(t_rt *rt, char **tokens)
 		if (check_lamb(tokens, rt) != 1)
 			return (printf("\nAMBIENT LIGHT ERROR...\n"));
 	if (ft_strncmp(id, (char*)CAM, ft_strlen((char*)CAM)) == 0)
+	{
 		if (check_cam(tokens, &cam) != 1)
 			return (printf("CAMERA ERROR...\n"));
+		if (!(camnode = ft_bilistnew(&cam, sizeof(t_cam))))
+			return (-1);
+		ft_bilist_append_back(&rt->cams, camnode);
+	}
 
 	//TODO:
 	/*

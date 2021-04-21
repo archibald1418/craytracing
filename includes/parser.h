@@ -38,7 +38,7 @@ typedef struct	s_rt
 	t_lamb		lamb;
 	t_shapes	*shapes;
 	t_list		*lsrcs;
-	t_bilist	*cams;
+	t_bilast	cams;
 }				t_rt;
 
 double	ft_atof(char *s);
@@ -47,7 +47,7 @@ void	**free_arr(void **arr, size_t len);
 int		parser(const char *path, t_rt *rt);
 void	init_rt(t_rt *rt);
 void	set_color(t_color *col, int r, int g, int b);
- void	set_lamb(t_lamb *lamb, double lum, t_color *col);
+void	set_lamb(t_lamb *lamb, double lum, t_color *col);
 
 // Scene checkers
 int		check_rt(t_rt *rt);
