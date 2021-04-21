@@ -21,8 +21,11 @@ int			is_in_arr(char *s, char **arr)
 
 	i = 0;
 	while (arr[i] != NULL)
-		if (ft_strncmp(s, arr[i++], ft_strlen(s)) == 0)
+	{
+		if (ft_strncmp(s, arr[i], ft_strlen(arr[i])) == 0)
 			return (1);
+		i++;
+	}
 	return (0);
 }
 
