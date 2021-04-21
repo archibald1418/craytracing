@@ -56,6 +56,8 @@ int		check_res (char **tokens, t_rt *rt);
 int		check_rgb(char ***tokens, t_color *color);
 int		check_lamb(char **tokens, t_rt *rt);
 int		check_lsrc(char **tokens, t_lsrc *lsrc);
+int		check_pl(char **tokens, t_rt *rt);
+int		check_sp(char **tokens, t_rt *rt);
 int		check_rt(t_rt *rt);
 
 int		check_cam (char **tokens, t_cam *cam);

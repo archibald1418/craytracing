@@ -132,7 +132,7 @@ int	check_line(t_rt *rt, char **tokens)
 		ft_bilist_append_back(&rt->cams, camnode);
 	}
 
-	// Check light source[]
+	// Check light source
 	if (ft_strncmp(id, (char *)LS, ft_strlen((char*)LS)) == 0)
 	{
 		if (check_lsrc(tokens, &lsrc) != 1)
@@ -146,8 +146,8 @@ int	check_line(t_rt *rt, char **tokens)
 	if (is_in_arr(id, (char*)PL))
 	{
 		// update top
-		if (check_shapes() != 1)
-			return (printf("SHAPES ERROR..."));
+		if (ft_strncmp(id, (char *)LS, ft_strlen((char*)LS)) == 0)	
+			if (check_pl)
 		rt->shapes.top++;
 		if (rt->shapes.top > MAX_SHAPES)
 			return (printf("\n MAX SHAPES EXCEEDED. ABORT..."));

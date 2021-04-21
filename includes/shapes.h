@@ -85,6 +85,12 @@ typedef struct	s_tr
 	t_color	color;
 }				t_tr;
 
+typedef struct	s_sps
+{
+	t_p3d	c;
+	double	d;
+	t_color	color;
+}				t_sp;
 
 
 

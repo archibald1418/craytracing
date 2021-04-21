@@ -28,8 +28,6 @@ SRCS	= 	circle.c \
 			parser_utils.c \
 			ft_strsplit.c \
 			ft_atof.c \
-			checkers.c \
-			setters.c \
 			rays.c \
 			camera.c
 

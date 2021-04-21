@@ -151,7 +151,6 @@ int		check_lamb(char **tokens, t_rt *rt)
 		return (dprintf(1, "BAD LUMINANCE!\n"));
 	if (lum < 0 || lum > 1)
 		return (dprintf(1, "LUMINANCE OUT OF RANGE [0,1]\n"));
-
 	if (!(rgb = ft_strsplit(tokens[2], ",")))
 		return (-1);
 	if (check_rgb(&rgb, &color) != 1)
@@ -178,7 +177,8 @@ int		check_lsrc(char **tokens, t_lsrc *lsrc)
 	if (isnan(lum = (double)ft_atof(tokens[2])))
 		return (dprintf(1, "BAD LUMINANCE!\n"));
 	if (lum < 0 || lum > 1)
-		return (dprintf(1, "LUMINANCE OUT OF RANGE [0,1]\n"));
+		return (dprintf(1, "LUMINANCE OUT OF RANGE [0,1]\n"));		
+
 	if (!(rgb = ft_strsplit(tokens[3], ",")))
 		return (-1);
 	if (check_rgb(&rgb, &color) != 1)
@@ -206,6 +206,7 @@ int			check_posdir(char ***tokens, t_p3d *l, t_p3d *d, char *type)
 {
 	char **ploc;
 	char **pdir;
+	// char **rgb;
 
 	// Parse location
 	if (!(ploc = ft_strsplit(tokens[1], ",")))
@@ -217,13 +218,16 @@ int			check_posdir(char ***tokens, t_p3d *l, t_p3d *d, char *type)
 	}
 
 	// Parse direction
-	if (!(pdir = ft_strsplit(tokens[2], ",")))
-		return (-1);
-	if (check_point(&pdir, d, 1) != 1)
+	if (d != NULL)
 	{
-		free_arr((void**)pdir, 3);
-		free_arr((void**)ploc, 3);
-		return (dprintf(1, "%s DIRECTION ERROR ¯\\_(ツ)_/¯\n", type));
+		if (!(pdir = ft_strsplit(tokens[2], ",")))
+			return (-1);
+		if (check_point(&pdir, d, 1) != 1)
+		{
+			free_arr((void**)pdir, 3);
+			free_arr((void**)ploc, 3);
+			return (dprintf(1, "%s DIRECTION ERROR ¯\\_(ツ)_/¯\n", type));
+		}
 	}
 	return (1);
 }
@@ -233,21 +237,57 @@ int			check_pl(char **tokens, t_rt *rt)
 {
 	t_pl	pl;
 	t_p3d	tmp;
-	char	***rgb;
+	char	**rgb;
 	
 	if (check_posdir(&tokens, &pl.p, &tmp, "PLANE") != 1)
 		return (dpinrtf(1, "PLANE ERROR...\n"));
 	if (!(rgb = ft_strsplit(tokens[3], ",")))
 		return (-1);
-	if (check_rgb(&rgb, &pl.color) != 1);
+	if (check_rgb(&rgb, &pl.color) != 1)
+	{
+		free_arr((void **)rgb, 3);
 		return (dprintf(1, "PLANE COLOR ERROR...\n"));
+	}
+	free_arr((void **)rgb, 3);
+
 	normalize(&pl.dir, tmp);
+	ft_memcpy(&rt->shapes.shapes[rt->shapes.top], &pl, sizeof(t_pl));
 	return (1);
 }
 
+int		check_sp(char **tokens, t_rt *rt)
+{
+	t_sp sp;
+	t_p3d	tmp;
+	char	**rgb;
+	char	**ploc;
+	double d;
 
+	// Check diameter
+	if (isnan(d = (double)ft_atof(tokens[2])) || d <= 0)
+		return (dprintf(1, "SPHERE DIAMETER MUST BE POSITIVE!\n"));
+	sp.d = d;
 
-// int		check_shapes(char **tokens, t_rt *rt)
-// {
-// 	if ()
-// }
+	// Check center
+	if (!(ploc = ft_strsplit(tokens[1], ",")))
+		return (-1);
+	if (check_point(&ploc, &sp.c, 0) != 1)
+	{
+		free_arr((void**)ploc, 3);
+		return (dprintf(1, "SPHERE CENTER ERROR\n"));
+	}
+	free_arr((void**)ploc, 3);
+
+	// Check rgb
+	if (!(rgb = ft_strsplit(tokens[3], ",")))
+		return (-1);
+	if (check_rgb(&rgb, &sp.color) != 1)
+	{
+		free_arr((void**)rgb, 3);
+		return(dprintf(1, "SPHERE COLOR ERROR\n"));
+	}
+	free_arr((void**)rgb, 3);
+
+	// Copy sphere to array
+	ft_memcpy(&rt->shapes.shapes[rt->shapes.top], &sp, sizeof(t_sp));
+}
