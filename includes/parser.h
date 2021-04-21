@@ -48,6 +48,7 @@ int		parser(const char *path, t_rt *rt);
 void	init_rt(t_rt *rt);
 void	set_color(t_color *col, int r, int g, int b);
 void	set_lamb(t_lamb *lamb, double lum, t_color *col);
+void		set_lsrc(t_lsrc *lsrc, double lum, t_color *col);
 
 // Scene checkers
 int		check_rt(t_rt *rt);
@@ -62,8 +63,8 @@ int		check_fov(int fov);
 
 int		is_in_arr(char *s, char **arr);
 
-// Bilist methods
 
+void	quit_cleanly(t_rt *rt, char ***tokens, char **line);
 
 
 #endif

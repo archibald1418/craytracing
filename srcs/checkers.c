@@ -55,7 +55,6 @@ int		check_cam (char **tokens, t_cam *cam)
 	char **pdir;
 
 	i = 0;
-	// TODO: check_tokens func for all checkers
 	if (check_tokens(&tokens, 4, "ELEMENT", "CAMERA") != 1)
 		return (dprintf(1, "CAMERA ERROR ¯\\_(ツ)_/¯\n"));
 
@@ -63,13 +62,22 @@ int		check_cam (char **tokens, t_cam *cam)
 	if (!(ploc = ft_strsplit(tokens[1], ",")))
 		return (-1);
 	if (check_point(&ploc, &loc, 0) != 1)
+	{
+		free_arr((void**)ploc, 3);
 		return (dprintf(1, "CAMERA LOCATION ERROR ¯\\_(ツ)_/¯\n"));
+	}
+
+	// FIXME: split leaks - do pre-parsing
 
 	// Parse direction
 	if (!(pdir = ft_strsplit(tokens[2], ",")))
 		return (-1);
 	if (check_point(&pdir, &dir2, 1) != 1)
+	{
+		free_arr((void**)pdir, 3);
+		free_arr((void**)ploc, 3);
 		return (dprintf(1, "CAMERA DIRECTION ERROR ¯\\_(ツ)_/¯\n"));
+	}
 
 	// Parse fov
 	if (isnan(fov = (double)ft_atof(tokens[3])))
@@ -78,10 +86,9 @@ int		check_cam (char **tokens, t_cam *cam)
 		return (printf("FOV ERROR ...\n"));
 	normalize(&dir1, dir2);
 	init_camera(cam, loc, dir1, fov);
+	free_arr((void**)ploc, 3);
+	free_arr((void**)pdir, 3);
 	return (1);
-	//TODO: camera setter should also add to a list ¯\\_(ツ)_/¯
-	//TODO: tests
-
 }
 
 int		check_res (char **tokens, t_rt *rt)
@@ -146,10 +153,43 @@ int		check_lamb(char **tokens, t_rt *rt)
 		return (dprintf(1, "BAD LUMINANCE!\n"));
 	if (lum < 0 || lum > 1)
 		return (dprintf(1, "LUMINANCE OUT OF RANGE [0,1]\n"));
+
+	//FIXME: split leaks
 	if (!(rgb = ft_strsplit(tokens[2], ",")))
 		return (-1);
 	if (check_rgb(&rgb, &color) != 1)
+	{
+		free_arr((void**)rgb, 3);
 		return (dprintf(1, "BAD AMBIENT COLOR!\n"));
+	}
 	set_lamb(&rt->lamb, lum, &color);
+	free_arr((void**)rgb, 3);
+	return (1);
+}
+
+
+int		check_lsrc(char **tokens, t_rt *rt)
+{
+	t_p3d p;
+	double lum;
+	char **rgb;
+	t_color color;
+	t_lsrc lsrc;
+
+	if (check_tokens(&tokens, 4, "ELEMENT", "AMBIENCE") != 1)
+		return (dprintf(1, "LIGHT ERROR... \n"));
+	if (isnan(lum = (double)ft_atof(tokens[1])))
+		return (dprintf(1, "BAD LUMINANCE!\n"));
+	if (lum < 0 || lum > 1)
+		return (dprintf(1, "LUMINANCE OUT OF RANGE [0,1]\n"));
+	if (!(rgb = ft_strsplit(tokens[2], ",")))
+		return (-1);
+	if (check_rgb(&rgb, &color) != 1)
+	{
+		free_arr((void**)rgb, 3);
+		return (dprintf(1, "BAD AMBIENT COLOR!\n"));
+	}
+	set_lsrc(&lsrc, lum, &color);
+	free_arr((void**)rgb, 3);
 	return (1);
 }

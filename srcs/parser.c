@@ -29,8 +29,8 @@ const char *g_ids[] = {RES, AMB, CAM, LS, PL, SP, SQ, CY, TR, NULL};
 
 /*
 
-//
 ///
+
 subj:
 - Elements which are defined by a capital letter
  can only be declared once in the scene.
@@ -51,12 +51,6 @@ R19201080A0.2255,255,255c-50,0,200,0,070
 
 Идем из допущения, что пробелы - разделитель между параметрами элемента сцены, 
 а новые строки - между элементами сцены
-
-//
-
-RES: 2 positive numbers
-
-
 
 */
 
@@ -95,6 +89,11 @@ static int	has_single_id(char **tokens)
 	}
 	return (1);
 
+}
+
+void	quit_cleanly(t_rt *rt, char ***tokens, char **line)
+{
+	exit(0);
 }
 
 int	check_line(t_rt *rt, char **tokens)
@@ -152,13 +151,18 @@ int		parser(const char *path, t_rt *rt)
 	out = 1;
 	while (out > 0)
 	{
-		if ((out = get_next_line(fd, &line)) >= 0 && *line != '\0')
+		out = get_next_line(fd, &line);
+		if (out >= 0 && *line != '\0')
 		{
 			tokens = ft_strsplit(line, SPACES);
 			if (check_line(rt, tokens) != 1)
 			{
+				free_arr((void**)tokens, ft_count_words(line, SPACES));
 				free(line);
-				return (printf("\nCONFIGURATION ERROR. TRY ANOTHER FILE\n"));
+				ft_bilistclear(&(rt->cams.head), free);
+				printf("\nCONFIGURATION ERROR. TRY ANOTHER FILE\n");
+				exit(0);
+				return(1);
 			}
 			free_arr((void**)tokens, ft_count_words(line, SPACES));
 		}

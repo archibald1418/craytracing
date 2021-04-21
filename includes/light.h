@@ -13,8 +13,8 @@ typedef struct	s_lamb
 typedef struct	s_lsrc
 {
 	double	lum;
-	t_color	*col;
-	t_v3d	*p;
+	t_color	col;
+	t_v3d	p;
 }				t_lsrc;
 
 #endif
