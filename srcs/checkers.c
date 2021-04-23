@@ -225,7 +225,8 @@ int			check_pl(char **tokens, t_rt *rt)
 	normalize(&pl.dir, tmp);
 	if (!(out = ft_memdup(&pl, sizeof(t_pl))))
 		return (-1);
-	rt->shapes.shapes[rt->shapes.top] = out;
+	rt->shapes.shapes[rt->shapes.top].shape = out;
+	ft_strlcpy(rt->shapes.shapes[rt->shapes.top].label, PL, 4);
 	return (1);
 }
 
@@ -257,7 +258,8 @@ int		check_sp(char **tokens, t_rt *rt)
 	// Copy sphere to array
 	if (!(out = ft_memdup(&sp, sizeof(t_sp))))
 		return (-1);
-	rt->shapes.shapes[rt->shapes.top] = out;
+	rt->shapes.shapes[rt->shapes.top].shape = out;
+	ft_strlcpy(rt->shapes.shapes[rt->shapes.top].label, SP, 4);
 	return (1);
 }
 
@@ -286,7 +288,8 @@ int		check_sq(char **tokens, t_rt *rt)
 	// Copy square to array
 	if (!(out = ft_memdup(&sq, sizeof(t_sq))))
 		return (-1);
-	rt->shapes.shapes[rt->shapes.top] = out;
+	rt->shapes.shapes[rt->shapes.top].shape = out;
+	ft_strlcpy(rt->shapes.shapes[rt->shapes.top].label, SQ, 4);
 	return (1);
 }
 
@@ -311,7 +314,8 @@ int		check_tr(char **tokens, t_rt *rt)
 	// Copy triangle to array
 	if (!(out = ft_memdup(&tr, sizeof(t_tr))))
 		return (-1);
-	rt->shapes.shapes[rt->shapes.top] = out;
+	rt->shapes.shapes[rt->shapes.top].shape = out;
+	ft_strlcpy(rt->shapes.shapes[rt->shapes.top].label, TR, 4);
 	return (1);
 }
 
@@ -342,7 +346,8 @@ int		check_cy(char **tokens, t_rt *rt)
 	// Copy cylinder to array
 	if (!(out = ft_memdup(&cy, sizeof(t_cy))))
 		return (-1);
-	rt->shapes.shapes[rt->shapes.top] = out;
+	rt->shapes.shapes[rt->shapes.top].shape = out;
+	ft_strlcpy(rt->shapes.shapes[rt->shapes.top].label, CY, 4);
 	return (1);
 }
 

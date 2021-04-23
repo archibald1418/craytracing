@@ -11,19 +11,6 @@
 6 - fill struct and handle errors (+ add struct setter)
 */
 
-#define SPACES "\v\t \r\f"
-
-#define	RES		(char*)"R"
-#define	AMB		(char*)"A"
-#define	CAM		(char*)"c"
-#define	LS		(char*)"l"
-#define	PL		(char*)"pl"
-#define	SP		(char *)"sp"
-#define	SQ		(char *)"sq"
-#define	CY		(char *)"cy"
-#define TR		(char *)"tr"
-
-#define IDLEN	9
 
 char *g_ids[] = {RES, AMB, CAM, LS, PL, SP, SQ, CY, TR, NULL};
 
@@ -60,7 +47,7 @@ void	init_rt(t_rt *rt)
 	rt->lamb		= (t_lamb){0, (t_color){0, 0, 0}};
 
 	// nullify shapes
-	ft_bzero(rt->shapes.shapes, MAX_SHAPES);
+	// ft_bzero(rt->shapes.shapes, MAX_SHAPES);
 
 	rt->lsrcs.head	= NULL;
 	rt->lsrcs.tail	= NULL;
@@ -73,8 +60,8 @@ void	clean_rt(t_rt *rt)
 	j = 0;
 	ft_bilistclear(&(rt->cams.head), free);
 	ft_bilistclear(&(rt->lsrcs.head), free);
-	while (rt->shapes.shapes[j] != NULL)
-		free(rt->shapes.shapes[j++]);	
+	while (rt->shapes.shapes[j].shape != NULL)
+		free(rt->shapes.shapes[j++].shape);
 }
 
 static int	has_single_id(char **tokens)

@@ -11,26 +11,37 @@
 # include "camera.h"
 # include "utils.h"
 
-
-
-// # define MAX_CAM 100
 # define MAX_SHAPES	100
 
-// typedef struct	s_bilist
-// {
-// 	t_list	*next;
-// 	t_list	*prev;
-// 	void	*content;
-// }				t_bilist;
+#define SPACES "\v\t \r\f"
 
-typedef struct	s_shapes
-{
-	void		*shapes[MAX_SHAPES + 1];
-	int			top; //	 Заполненность массива
-}				t_shapes;
+# define	RES		(char*)"R"
+# define	AMB		(char*)"A"
+# define	CAM		(char*)"c"
+# define	LS		(char*)"l"
+# define	PL		(char*)"pl"
+# define	SP		(char *)"sp"
+# define	SQ		(char *)"sq"
+# define	CY		(char *)"cy"
+# define	TR		(char *)"tr"
+
+#define IDLEN	9
+
 
 typedef t_list		t_lsrcs;
 typedef t_bilist	t_cams;
+
+typedef struct	s_shape
+{
+	char	label[4];
+	void	*shape;
+}				t_shape;
+
+typedef struct	s_shapes
+{
+	t_shape		shapes[MAX_SHAPES + 1];
+	int			top; //	 Заполненность массива
+}				t_shapes;
 
 typedef struct	s_rt
 {
@@ -40,6 +51,8 @@ typedef struct	s_rt
 	t_bilast	lsrcs;
 	t_bilast	cams;
 }				t_rt;
+
+
 
 double	ft_atof(char *s);
 char	**ft_strsplit(char const *s, char *set);
@@ -63,7 +76,6 @@ int		check_sp(char **tokens, t_rt *rt);
 int		check_tr(char **tokens, t_rt *rt);
 int		check_cy(char **tokens, t_rt *rt);
 int		check_sq(char **tokens, t_rt *rt);
-int		check_rt(t_rt *rt);
 
 int		check_cam (char **tokens, t_cam *cam);
 int		check_point(char ***tokens, t_p3d *p, int is_normal);

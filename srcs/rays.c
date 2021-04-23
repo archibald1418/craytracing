@@ -28,10 +28,10 @@ void	init_ray(t_v3d *ray, t_res *res, int px, int py, double fov) // TODO: pass 
 	camx = screenx * atan(fov/2) * aspect_ratio;
 	camy = screeny * atan(fov/2);
 
-	// if (res->X >= res->Y)
-	// 	camy *= (1 / aspect_ratio);
-	// else
-	// 	camx *= aspect_ratio;
+	if (res->X >= res->Y)
+		camy *= (1 / aspect_ratio);
+	else
+		camx *= aspect_ratio;
 	// FIXME: multiply by screeny if aspect_ratio > 1 (to unsquish pixels vertically)
 
 	camz = 1;

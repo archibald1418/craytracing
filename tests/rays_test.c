@@ -67,7 +67,6 @@ void trace_sphere(t_conf *conf, t_sphere **sps, double fov)
 	double mindist;
 	double dist;
 	int k;
-	// t_sphere *minsp;
 
 	i = 0;
 	j = 0;
@@ -147,7 +146,7 @@ int main()
 	init_sphere(&spwhite, (t_p3d){0,0, 100}, 20, white);
 	init_sphere(&spgreen, (t_p3d){4, -2, 30}, 7, green);
 	init_sphere(&spmagenta, (t_p3d){-15, 20, 100}, 10, magenta);
-	init_sphere(&spyellow, (t_p3d){15, -20, 20}, 10, yellow);
+	init_sphere(&spyellow, (t_p3d){5, -10, 20}, 4, yellow);
 
 	// Fill array of spheres
 	sps[2] = &spwhite;

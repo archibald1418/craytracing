@@ -24,17 +24,17 @@ int             close_win(t_win *vars)
 	return (0);
 }
 
-void	init_window(t_win *vars, t_res *RES, char *title)
+void	init_window(t_win *vars, t_res *res, char *title)
 {
 	int maxresx;
 	int maxresy;
 
 	vars->mlx = mlx_init();
 	mlx_get_screen_size(vars->mlx, &maxresx, &maxresy);
-	RES->X = (int)fmin(maxresx, RES->X);
-	RES->Y = (int)fmin(maxresx, RES->Y);
+	res->X = (int)fmin(maxresx, res->X);
+	res->Y = (int)fmin(maxresx, res->Y);
 
-	vars->win = mlx_new_window(vars->mlx, RES->X, RES->Y, title);
+	vars->win = mlx_new_window(vars->mlx, res->X, res->Y, title);
 }
 
 void	init_img(t_data *data, t_win *vars, int width, int height)
