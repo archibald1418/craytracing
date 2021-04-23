@@ -40,6 +40,7 @@ int		check_point(char ***tokens, t_p3d *p, int is_normal)
 		if (x == 0 && y == 0 && z == 0)
 			return (dprintf(1, "ZERO NORMAL ERROR ¯\\_(ツ)_/¯\n"));
 	init_p3d(p, x, y, z);
+	free_arr((void**)*tokens, 3);
 	return (1);
 	//
 }
@@ -62,20 +63,13 @@ int		check_cam (char **tokens, t_cam *cam)
 	if (!(ploc = ft_strsplit(tokens[1], ",")))
 		return (-1);
 	if (check_point(&ploc, &loc, 0) != 1)
-	{
-		free_arr((void**)ploc, 3);
 		return (dprintf(1, "CAMERA LOCATION ERROR ¯\\_(ツ)_/¯\n"));
-	}
 
 	// Parse direction
 	if (!(pdir = ft_strsplit(tokens[2], ",")))
 		return (-1);
 	if (check_point(&pdir, &dir2, 1) != 1)
-	{
-		free_arr((void**)pdir, 3);
-		free_arr((void**)ploc, 3);
 		return (dprintf(1, "CAMERA DIRECTION ERROR ¯\\_(ツ)_/¯\n"));
-	}
 
 	// Parse fov
 	if (isnan(fov = (double)ft_atof(tokens[3])))
@@ -84,8 +78,6 @@ int		check_cam (char **tokens, t_cam *cam)
 		return (printf("FOV ERROR ...\n"));
 	normalize(&dir1, dir2);
 	init_camera(cam, loc, dir1, fov);
-	free_arr((void**)ploc, 3);
-	free_arr((void**)pdir, 3);
 	return (1);
 }
 
@@ -129,6 +121,7 @@ int		check_rgb(char ***tokens, t_color *color)
 		b - (double)((int)b) > 0.0)
 		return (dprintf(1, "COLOR MUST BE AN INT! OH BOI\n"));
 	set_color(color, (int)r, (int)g, (int)b);
+	free_arr((void**)*tokens, 3);
 	return (1);
 }
 
@@ -154,12 +147,8 @@ int		check_lamb(char **tokens, t_rt *rt)
 	if (!(rgb = ft_strsplit(tokens[2], ",")))
 		return (-1);
 	if (check_rgb(&rgb, &color) != 1)
-	{
-		free_arr((void**)rgb, 3);
 		return (dprintf(1, "BAD AMBIENT COLOR!\n"));
-	}
 	set_lamb(&rt->lamb, lum, &color);
-	free_arr((void**)rgb, 3);
 	return (1);
 }
 
@@ -179,26 +168,18 @@ int		check_lsrc(char **tokens, t_lsrc *lsrc)
 	if (lum < 0 || lum > 1)
 		return (dprintf(1, "LUMINANCE OUT OF RANGE [0,1]\n"));		
 
+	// Parse rgb
 	if (!(rgb = ft_strsplit(tokens[3], ",")))
 		return (-1);
 	if (check_rgb(&rgb, &color) != 1)
-	{
-		free_arr((void**)rgb, 3);
 		return (dprintf(1, "BAD LIGHT COLOR!\n"));
-	}
 	
 	// Parse location
 	if (!(ploc = ft_strsplit(tokens[1], ",")))
 		return (-1);
 	if (check_point(&ploc, &p, 0) != 1)
-	{
-		free_arr((void**)ploc, 3);
-		free_arr((void**)rgb, 3);
 		return (dprintf(1, "LIGHT LOCATION ERROR ¯\\_(ツ)_/¯\n"));
-	}
 	set_lsrc(lsrc, lum, color, p);
-	free_arr((void**)rgb, 3);
-	free_arr((void**)ploc, 3);
 	return (1);
 }
 
@@ -212,26 +193,18 @@ int			check_posdir(char **tokens, t_p3d *l, t_p3d *d, char *type)
 	if (!(ploc = ft_strsplit(tokens[1], ",")))
 		return (-1);
 	if (check_point(&ploc, l, 0) != 1)
-	{
-		free_arr((void**)ploc, 3);
 		return (dprintf(1, "%s LOCATION ERROR ¯\\_(ツ)_/¯\n", type));
-	}
-	free_arr((void**)ploc, 3);
+
 	// Parse direction
 	if (d != NULL)
 	{
 		if (!(pdir = ft_strsplit(tokens[2], ",")))
 			return (-1);
 		if (check_point(&pdir, d, 1) != 1)
-		{
-			free_arr((void**)pdir, 3);
 			return (dprintf(1, "%s DIRECTION ERROR ¯\\_(ツ)_/¯\n", type));
-		}
-		free_arr((void**)pdir, 3);
 	}
 	return (1);
 }
-
 
 int			check_pl(char **tokens, t_rt *rt)
 {
@@ -245,11 +218,7 @@ int			check_pl(char **tokens, t_rt *rt)
 	if (!(rgb = ft_strsplit(tokens[3], ",")))
 		return (-1);
 	if (check_rgb(&rgb, &pl.color) != 1)
-	{
-		free_arr((void **)rgb, 3);
 		return (dprintf(1, "PLANE COLOR ERROR...\n"));
-	}
-	free_arr((void **)rgb, 3);
 
 	normalize(&pl.dir, tmp);
 	if (!(out = ft_memdup(&pl, sizeof(t_pl))))
@@ -276,21 +245,13 @@ int		check_sp(char **tokens, t_rt *rt)
 	if (!(ploc = ft_strsplit(tokens[1], ",")))
 		return (-1);
 	if (check_point(&ploc, &sp.c, 0) != 1)
-	{
-		free_arr((void**)ploc, 3);
 		return (dprintf(1, "SPHERE CENTER ERROR\n"));
-	}
-	free_arr((void**)ploc, 3);
 
 	// Check rgb
 	if (!(rgb = ft_strsplit(tokens[3], ",")))
 		return (-1);
 	if (check_rgb(&rgb, &sp.color) != 1)
-	{
-		free_arr((void**)rgb, 3);
 		return(dprintf(1, "SPHERE COLOR ERROR\n"));
-	}
-	free_arr((void**)rgb, 3);
 
 	// Copy sphere to array
 	if (!(out = ft_memdup(&sp, sizeof(t_sp))))

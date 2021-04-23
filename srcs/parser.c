@@ -67,6 +67,15 @@ void	init_rt(t_rt *rt)
 	rt->cams.head	= NULL;
 	rt->cams.tail	= NULL;
 }
+void	clean_rt(t_rt *rt)
+{
+	int j;
+	j = 0;
+	ft_bilistclear(&(rt->cams.head), free);
+	ft_bilistclear(&(rt->lsrcs.head), free);
+	while (rt->shapes.shapes[j] != NULL)
+		free(rt->shapes.shapes[j++]);	
+}
 
 static int	has_single_id(char **tokens)
 {
@@ -149,6 +158,9 @@ int	check_line(t_rt *rt, char **tokens)
 		if (ft_strncmp(id, (char *)PL, ft_strlen((char*)PL)) == 0)	
 			if (check_pl(tokens, rt) != 1)
 				return(dprintf(1, "PLANE ERROR..."));
+		if (ft_strncmp(id, (char *)SP, ft_strlen((char*)SP)) == 0)	
+			if (check_sp(tokens, rt) != 1)
+				return(dprintf(1, "SPHERE ERROR..."));
 		rt->shapes.top++;
 		if (rt->shapes.top > MAX_SHAPES)
 			return (printf("\n MAX SHAPES EXCEEDED. ABORT..."));
@@ -192,20 +204,22 @@ int		parser(const char *path, t_rt *rt)
 			if (check_line(rt, tokens) != 1)
 			{
 				free_arr((void**)tokens, ft_count_words(line, SPACES));
+				clean_rt(rt);
 				free(line);
-				ft_bilistclear(&(rt->cams.head), free);
 				printf("\nCONFIGURATION ERROR. TRY ANOTHER FILE\n");
 				exit(0);
-				return(1);
 			}
 			free_arr((void**)tokens, ft_count_words(line, SPACES));
 		}
 		i++;
 		free(line);
 	}
+	clean_rt(rt);
+
 	if (out == 0)
 		close(fd);
 	else
 		return(printf("\nFILE ERROR...\n"));
+	// sleep(100);
 	return (1);
 }
