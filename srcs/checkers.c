@@ -202,7 +202,7 @@ int		check_lsrc(char **tokens, t_lsrc *lsrc)
 	return (1);
 }
 
-int			check_posdir(char ***tokens, t_p3d *l, t_p3d *d, char *type)
+int			check_posdir(char **tokens, t_p3d *l, t_p3d *d, char *type)
 {
 	char **ploc;
 	char **pdir;
@@ -216,7 +216,7 @@ int			check_posdir(char ***tokens, t_p3d *l, t_p3d *d, char *type)
 		free_arr((void**)ploc, 3);
 		return (dprintf(1, "%s LOCATION ERROR ¯\\_(ツ)_/¯\n", type));
 	}
-
+	free_arr((void**)ploc, 3);
 	// Parse direction
 	if (d != NULL)
 	{
@@ -225,9 +225,9 @@ int			check_posdir(char ***tokens, t_p3d *l, t_p3d *d, char *type)
 		if (check_point(&pdir, d, 1) != 1)
 		{
 			free_arr((void**)pdir, 3);
-			free_arr((void**)ploc, 3);
 			return (dprintf(1, "%s DIRECTION ERROR ¯\\_(ツ)_/¯\n", type));
 		}
+		free_arr((void**)pdir, 3);
 	}
 	return (1);
 }
@@ -238,9 +238,10 @@ int			check_pl(char **tokens, t_rt *rt)
 	t_pl	pl;
 	t_p3d	tmp;
 	char	**rgb;
+	t_pl	*out;
 	
-	if (check_posdir(&tokens, &pl.p, &tmp, "PLANE") != 1)
-		return (dpinrtf(1, "PLANE ERROR...\n"));
+	if (check_posdir(tokens, &pl.p, &tmp, "PLANE") != 1)
+		return (dprintf(1, "PLANE ERROR...\n"));
 	if (!(rgb = ft_strsplit(tokens[3], ",")))
 		return (-1);
 	if (check_rgb(&rgb, &pl.color) != 1)
@@ -251,7 +252,9 @@ int			check_pl(char **tokens, t_rt *rt)
 	free_arr((void **)rgb, 3);
 
 	normalize(&pl.dir, tmp);
-	ft_memcpy(&rt->shapes.shapes[rt->shapes.top], &pl, sizeof(t_pl));
+	if (!(out = ft_memdup(&pl, sizeof(t_pl))))
+		return (-1);
+	rt->shapes.shapes[rt->shapes.top] = out;
 	return (1);
 }
 
@@ -262,6 +265,7 @@ int		check_sp(char **tokens, t_rt *rt)
 	char	**rgb;
 	char	**ploc;
 	double d;
+	char *out;
 
 	// Check diameter
 	if (isnan(d = (double)ft_atof(tokens[2])) || d <= 0)
@@ -289,5 +293,8 @@ int		check_sp(char **tokens, t_rt *rt)
 	free_arr((void**)rgb, 3);
 
 	// Copy sphere to array
-	ft_memcpy(&rt->shapes.shapes[rt->shapes.top], &sp, sizeof(t_sp));
+	if (!(out = ft_memdup(&sp, sizeof(t_sp))))
+		return (-1);
+	rt->shapes.shapes[rt->shapes.top] = out;
+	return (1);
 }

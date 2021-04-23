@@ -13,19 +13,19 @@
 
 #define SPACES "\v\t \r\f"
 
-#define	RES		"R"
-#define	AMB		"A"
-#define	CAM		"c"
-#define	LS		"l"
-#define	PL		"pl"
-#define	SP		"sp"
-#define	SQ		"sq"
-#define	CY		"cy"
-#define TR		"tr"
+#define	RES		(char*)"R"
+#define	AMB		(char*)"A"
+#define	CAM		(char*)"c"
+#define	LS		(char*)"l"
+#define	PL		(char*)"pl"
+#define	SP		(char *)"sp"
+#define	SQ		(char *)"sq"
+#define	CY		(char *)"cy"
+#define TR		(char *)"tr"
 
 #define IDLEN	9
 
-const char *g_ids[] = {RES, AMB, CAM, LS, PL, SP, SQ, CY, TR, NULL};
+char *g_ids[] = {RES, AMB, CAM, LS, PL, SP, SQ, CY, TR, NULL};
 
 /*
 
@@ -143,11 +143,12 @@ int	check_line(t_rt *rt, char **tokens)
 	}
 
 	// Check shapes
-	if (is_in_arr(id, (char*)PL))
+	if (is_in_arr(id, g_ids + 4))
 	{
 		// update top
-		if (ft_strncmp(id, (char *)LS, ft_strlen((char*)LS)) == 0)	
-			if (check_pl)
+		if (ft_strncmp(id, (char *)PL, ft_strlen((char*)PL)) == 0)	
+			if (check_pl(tokens, rt) != 1)
+				return(dprintf(1, "PLANE ERROR..."));
 		rt->shapes.top++;
 		if (rt->shapes.top > MAX_SHAPES)
 			return (printf("\n MAX SHAPES EXCEEDED. ABORT..."));

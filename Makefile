@@ -80,6 +80,7 @@ test-atof: $(MLXLL)
 test-parser: $(MLXLL) $(HEADERS)
 	gcc -g  $(LIBA) $(IFLAG) -I$(TESTDIR)  -o parser \
 	$(TESTDIR)/parser_test.c $(TESTDIR)/test_funcs.c \
+	$(LIBFT)/*.c \
 	srcs/setters.c \
 	srcs/checkers.c \
 	srcs/parser.c \
@@ -90,7 +91,7 @@ test-parser: $(MLXLL) $(HEADERS)
 	srcs/vectors.c
 
 test-vectors: $(MLXLL) $(LIBA)
-	$(CC) $(TESTDIR)/vectors_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
+	$(CC) $(TESTDIR)/vectors_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBFT)/*.c $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
 
 test-rays: $(MLXLL) $(LIBA)
 	$(CC) $(TESTDIR)/rays_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)

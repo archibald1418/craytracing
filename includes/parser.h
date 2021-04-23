@@ -49,6 +49,7 @@ void	init_rt(t_rt *rt);
 void	set_color(t_color *col, int r, int g, int b);
 void	set_lamb(t_lamb *lamb, double lum, t_color *col);
 void	set_lsrc(t_lsrc *lsrc, double lum, t_color col, t_p3d p);
+void	init_rt(t_rt *rt);
 
 // Scene checkers
 int		check_rt(t_rt *rt);
