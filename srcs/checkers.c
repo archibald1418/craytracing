@@ -163,18 +163,20 @@ int		check_lsrc(char **tokens, t_lsrc *lsrc)
 
 	if (check_tokens(&tokens, 4, "ELEMENT", "LIGHT SOURCE") != 1)
 		return (dprintf(1, "LIGHT ERROR... \n"));
+
+	// Check lum
 	if (isnan(lum = (double)ft_atof(tokens[2])))
 		return (dprintf(1, "BAD LUMINANCE!\n"));
 	if (lum < 0 || lum > 1)
 		return (dprintf(1, "LUMINANCE OUT OF RANGE [0,1]\n"));		
 
-	// Parse rgb
+	// Check rgb
 	if (!(rgb = ft_strsplit(tokens[3], ",")))
 		return (-1);
 	if (check_rgb(&rgb, &color) != 1)
 		return (dprintf(1, "BAD LIGHT COLOR!\n"));
 	
-	// Parse location
+	// Check location
 	if (!(ploc = ft_strsplit(tokens[1], ",")))
 		return (-1);
 	if (check_point(&ploc, &p, 0) != 1)
@@ -187,7 +189,7 @@ int			check_posdir(char **tokens, t_p3d *l, t_p3d *d, char *type)
 {
 	char **ploc;
 	char **pdir;
-	// char **rgb;
+	// TODO: char **rgb;
 
 	// Parse location
 	if (!(ploc = ft_strsplit(tokens[1], ",")))
@@ -237,9 +239,8 @@ int		check_sp(char **tokens, t_rt *rt)
 	char *out;
 
 	// Check diameter
-	if (isnan(d = (double)ft_atof(tokens[2])) || d <= 0)
+	if (isnan(sp.d = (double)ft_atof(tokens[2])) || sp.d <= 0)
 		return (dprintf(1, "SPHERE DIAMETER MUST BE POSITIVE!\n"));
-	sp.d = d;
 
 	// Check center
 	if (!(ploc = ft_strsplit(tokens[1], ",")))
@@ -259,3 +260,90 @@ int		check_sp(char **tokens, t_rt *rt)
 	rt->shapes.shapes[rt->shapes.top] = out;
 	return (1);
 }
+
+int		check_sq(char **tokens, t_rt *rt)
+{
+	t_sq sq;
+	char	**rgb;
+	double size;
+	t_sq *out;
+
+	// Check size
+	if (isnan(size = (double)ft_atof(tokens[3])) || size <= 0)
+		return (dprintf(1, "SQUARE SIZE MUST BE POSITIVE!\n"));
+	sq.size = size;
+
+	// Check center & normal
+	if (check_posdir(tokens, &sq.c, &sq.dir, "SQUARE") != 1)
+		return (printf("SQUARE ERROR...\n"));
+
+	// Check rgb
+	if (!(rgb = ft_strsplit(tokens[4], ",")))
+		return (-1);
+	if (check_rgb(&rgb, &sq.color) != 1)
+		return(dprintf(1, "SQUARE COLOR ERROR\n"));
+
+	// Copy square to array
+	if (!(out = ft_memdup(&sq, sizeof(t_sq))))
+		return (-1);
+	rt->shapes.shapes[rt->shapes.top] = out;
+	return (1);
+}
+
+int		check_tr(char **tokens, t_rt *rt)
+{
+	t_tr tr;
+	char	**arr;
+	t_tr *out;
+
+	// Check points
+	if (check_posdir(tokens, &tr.A, NULL, "TRIANGLE") != 1 || \
+		check_posdir(tokens + 1, &tr.B, NULL, "TRIANGLE") != 1 || \
+		check_posdir(tokens + 2, &tr.C, NULL, "TRIANGLE") != 1)
+		return (dprintf(1, "TRIANGLE POINT ERROR...\n"));
+
+	// Check rgb
+	if (!(arr = ft_strsplit(tokens[4], ",")))
+		return (-1);
+	if (check_rgb(&arr, &tr.color) != 1)
+		return (dprintf(1, "TRIANGLE COLOR ERROR...\n"));
+
+	// Copy triangle to array
+	if (!(out = ft_memdup(&tr, sizeof(t_tr))))
+		return (-1);
+	rt->shapes.shapes[rt->shapes.top] = out;
+	return (1);
+}
+
+int		check_cy(char **tokens, t_rt *rt)
+{
+	t_cy cy;
+	char **rgb;
+	t_cy *out;
+
+	// Check diameter
+	if (isnan(cy.d = (double)ft_atof(tokens[3])) || cy.d <= 0)
+		return (dprintf(1, "CYLINDER DIAMETER MUST BE POSITIVE!\n"));	
+
+	// Check height
+	if (isnan(cy.h = (double)ft_atof(tokens[4])) || cy.h <= 0)
+		return (dprintf(1, "CYLINDER HEIGHT MUST BE POSITIVE!\n"));
+
+	// Check rgb
+	if (!(rgb = ft_strsplit(tokens[5], ",")))
+		return (-1);
+	if (check_rgb(&rgb, &cy.color) != 1)
+		return (dprintf(1, "CYLINDER COLOR ERROR...\n"));
+
+	// Check posdir
+	if (check_posdir(tokens, &cy.c, &cy.dir, "CYLINDER") != 1)
+		return (dprintf(1, "CYLINDER POINT ERROR...\n"));
+
+	// Copy cylinder to array
+	if (!(out = ft_memdup(&cy, sizeof(t_cy))))
+		return (-1);
+	rt->shapes.shapes[rt->shapes.top] = out;
+	return (1);
+}
+
+			

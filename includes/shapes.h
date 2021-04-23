@@ -64,7 +64,7 @@ typedef struct	s_sq
 {
 	t_p3d	c;
 	t_p3d	dir;
-	int		side;
+	double	size;
 	t_color	color;
 }				t_sq;
 

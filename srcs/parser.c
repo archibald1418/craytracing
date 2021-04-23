@@ -132,7 +132,7 @@ int	check_line(t_rt *rt, char **tokens)
 			return (printf("\nAMBIENT LIGHT ERROR...\n"));
 
 	// Check Camera
-	if (ft_strncmp(id, (char*)CAM, ft_strlen((char*)CAM)) == 0)
+	if (ft_strncmp(id, (char*)CAM, ft_strlen(id) == 0))
 	{
 		if (check_cam(tokens, &cam) != 1)
 			return (printf("CAMERA ERROR...\n"));
@@ -161,10 +161,20 @@ int	check_line(t_rt *rt, char **tokens)
 		if (ft_strncmp(id, (char *)SP, ft_strlen((char*)SP)) == 0)	
 			if (check_sp(tokens, rt) != 1)
 				return(dprintf(1, "SPHERE ERROR..."));
+		if (ft_strncmp(id, (char *)SQ, ft_strlen((char*)SQ)) == 0)	
+			if (check_sq(tokens, rt) != 1)
+				return(dprintf(1, "SQUARE ERROR..."));
+		if (ft_strncmp(id, (char *)TR, ft_strlen((char*)TR)) == 0)	
+			if (check_tr(tokens, rt) != 1)
+				return(dprintf(1, "TRIANGLE ERROR..."));
+		if (ft_strncmp(id, (char *)CY, ft_strlen((char*)CY)) == 0)	
+			if (check_cy(tokens, rt) != 1)
+				return(dprintf(1, "CYLINDER ERROR..."));
 		rt->shapes.top++;
 		if (rt->shapes.top > MAX_SHAPES)
 			return (printf("\n MAX SHAPES EXCEEDED. ABORT..."));
 	}
+
 
 	// PL, SP, SQ, CY, TR	
 

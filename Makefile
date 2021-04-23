@@ -80,6 +80,7 @@ test-atof: $(MLXLL)
 test-parser: $(MLXLL) $(HEADERS)
 	gcc -g  $(LIBA) $(IFLAG) -I$(TESTDIR)  -o parser \
 	$(TESTDIR)/parser_test.c $(TESTDIR)/test_funcs.c \
+	$(LIBFT)/*.c \
 	srcs/setters.c \
 	srcs/checkers.c \
 	srcs/parser.c \
