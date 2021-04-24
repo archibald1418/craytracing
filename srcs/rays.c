@@ -28,6 +28,8 @@ void	init_ray(t_v3d *ray, t_res *res, int px, int py, double fov) // TODO: pass 
 	camx = screenx * tan(fov/2 * M_PI / 180) * aspect_ratio;
 	camy = screeny * tan(fov/2 * M_PI / 180);
 
+	// tan vs atan - tan makes closer
+
 	// if (res->X >= res->Y)
 	// 	camy *= pow(aspect_ratio, -1);
 	// else
