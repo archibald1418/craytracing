@@ -27,7 +27,7 @@ double	get_min_pos_root(double disc, double a, double b)
 	sqd = sqrt(disc);
 	r1 = -b + sqd;
 	r2 = -b - sqd;
-	if (r1 * r2 >= 0)
+	if (r1 * r2 >= 0 && r1 >= 0 && r2 >= 0)
 		return (fmin(r1, r2));
 	if (r1 >= 0)
 		return (r1);
@@ -88,6 +88,8 @@ void trace_sphere(t_conf *conf, t_sphere **sps, double fov)
 			{
 				if (!(isnan(dist = sphere_intersect(sps[k], &ray))))
 				{
+					// if (i == res->X / 2 && j == res->Y / 2)
+					// 	printf("RAYDIR -> (%f,%f,%f)\n", ray.dir.x, ray.dir.y, ray.dir.z);
 					if (dist < mindist)
 					{
 						mindist = dist;
@@ -143,10 +145,10 @@ int main()
 	args.conf = &conf;
 
 	// Trace sphere Sphere
-	init_sphere(&spwhite, (t_p3d){0,0, 100}, 20, white);
+	init_sphere(&spwhite, (t_p3d){0, 0, -50}, 5, white);
 	init_sphere(&spgreen, (t_p3d){4, -2, 30}, 7, green);
-	init_sphere(&spmagenta, (t_p3d){-15, 20, 100}, 10, magenta);
-	init_sphere(&spyellow, (t_p3d){5, -10, 20}, 4, yellow);
+	init_sphere(&spmagenta, (t_p3d){-5, 20, 100}, 10, magenta);
+	init_sphere(&spyellow, (t_p3d){0, 0, 150}, 4, yellow);
 
 	// Fill array of spheres
 	sps[2] = &spwhite;

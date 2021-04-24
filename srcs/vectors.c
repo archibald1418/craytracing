@@ -72,7 +72,7 @@ void		scaldiv(t_p3d *c, t_p3d v, double s)
 		printf("DIVISION BY ZERO ERROR!\n");
 		return ;
 	}
-	init_p3d(c, v.x / s, v.y / s, v.z / s);
+	init_p3d(c, v.x * pow(s, -1), v.y * pow(s, -1), v.z * pow(s, -1));
 }
 
 void		scalmult(t_p3d *c, t_p3d v, double s)
