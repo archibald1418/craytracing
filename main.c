@@ -16,11 +16,10 @@ int main(int argc, char **argv)
 	t_rt	rt;
 	int		out;
 
-	
 	if (argc == 2)
 	{
 		// Parsing
-		out = parser(argv[1], &rt);
+		out = parser("1.rt", &rt);
 		if (out == -1)
 			return (handle_malloc());
 
@@ -29,7 +28,7 @@ int main(int argc, char **argv)
 
 		// Window
 		conf.res = (t_res)rt.res;
-		init_window(&conf.vars, &conf.res, "RT"); 
+		init_window(&conf.vars, &conf.res, "RT");
 		init_img(&conf.img, &conf.vars, conf.res.X, conf.res.Y);
 		
 		// Infobar

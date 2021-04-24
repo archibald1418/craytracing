@@ -47,12 +47,14 @@ void	init_rt(t_rt *rt)
 	rt->lamb		= (t_lamb){0, (t_color){0, 0, 0}};
 
 	// nullify shapes
-	// ft_bzero(rt->shapes.shapes, MAX_SHAPES);
+	ft_bzero(rt->shapes.shapes, sizeof(t_shape) * (MAX_SHAPES + 1));
+
 
 	rt->lsrcs.head	= NULL;
 	rt->lsrcs.tail	= NULL;
 	rt->cams.head	= NULL;
 	rt->cams.tail	= NULL;
+	rt->shapes.top = 0;
 }
 void	clean_rt(t_rt *rt)
 {
