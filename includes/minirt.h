@@ -44,15 +44,11 @@
 #define EPSILON	0.00001
 
 // Anumation
-typedef struct	s_params
+typedef struct	s_args
 {
-	t_square	*square;
-	t_win		*vars;
-	t_res		*res; 
-	t_point		*speed;
-	t_data		*data;
-	
-}				t_params;
+	void *outwin;
+	t_conf	*conf;
+}				t_args;
 
 
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -60,6 +56,8 @@ unsigned int	my_mlx_pixel_get(t_data *data, int x, int y);
 int             close_win(t_win *vars);
 int 			key_hook (int keycode, t_win *vars);
 void			put_text(void *mlx, void *win, char *str, t_point *loc);
+int				put_mouse_pos(int x, int y, t_args *args);
+void			*init_infobar(void *mlx, int sizex, int sizey, char *title);
 
 
 #endif

@@ -23,19 +23,19 @@ void	put_line_naive(t_line *line, t_conf *conf)
 	xi = line->A->x;
 	yi = line->A->y;
 	if (is_equal(line->A, line->B))
-		return (my_mlx_pixel_put(conf->img, xi, yi, line->color));
+		return (my_mlx_pixel_put(&conf->img, xi, yi, line->color));
 	if (dx != 0)
 		while (xi != line->B->x)
 		{
 			yi = line->A->y + dy * (xi - line->A->x) / dx;
-			my_mlx_pixel_put(conf->img, xi, yi, line->color);
+			my_mlx_pixel_put(&conf->img, xi, yi, line->color);
 			xi += sgn;
 		}
 	else 
 	{
 		sgn = sign(dy);
 		while (yi != line->B->y)
-			my_mlx_pixel_put(conf->img, xi, yi += sgn, line->color);
+			my_mlx_pixel_put(&conf->img, xi, yi += sgn, line->color);
 	}
 	
 }
@@ -65,7 +65,7 @@ void	put_line_dda(t_line *line, t_conf *conf)
 	xi = (double)line->A->x;
 	yi = (double)line->A->y;
 	if (is_equal(line->A, line->B))
-		return (my_mlx_pixel_put(conf->img, xi, yi, line->color));
+		return (my_mlx_pixel_put(&conf->img, xi, yi, line->color));
 	step = (fabs(dx) >= fabs(dy)) ? fabs(dx) : fabs(dy);
 	
 	// Traverse axes with dx/dy normalized on step
@@ -78,12 +78,12 @@ void	put_line_dda(t_line *line, t_conf *conf)
 	// FIXME: WORKS ONLY WITH POSITIVE SLOPES (TODO: ADD SIGN MULTIPLIER)
 
 	while (i < step && \
-	0.0 <= xi && xi <= (double)conf->res->X && \
-	0.0 <= yi && yi <= (double)conf->res->Y)
+	0.0 <= xi && xi <= (double)conf->res.X && \
+	0.0 <= yi && yi <= (double)conf->res.Y)
 	{
-		if ((tmp = my_mlx_pixel_get(conf->img, (int)xi, (int)yi)) == black)
+		if ((tmp = my_mlx_pixel_get(&conf->img, (int)xi, (int)yi)) == black)
 			tmp = set_lum(line->color, 0.3);
-		my_mlx_pixel_put(conf->img, (int)xi, (int)yi, add_trgb(line->color, tmp));
+		my_mlx_pixel_put(&conf->img, (int)xi, (int)yi, add_trgb(line->color, tmp));
 		xi += dx;
 		yi += dy;
 		i += 1;
@@ -100,10 +100,10 @@ void	put_line_bresenham(t_line *line, t_conf *conf)
 	int dx =  abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
 	int dy = -abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
 	long err = dx + dy, e2;
-	while (0 <= x0 && x0 < conf->res->X && \
-	0 <= y0 && y0 < conf->res->Y)
+	while (0 <= x0 && x0 < conf->res.X && \
+	0 <= y0 && y0 < conf->res.Y)
 	{
-		my_mlx_pixel_put(conf->img, x0, y0, line->color);
+		my_mlx_pixel_put(&conf->img, x0, y0, line->color);
 		e2 = 2 * err;
 		if (e2 >= dy)
 		{

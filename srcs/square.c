@@ -21,9 +21,9 @@ void	put_square (t_square *square, t_conf *conf)
 		j = square->start->x;
 		while (j < square->start->x + square->side)
 		{
-			if ((tmp = my_mlx_pixel_get(conf->img, j, i)) == black)
+			if ((tmp = my_mlx_pixel_get(&conf->img, j, i)) == black)
 				tmp = square->color;
-			my_mlx_pixel_put(conf->img, j, i, add_trgb(square->color, tmp));
+			my_mlx_pixel_put(&conf->img, j, i, add_trgb(square->color, tmp));
 			j++;
 		}
 	i++;

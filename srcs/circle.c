@@ -36,11 +36,11 @@ void		put_circle(t_circle *circle, t_conf *conf)
 		{
 			if (is_in(&(t_point){j, i}, circle))
 			{
-				if ((tmp = my_mlx_pixel_get(conf->img, j + circle->center->x, i + circle->center->y)) == black)
+				if ((tmp = my_mlx_pixel_get(&conf->img, j + circle->center->x, i + circle->center->y)) == black)
 					tmp = set_lum(circle->color, 1);
 				else	
 					tmp = add_trgb(set_lum(circle->color, 1), tmp); 
-				my_mlx_pixel_put(conf->img, j + circle->center->x, i + circle->center->y, tmp);
+				my_mlx_pixel_put(&conf->img, j + circle->center->x, i + circle->center->y, tmp);
 
 			}
 				// mlx_pixel_put(vars->mlx, vars->win, j, i, circle->color);

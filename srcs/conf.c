@@ -5,6 +5,8 @@ int key_hook (int keycode, t_win *vars)
 
 	if (keycode == ESC)
 		close_win(vars);
+
+	// TODO: shift camera & render with new camera
 	else if (keycode == RIGHT)
 		dprintf(1, "RIGHT\n");
 	else if (keycode == LEFT)
