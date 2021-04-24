@@ -71,17 +71,17 @@ void trace_sphere(t_conf *conf, t_sphere **sps, double fov)
 	i = 0;
 	j = 0;
 	k = 0;
-	res = conf->res;
+	res = &conf->res;
 	// ipoint.x = 0;
 	// ipoint.y = 0;
 	// ipoint.z = 0;
 	mindist = INFINITY;
 	dist = INFINITY;
 	minsp = NULL;
-	while (j < conf->res->Y)
+	while (j < conf->res.Y)
 	{
 		i = 0;
-		while (i < conf->res->X)
+		while (i < conf->res.X)
 		{
 			init_ray(&ray, res, i, j, fov);
 			while (sps[k] != NULL)
@@ -99,7 +99,7 @@ void trace_sphere(t_conf *conf, t_sphere **sps, double fov)
 			if (minsp != NULL)
 			{
 				// printf("color => %X; z = %.1f\n", minsp->color, minsp->c.z);
-				my_mlx_pixel_put(conf->img, i, j, minsp->color);
+				my_mlx_pixel_put(&conf->img, i, j, minsp->color);
 			}
 			k = 0;
 			mindist = INFINITY;
@@ -134,12 +134,12 @@ int main()
 	// Window
 	res.X = ft_atoi("1000");
 	res.Y = ft_atoi("1000");
-	conf = (t_conf){&img, &vars, &res};
-	init_window(conf.vars, conf.res, test);
-	init_img(conf.img, conf.vars, conf.res->X, conf.res->Y);
+	conf = (t_conf){img, vars, res};
+	init_window(&conf.vars, &conf.res, test);
+	init_img(&conf.img, &conf.vars, conf.res.X, conf.res.Y);
 	
 	// Infobar
-	args.outwin = init_infobar(conf.vars->mlx, 210, 210, "RGB");
+	args.outwin = init_infobar(conf.vars.mlx, 210, 210, "RGB");
 	args.conf = &conf;
 
 	// Trace sphere Sphere
@@ -160,11 +160,11 @@ int main()
 	// trace_sphere(&conf, &sp2, fov);
 	// trace_sphere(&conf, &sp3, fov);
 
-	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-	mlx_key_hook(vars.win, key_hook, &vars);
-	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, close_win, &vars);
-	mlx_hook(vars.win, MotionNotify, PointerMotionMask, put_mouse_pos, &args);
+	mlx_put_image_to_window(conf.vars.mlx, conf.vars.win, conf.img.img, 0, 0);
+	mlx_key_hook(conf.vars.win, key_hook, &conf.vars);
+	mlx_hook(conf.vars.win, DestroyNotify, StructureNotifyMask, close_win, &conf.vars);
+	mlx_hook(conf.vars.win, MotionNotify, PointerMotionMask, put_mouse_pos, &args);
 	mlx_hook(args.outwin, DestroyNotify, StructureNotifyMask, close_win, &args);
 	// printf("gss gave -> %d\n\n", mlx_get_screen_size(conf.img, &conf.res->X, &conf.res->Y));
-	mlx_loop(vars.mlx);
+	mlx_loop(conf.vars.mlx);
 }

@@ -15,11 +15,11 @@ typedef struct	s_lst
 	t_list *tail;
 }				t_lst;
 
-typedef struct	s_args
-{
-	void *outwin;
-	t_conf	*conf;
-}				t_args;
+// typedef struct	s_args
+// {
+// 	void *outwin;
+// 	t_conf	*conf;
+// }				t_args;
 
 int		put_mouse_pos(int x, int y, t_args *args);
 
