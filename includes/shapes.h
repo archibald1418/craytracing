@@ -125,5 +125,9 @@ void	move_triangle(t_triangle *tr, t_point *offset);
 
 // Sphere
 
+// Intersections
+double  intersect_shape(t_shape shape, t_ray ray);
+double	sphere_intersect(t_sp *sp, t_ray r);
+
 
 #endif

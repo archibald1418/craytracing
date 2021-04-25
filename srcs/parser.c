@@ -64,6 +64,7 @@ void	clean_rt(t_rt *rt)
 	ft_bilistclear(&(rt->lsrcs.head), free);
 	while (rt->shapes.shapes[j].shape != NULL)
 		free(rt->shapes.shapes[j++].shape);
+	// leaks...
 }
 
 static int	has_single_id(char **tokens)
@@ -113,7 +114,7 @@ int	check_line(t_rt *rt, char **tokens)
 		return (printf("MORE THAN ONE IDENTIFIER IN LINE\n"));
 
 	// Ceck res and amb
-	if (ft_strncmp(id, (char*)RES, ft_strlen((char*)RES)) == 0)
+	if (ft_strncmp(id, (char*)RES, ft_strlen((char *)id)) == 0)
 		if (check_res(tokens, rt) != 1)
 			return (printf("RESOLUTION ERROR...\n"));
 	if (ft_strncmp(id, (char*)AMB, ft_strlen((char*)AMB)) == 0)
@@ -163,8 +164,6 @@ int	check_line(t_rt *rt, char **tokens)
 		if (rt->shapes.top > MAX_SHAPES)
 			return (printf("\n MAX SHAPES EXCEEDED. ABORT..."));
 	}
-
-
 	// PL, SP, SQ, CY, TR	
 
 	//TODO:
@@ -205,8 +204,7 @@ int		parser(const char *path, t_rt *rt)
 				free_arr((void**)tokens, ft_count_words(line, SPACES));
 				clean_rt(rt);
 				free(line);
-				printf("\nCONFIGURATION ERROR. TRY ANOTHER FILE\n");
-				exit(0);
+				return(printf("\nCONFIGURATION ERROR. TRY ANOTHER FILE\n"));
 			}
 			free_arr((void**)tokens, ft_count_words(line, SPACES));
 		}

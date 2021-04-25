@@ -42,6 +42,7 @@
 
 // Epsilon
 #define EPSILON	0.00001
+#define INF	INFINITY
 
 // Anumation
 typedef struct	s_args

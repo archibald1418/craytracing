@@ -76,6 +76,7 @@ int		check_cam (char **tokens, t_cam *cam)
 		return(printf("BAD FOV ...\n"));
 	if (!check_fov((int)fov))
 		return (printf("FOV ERROR ...\n"));
+
 	normalize(&dir1, dir2);
 	init_camera(cam, loc, dir1, fov);
 	return (1);
@@ -351,4 +352,3 @@ int		check_cy(char **tokens, t_rt *rt)
 	return (1);
 }
 
-			
