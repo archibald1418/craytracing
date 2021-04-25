@@ -145,9 +145,9 @@ int main()
 	args.conf = &conf;
 
 	// Trace sphere Sphere
-	init_sphere(&spwhite, (t_p3d){0, -1, 3}, 2, red);
-	init_sphere(&spgreen, (t_p3d){2, 0, 4}, 2, blue);
-	init_sphere(&spmagenta, (t_p3d){-2, 0, 4}, 2, green);
+	init_sphere(&spwhite, (t_p3d){-1, 0, 20.5}, 15, green);
+	init_sphere(&spgreen, (t_p3d){-1, 0, 29}, 25, purple);
+	init_sphere(&spmagenta, (t_p3d){-1, 0, 10}, 5, yellow);
 	// init_sphere(&spyellow, (t_p3d){0, 0, 150}, 4, yellow);
 
 	// Fill array of spheres

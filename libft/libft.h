@@ -6,7 +6,7 @@
 /*   By: ldonita <ldonita@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/21 02:54:23 by ldonita           #+#    #+#             */
-/*   Updated: 2021/04/20 23:54:18 by ldonita          ###   ########.fr       */
+/*   Updated: 2021/04/25 17:14:46 by ldonita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ char			*ft_strnstr(
 				const char *needle,
 				size_t len);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
+int				ft_strcmp(char *s1, char *s2);
 int				ft_atoi(const char *str);
 int				ft_isdigit(int c);
 int				ft_isalpha(int c);

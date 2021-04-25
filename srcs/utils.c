@@ -11,3 +11,20 @@ double	calc_der(t_line *a)
 	res = abs(dy/dx);
 	return (res);	
 }
+
+double	get_min_pos_root(double disc, double a, double b)
+{
+	double	r1;
+	double	r2;
+	double	sqd;
+	sqd = sqrt(disc);
+	r1 = -b + sqd;
+	r2 = -b - sqd;
+	if (r1 >= 0 && r2 >= 0)
+		return (fmin(r1, r2));
+	if (r1 >= 0)
+		return (r1);
+	if (r2 >= 0)
+		return (r2);
+	return ((double)NAN);
+}
