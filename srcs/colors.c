@@ -92,10 +92,7 @@ int		set_lum(int trgb, double lum)
 	return (create_trgb(get_t(trgb), (int)rnew, (int)gnew, (int)bnew));
 }
 
-//TODO: gradients
-
-unsigned int	lum_gradient(int trgb, int midpoints)
+int		mix_light(int color, double light_lum, int light_color)
 {
-	;
-	return (0);
+	return (add_trgb(color, set_lum(light_lum, light_color)));
 }

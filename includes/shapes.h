@@ -123,5 +123,7 @@ t_triangle	*copy_triangle(t_triangle *dst, t_triangle *src);
 void	translate_triangle(t_triangle *tr, t_grad *g, t_conf *conf, void (*put_line)(t_line *, t_conf *));
 void	move_triangle(t_triangle *tr, t_point *offset);
 
+// Sphere
+
 
 #endif

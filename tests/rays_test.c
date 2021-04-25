@@ -27,7 +27,7 @@ double	get_min_pos_root(double disc, double a, double b)
 	sqd = sqrt(disc);
 	r1 = -b + sqd;
 	r2 = -b - sqd;
-	if (r1 * r2 >= 0 && r1 >= 0 && r2 >= 0)
+	if (r1 >= 0 && r2 >= 0)
 		return (fmin(r1, r2));
 	if (r1 >= 0)
 		return (r1);
@@ -145,16 +145,16 @@ int main()
 	args.conf = &conf;
 
 	// Trace sphere Sphere
-	init_sphere(&spwhite, (t_p3d){0, 0, -50}, 5, white);
-	init_sphere(&spgreen, (t_p3d){4, -2, 30}, 7, green);
-	init_sphere(&spmagenta, (t_p3d){-5, 20, 100}, 10, magenta);
-	init_sphere(&spyellow, (t_p3d){0, 0, 150}, 4, yellow);
+	init_sphere(&spwhite, (t_p3d){0, -1, 3}, 2, red);
+	init_sphere(&spgreen, (t_p3d){2, 0, 4}, 2, blue);
+	init_sphere(&spmagenta, (t_p3d){-2, 0, 4}, 2, green);
+	// init_sphere(&spyellow, (t_p3d){0, 0, 150}, 4, yellow);
 
 	// Fill array of spheres
 	sps[2] = &spwhite;
 	sps[0] = &spmagenta;
 	sps[1] = &spgreen;
-	sps[3] = &spyellow;
+	sps[3] = NULL;
 	sps[4] = NULL;
 
 	fov = 66;
