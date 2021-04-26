@@ -22,7 +22,6 @@ int main(int argc, char **argv)
 		out = parser("1.rt", &rt);
 		if (out == -1)
 			return (handle_malloc());
-			// TODO: check for invalid file or folder
 			// TODO: one more time for the leaks
 
 		if (out != 1)
