@@ -49,5 +49,6 @@ int main(int argc, char **argv)
 		mlx_hook(args.outwin, DestroyNotify, StructureNotifyMask, close_win, &args);
 		mlx_loop(conf.vars.mlx);
 	}
+	printf("podai fajl na vkhod dolbaeb!");
 	return (0);
 }

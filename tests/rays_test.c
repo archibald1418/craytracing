@@ -78,15 +78,16 @@ void trace_sphere(t_conf *conf, t_sphere **sps, double fov)
 	mindist = INFINITY;
 	dist = INFINITY;
 	minsp = NULL;
+	t_cam cam = {(t_p3d){0, 0, 0}, (t_p3d){0, 0, 0}, 66};
 	while (j < conf->res.Y)
 	{
 		i = 0;
 		while (i < conf->res.X)
 		{
-			init_ray(&ray, res, i, j, fov);
+			init_ray(&ray, res, i, j, cam);
 			while (sps[k] != NULL)
 			{
-				if (!(isnan(dist = sphere_intersect(sps[k], &ray))))
+				if (!(isnan(dist = sphere_intersect(sps[k], ray))))
 				{
 					// if (i == res->X / 2 && j == res->Y / 2)
 					// 	printf("RAYDIR -> (%f,%f,%f)\n", ray.dir.x, ray.dir.y, ray.dir.z);

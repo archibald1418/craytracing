@@ -211,7 +211,7 @@ int		parser(const char *path, t_rt *rt)
 		i++;
 		free(line);
 	}
-	clean_rt(rt);
+	// clean_rt(rt);
 
 	if (out == 0)
 		close(fd);
