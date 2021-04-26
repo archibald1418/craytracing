@@ -148,7 +148,7 @@ int	check_line(t_rt *rt, char **tokens)
 		if (ft_strncmp(id, (char *)PL, ft_strlen((char*)PL)) == 0)	
 			if (check_pl(tokens, rt) != 1)
 				return(dprintf(1, "PLANE ERROR..."));
-		if (ft_strncmp(id, (char *)SP, ft_strlen((char*)SP)) == 0)	
+		if (ft_strncmp(id, (char *)SP, ft_strlen(id)) == 0)	
 			if (check_sp(tokens, rt) != 1)
 				return(dprintf(1, "SPHERE ERROR..."));
 		if (ft_strncmp(id, (char *)SQ, ft_strlen((char*)SQ)) == 0)	

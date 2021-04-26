@@ -238,7 +238,7 @@ int		check_sp(char **tokens, t_rt *rt)
 	char	**rgb;
 	char	**ploc;
 	double d;
-	char *out;
+	t_sp *out;
 
 	// Check diameter
 	if (isnan(sp.d = (double)ft_atof(tokens[2])) || sp.d <= 0)
@@ -257,9 +257,8 @@ int		check_sp(char **tokens, t_rt *rt)
 		return(dprintf(1, "SPHERE COLOR ERROR\n"));
 
 	// Copy sphere to array
-	if (!(out = ft_memdup(&sp, sizeof(t_sp))))
+	if (!(rt->shapes.shapes[rt->shapes.top].shape = ft_memdup(&sp, sizeof(t_sp))))
 		return (-1);
-	rt->shapes.shapes[rt->shapes.top].shape = out;
 	ft_strlcpy(rt->shapes.shapes[rt->shapes.top].label, SP, 4);
 	return (1);
 }

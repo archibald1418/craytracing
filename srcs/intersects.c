@@ -23,7 +23,7 @@ double	sphere_intersect(t_sp *sp, t_ray r)
 
 double  intersect_shape(t_shape shape, t_ray ray)
 {
-    if (ft_strcmp(shape.label, SP))
+    if (ft_strcmp(shape.label, SP) == 0)
         return((double)sphere_intersect((t_sp *)shape.shape, ray));
 
 
