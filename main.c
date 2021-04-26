@@ -37,7 +37,9 @@ int main(int argc, char **argv)
 		args.conf = &conf;
 
 		// Rendering (pushing to image)
-		// render()
+		out = render(&conf, &rt);
+		if (out != 1)
+			return (printf("Render error...\n"));
 
 		// Setup hooks
 		mlx_put_image_to_window(conf.vars.mlx, conf.vars.win, conf.img.img, 0, 0);

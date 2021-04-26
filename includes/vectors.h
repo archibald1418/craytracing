@@ -1,6 +1,5 @@
 #ifndef VECTORS_H
 # define VECTORS_H
-# include "camera.h"
 
 typedef struct	s_point
 {

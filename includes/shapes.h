@@ -92,8 +92,6 @@ typedef struct	s_sp
 	t_color	color;
 }				t_sp;
 
-
-
 // Square & circle
 void	init_square(t_square *square, int side, int color, t_point *start);
 void	put_square (t_square *square, t_conf *conf);
@@ -124,10 +122,6 @@ void	translate_triangle(t_triangle *tr, t_grad *g, t_conf *conf, void (*put_line
 void	move_triangle(t_triangle *tr, t_point *offset);
 
 // Sphere
-
-// Intersections
-double  intersect_shape(t_shape shape, t_ray ray);
-double	sphere_intersect(t_sp *sp, t_ray r);
 
 void	put_text(void *mlx, void *win, char *str, t_point *loc);
 double	calc_der(t_line *a);

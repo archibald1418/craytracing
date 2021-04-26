@@ -21,7 +21,6 @@ int		subtr_trgb(int trgba, int trgbb);
 int		get_opposite(int trgb);
 void	set_color(t_color *col, int r, int g, int b);
 int		mix_light(int color, double light_lum, int light_color);
-t_color get_shape_color(t_shape shape);
 int     convert_color(t_color color);
 
 /*
