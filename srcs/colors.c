@@ -96,3 +96,23 @@ int		mix_light(int color, double light_lum, int light_color)
 {
 	return (add_trgb(color, set_lum(light_lum, light_color)));
 }
+
+int     convert_color(t_color color)
+{
+    return (create_trgb(0, color.r, color.b, color.r));
+}
+
+t_color get_shape_color(t_shape shape)
+{
+    if (ft_strcmp(shape.label, SP))
+        return ((t_sp *)shape.shape)->color;
+    if (ft_strcmp(shape.label, SQ))
+        return (((t_sq *)shape.shape)->color);
+    if (ft_strcmp(shape.label, PL))
+        return (((t_pl *)shape.shape)->color);
+    if (ft_strcmp(shape.label, CY))
+        return (((t_cy *)shape.shape)->color);
+    if (ft_strcmp(shape.label, TR))
+        return (((t_tr *)shape.shape)->color);
+    return ((t_color){0, 0, 0});
+}
