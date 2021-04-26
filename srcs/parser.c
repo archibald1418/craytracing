@@ -128,7 +128,7 @@ int	check_line(t_rt *rt, char **tokens)
 			return (printf("CAMERA ERROR...\n"));
 		if (!(camnode = ft_bilistnew(&cam, sizeof(t_cam))))
 			return (-1);
-		ft_bilist_append_back(&rt->cams, camnode);
+		ft_bilist_append_back(rt->cams.head, camnode);
 	}
 
 	// Check light source
@@ -138,7 +138,7 @@ int	check_line(t_rt *rt, char **tokens)
 			return (printf("\nLIGHT SOURCE ERROR...\n"));
 		if (!(lightnode = ft_bilistnew(&lsrc, sizeof(t_lsrc))))
 			return (-1);
-		ft_bilist_append_back(&rt->lsrcs, lightnode);
+		ft_bilist_append_back(rt->lsrcs.head, lightnode);
 	}
 
 	// Check shapes
