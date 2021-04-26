@@ -129,5 +129,7 @@ void	move_triangle(t_triangle *tr, t_point *offset);
 double  intersect_shape(t_shape shape, t_ray ray);
 double	sphere_intersect(t_sp *sp, t_ray r);
 
+void	put_text(void *mlx, void *win, char *str, t_point *loc);
+double	calc_der(t_line *a);
 
 #endif

@@ -1,5 +1,6 @@
 #ifndef VECTORS_H
 # define VECTORS_H
+# include "camera.h"
 
 typedef struct	s_point
 {
@@ -56,6 +57,5 @@ double		dotAlpha(t_v3d v, double angle);
 double		cosSim(t_v3d v, t_v3d u);
 double		det2(t_p2d v, t_p2d u);
 void		cross(t_p3d *c, t_p3d v, t_p3d u);
-void		init_ray(t_ray *ray, t_res *res, int px, int py, double fov);
 
 #endif
