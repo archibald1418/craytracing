@@ -34,7 +34,8 @@ SRCS	= 	circle.c \
 			checkers.c \
 			setters.c \
 			tracers.c \
-			intersects.c
+			intersects.c \
+			render.c
 
 DIR			=	srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))
