@@ -122,23 +122,23 @@ int	check_line(t_rt *rt, char **tokens)
 			return (printf("\nAMBIENT LIGHT ERROR...\n"));
 
 	// Check Camera
-	if (ft_strncmp(id, (char*)CAM, ft_strlen(id) == 0))
+	if (ft_strncmp(id, (char*)CAM, ft_strlen(id)) == 0)
 	{
 		if (check_cam(tokens, &cam) != 1)
 			return (printf("CAMERA ERROR...\n"));
 		if (!(camnode = ft_bilistnew(&cam, sizeof(t_cam))))
 			return (-1);
-		ft_bilist_append_back(rt->cams.head, camnode);
+		ft_bilist_append_back(&rt->cams, camnode);
 	}
 
 	// Check light source
-	if (ft_strncmp(id, (char *)LS, ft_strlen((char*)LS)) == 0)
+	if (ft_strncmp(id, (char *)LS, ft_strlen(id)) == 0)
 	{
 		if (check_lsrc(tokens, &lsrc) != 1)
 			return (printf("\nLIGHT SOURCE ERROR...\n"));
 		if (!(lightnode = ft_bilistnew(&lsrc, sizeof(t_lsrc))))
 			return (-1);
-		ft_bilist_append_back(rt->lsrcs.head, lightnode);
+		ft_bilist_append_back(&rt->lsrcs, lightnode);
 	}
 
 	// Check shapes

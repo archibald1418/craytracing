@@ -170,19 +170,20 @@ int		check_lsrc(char **tokens, t_lsrc *lsrc)
 		return (dprintf(1, "BAD LUMINANCE!\n"));
 	if (lum < 0 || lum > 1)
 		return (dprintf(1, "LUMINANCE OUT OF RANGE [0,1]\n"));		
+	lsrc->lum = lum;
 
 	// Check rgb
 	if (!(rgb = ft_strsplit(tokens[3], ",")))
 		return (-1);
-	if (check_rgb(&rgb, &color) != 1)
+	if (check_rgb(&rgb, &lsrc->col) != 1)
 		return (dprintf(1, "BAD LIGHT COLOR!\n"));
 	
 	// Check location
 	if (!(ploc = ft_strsplit(tokens[1], ",")))
 		return (-1);
-	if (check_point(&ploc, &p, 0) != 1)
+	if (check_point(&ploc, &lsrc->loc, 0) != 1)
 		return (dprintf(1, "LIGHT LOCATION ERROR ¯\\_(ツ)_/¯\n"));
-	set_lsrc(lsrc, lum, color, p);
+	// set_lsrc(lsrc, lum, color, p);
 	return (1);
 }
 
