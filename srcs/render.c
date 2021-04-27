@@ -18,7 +18,7 @@ ssize_t render(t_conf *conf, t_rt *rt)
         {
             init_ray(&ray, &conf->res, i, j, cam);
             color = trace_shapes(ray, rt->shapes);
-            my_mlx_pixel_put(&conf->img, i, j, color);
+            my_mlx_pixel_put(&conf->img, i, j, set_lum(color, rt->lamb.lum));
             i++;
         }
         j++;

@@ -108,7 +108,7 @@ int	check_line(t_rt *rt, char **tokens)
 
 	// Check id
 	id = tokens[0];
-	if (!(is_in_arr(id, (char**)g_ids)))
+	if (!(is_in_arr(id, (char**)g_ids)) && ft_strncmp(id, "#", 1) != 0)
 		return (printf("IDENTIFIER '%s' IS NOT VALID\n", id));
 	if (!(has_single_id(tokens)))
 		return (printf("MORE THAN ONE IDENTIFIER IN LINE\n"));
