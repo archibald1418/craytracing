@@ -68,6 +68,14 @@ double	sphere_intersect(t_sp *sp, t_ray r);
 ssize_t render(t_conf *conf, t_rt *rt);
 
 // Tracers
-int trace_shapes(t_ray ray, t_shapes shapes);
+int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient);
+
+// Normals
+void    get_sp_normal(t_v3d *orient, t_sp *sp);
+void    calc_shape_normal(t_v3d *orient, t_shape shape);
+
+// Calc_light
+int	calc_lights(int color, t_v3d orient, t_rt *rt);
+
 
 #endif

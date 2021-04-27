@@ -1,7 +1,7 @@
 #include "minirt.h"
 
 // Outputs color
-int trace_shapes(t_ray ray, t_shapes shapes)
+int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient)
 {
     int color;
     int i;
@@ -24,5 +24,8 @@ int trace_shapes(t_ray ray, t_shapes shapes)
     }
     if (isinf(mindist))
         return (black);
+    scalmult(&orient->loc, ray.dir, mindist);
+    p_add(&orient->loc, ray.loc, orient->loc);
+    
     return (convert_color(get_shape_color(minshape)));
 }
