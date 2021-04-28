@@ -98,7 +98,8 @@ int		mix_light(int color, double light_lum, int light_color)
 
 int     convert_color(t_color color)
 {
-    return (create_trgb(1, color.r, color.g, color.b));
+	// t is always 0
+    return (create_trgb(0, color.r, color.g, color.b));
 }
 
 t_color get_shape_color(t_shape shape)
