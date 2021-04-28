@@ -16,7 +16,7 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
     while (node)
     {   
         lsrc = (t_lsrc*)node->content;
-        p_sub(&s_ray.dir, orient.loc, lsrc->loc);
+        p_sub(&s_ray.dir, lsrc->loc, orient.loc);
         normalize(&s_ray.dir, s_ray.dir);
         i = 0;
         while (i < rt->shapes.top)
