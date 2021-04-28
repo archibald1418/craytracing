@@ -45,6 +45,7 @@ SOURCE		=	$(addprefix ./srcs/, $(SRCS))
 IFLAG		=	-I$(INCL) -I./$(MLX) -I$(LIBFT)
 FRM			=	-framework OpenGL -framework AppKit
 LIBAS		= 	$(MLXLL) $(LIBA)
+# OBJ			=	${SOURCE:.c=.o}
 
 all: $(NAME)
 
