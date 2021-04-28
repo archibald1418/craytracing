@@ -61,7 +61,7 @@ size_t		ft_iter_chars(char const *s, char *set, size_t flag)
 	size_t i;
 
 	i = 0;
-	while (((ft_is_in(s[i], set) == flag)) && (s[i] != '\0'))
+	while ((((size_t)ft_is_in(s[i], set) == flag)) && (s[i] != '\0'))
 		i++;
 	return (i);
 }

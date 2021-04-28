@@ -2,7 +2,7 @@
 
 int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
 {
-    int     amb;
+    double     amb;
     int     color;
     t_ray   s_ray; 
     t_bilist  *node;
@@ -25,8 +25,10 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
                 break;
             i++;
         }
+        // if (i != 1)
+        // printf("top = %d\n", rt->shapes.top);
         if (i == rt->shapes.top)
-            color = set_lum(add_trgb(shape_color, convert_color(lsrc->col)), lsrc->lum);
+            color += set_lum(convert_color(lsrc->col), lsrc->lum);
         node = node->next;
     }
     // return (amb);

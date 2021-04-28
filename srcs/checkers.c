@@ -133,7 +133,6 @@ int		check_lamb(char **tokens, t_rt *rt)
 	char **rgb;
 	int i;
 	t_color	color;
-	t_lamb	lamb;
 
 	i = 0;
 	if (rt->lamb.lum != 0)
@@ -156,10 +155,8 @@ int		check_lamb(char **tokens, t_rt *rt)
 
 int		check_lsrc(char **tokens, t_lsrc *lsrc)
 {
-	t_p3d p;
 	double lum;
 	char **rgb;
-	t_color color;
 	char **ploc;
 
 	if (check_tokens(&tokens, 4, "ELEMENT", "LIGHT SOURCE") != 1)
@@ -235,11 +232,8 @@ int			check_pl(char **tokens, t_rt *rt)
 int		check_sp(char **tokens, t_rt *rt)
 {
 	t_sp sp;
-	t_p3d	tmp;
 	char	**rgb;
 	char	**ploc;
-	double d;
-	t_sp *out;
 
 	// Check diameter
 	if (isnan(sp.d = (double)ft_atof(tokens[2])) || sp.d <= 0)

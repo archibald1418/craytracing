@@ -16,6 +16,7 @@ int key_hook (int keycode, t_win *vars)
 
 int             close_win(t_win *vars)
 {
+	(void)vars;
 	/*
 	TODO: mlx_destroy_window + mlx_destroy_image
 	helps with leaks

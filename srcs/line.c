@@ -123,10 +123,10 @@ void	put_line_bresenham(t_line *line, t_conf *conf)
 }
 
 
-void	put_line_wu(t_line *line, t_conf *conf)
-{
-	;
-}
+// void	put_line_wu(t_line *line, t_conf *conf)
+// {
+// 	;
+// }
 
 t_line *copy_line(t_line *dst, t_line* src)
 {

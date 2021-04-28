@@ -25,7 +25,7 @@
 # define	CY		(char *)"cy"
 # define	TR		(char *)"tr"
 
-#define IDLEN	9
+# define IDLEN	9
 
 typedef t_list		t_lsrcs;
 typedef t_bilist	t_cams;

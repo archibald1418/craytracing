@@ -45,7 +45,7 @@ SOURCE		=	$(addprefix ./srcs/, $(SRCS))
 IFLAG		=	-I$(INCL) -I./$(MLX) -I$(LIBFT)
 FRM			=	-framework OpenGL -framework AppKit
 LIBAS		= 	$(MLXLL) $(LIBA)
-# OBJ			=	${SOURCE:.c=.o}
+OBJ			=	${SOURCE:.c=.o}
 
 all: $(NAME)
 
@@ -67,10 +67,10 @@ fclean: clean
 	rm -rf ./*.a ./*.dylib a.out $(NAME)
 
 $(NAME): $(MLXLL) $(OBJ) $(HEADERS)
-	$(CC) -g main.c $(SOURCE) libft/*.c $(LIBAS) $(IFLAG) $(FRM) -o $(NAME)
+	$(CC) -g main.c  $(LIBAS) $(SOURCE) $(IFLAG) $(FRM) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I $(HEADERS) -c $< -o $@
+	$(CC) $(CFLAGS) -g $(IFLAG) -c $< -o $@
 
 test-colors:
 	$(CC) $(TESTDIR)/colors_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)

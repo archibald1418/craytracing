@@ -93,10 +93,10 @@ static int	has_single_id(char **tokens)
 	return (1);
 }
 
-void	quit_cleanly(t_rt *rt, char ***tokens, char **line)
-{
-	exit(0);
-}
+// void	quit_cleanly(t_rt *rt, char ***tokens, char **line)
+// {
+// 	exit(0);
+// }
 
 int	check_line(t_rt *rt, char **tokens)
 {

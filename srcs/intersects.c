@@ -9,8 +9,8 @@ double	sphere_intersect(t_sp *sp, t_ray r)
 	double	root;
 
 	p_sub(&ray_to_c, r.loc, sp->c);
-	prod = dot(r.dir, ray_to_c);
-	d = pow(prod, 2) - (dot(ray_to_c, ray_to_c) - pow((double)(sp->d/2), 2));
+	prod = 2 * dot(r.dir, ray_to_c);
+	d = pow(prod, 2) - 4 * (dot(ray_to_c, ray_to_c) - pow((double)(sp->d/2), 2));
 	a = dot(r.dir, r.dir);
 	if (d < 0)
 		return ((double)NAN);
@@ -25,7 +25,6 @@ double  intersect_shape(t_shape shape, t_ray ray)
 {
     if (ft_strcmp(shape.label, SP) == 0)
         return((double)sphere_intersect((t_sp *)shape.shape, ray));
-
 
     //TODO: 
 	// if (ft_strcmp(shape.label, SQ))

@@ -3,11 +3,11 @@
 // Outputs color
 int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient)
 {
-    int color;
     int i;
     double mindist;
     double dist;
     t_shape minshape;
+    t_p3d tmp;
 
     mindist = INF;
     i = 0;
@@ -27,5 +27,9 @@ int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient)
     scalmult(&orient->loc, ray.dir, mindist);
     p_add(&orient->loc, ray.loc, orient->loc);
     calc_shape_normal(orient, minshape);
+
+    // Shift point from shape
+    scalmult(&tmp, orient->dir, 0.001);
+    p_add(&orient->loc, tmp, orient->loc);
     return (convert_color(get_shape_color(minshape)));
 }

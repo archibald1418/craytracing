@@ -19,7 +19,7 @@ static size_t		iter_chars(char const *s, char *set, size_t flag)
 	size_t i;
 
 	i = 0;
-	while (((is_in(s[i], set) == flag)) && (s[i] != '\0'))
+	while ((((size_t)is_in(s[i], set) == flag)) && (s[i] != '\0'))
 		i++;
 	return (i);
 }
