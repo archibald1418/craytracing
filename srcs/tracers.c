@@ -26,6 +26,6 @@ int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient)
         return (black);
     scalmult(&orient->loc, ray.dir, mindist);
     p_add(&orient->loc, ray.loc, orient->loc);
-    
+    calc_shape_normal(orient, minshape);
     return (convert_color(get_shape_color(minshape)));
 }
