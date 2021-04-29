@@ -31,5 +31,5 @@ int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient)
     // Shift point from shape
     scalmult(&tmp, orient->dir, 0.001);
     p_add(&orient->loc, tmp, orient->loc);
-    return (convert_color(get_shape_color(minshape)));
+    return (get_hex(get_shape_color(minshape)));
 }

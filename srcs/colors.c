@@ -51,15 +51,15 @@ int		add_trgb(int trgba, int trgbb)
 	double gnew;
 	double bnew;
 
-	// rnew = ((get_r(trgba) + get_r(trgbb))) / 2;
-	// gnew = ((get_g(trgba) + get_g(trgbb))) / 2;
-	// bnew = ((get_b(trgba) + get_b(trgbb))) / 2;
+	rnew = ((get_r(trgba) + get_r(trgbb))) / 2;
+	gnew = ((get_g(trgba) + get_g(trgbb))) / 2;
+	bnew = ((get_b(trgba) + get_b(trgbb))) / 2;
 	// rnew = (get_r(trgba) / 255) * (get_r(trgbb) / 255) * 255; 
 	// gnew = (get_g(trgba) / 255) * (get_g(trgbb) / 255) * 255; 
 	// bnew = (get_b(trgba) / 255) * (get_b(trgbb) / 255) * 255; 
-	rnew = fmin((get_r(trgba) + get_r(trgbb)), 255);
-	gnew = fmin((get_g(trgba) + get_g(trgbb)), 255);
-	bnew = fmin((get_b(trgba) + get_b(trgbb)), 255);
+	// rnew = fmin((get_r(trgba) + get_r(trgbb)), 255);
+	// gnew = fmin((get_g(trgba) + get_g(trgbb)), 255);
+	// bnew = fmin((get_b(trgba) + get_b(trgbb)), 255);
 	
 	return (create_trgb(0, (int)rnew, (int)gnew, (int)bnew));
 }
@@ -99,7 +99,7 @@ int		mix_light(int color, double light_lum, int light_color)
 	return (add_trgb(color, set_lum(light_lum, light_color)));
 }
 
-int     convert_color(t_color color)
+int     get_hex(t_color color)
 {
 	// t is always 0
     return (create_trgb(0, color.r, color.g, color.b));

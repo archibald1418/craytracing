@@ -21,7 +21,7 @@ int		subtr_trgb(int trgba, int trgbb);
 int		get_opposite(int trgb);
 void	set_color(t_color *col, int r, int g, int b);
 int		mix_light(int color, double light_lum, int light_color);
-int     convert_color(t_color color);
+int     get_hex(t_color color);
 
 /*
 ** This is from a generated file with rgb2c.pl and rgb.txt from

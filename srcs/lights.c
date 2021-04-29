@@ -10,11 +10,14 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
     int i;
     double intens;
     double angle;
+    int color;
 
     s_ray.loc = orient.loc;
     // amb = set_lum(add_trgb(shape_color, convert_color(rt->lamb.col)), rt->lamb.lum);
     node = rt->lsrcs.head;
     intens = rt->lamb.lum;
+    color = add_trgb(shape_color, get_hex(rt->lamb.col));
+    // color = shape_color;
     while (node)
     {   
         lsrc = (t_lsrc*)node->content;
@@ -32,9 +35,9 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
         if (i == rt->shapes.top)
         {
             angle = cos_sim(orient.dir, s_ray.dir);
-            if (!(isnan(angle)) && angle > 0)
+            if (!(isnan(angle)) && angle >= 0)
                 intens += angle;
-            // color += set_lum(convert_color(lsrc->col), lsrc->lum);
+            color = add_trgb(color, get_hex(lsrc->col));
         }
         node = node->next;
     }
@@ -44,5 +47,5 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
     // Shadows
 
     // Diffuse
-    return (set_lum(shape_color, fmin(intens, 1)));
+    return (set_lum(color, fmin(intens, 1)));
 }

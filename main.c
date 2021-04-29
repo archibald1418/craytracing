@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 	if (argc == 2)
 	{
 		// Parsing
-		out = parser("1.rt", &rt);
+		out = parser(argv[1], &rt);
 		if (out == -1)
 			return (handle_malloc());
 			// TODO: one more time for the leaks

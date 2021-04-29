@@ -78,7 +78,7 @@ void trace_sphere(t_conf *conf, t_sphere **sps, double fov)
 	mindist = INFINITY;
 	dist = INFINITY;
 	minsp = NULL;
-	t_cam cam = {(t_p3d){0, 0, 0}, (t_p3d){0, 0, 0}, 66};
+	t_cam cam = {(t_p3d){0, 0, 0}, (t_p3d){0, 0, 0}, 53};
 	while (j < conf->res.Y)
 	{
 		i = 0;
