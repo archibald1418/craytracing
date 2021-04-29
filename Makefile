@@ -60,7 +60,7 @@ $(MLXLL): $(LIBA)
 clean:
 	make clean -C $(LIBFT)
 	make clean -C $(MLX)
-	rm -rf *.o *.out *.dSYM
+	rm -rf $(OBJ) *.out *.dSYM
 
 fclean: clean
 	make fclean -C $(LIBFT)

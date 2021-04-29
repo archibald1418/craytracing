@@ -53,7 +53,7 @@ void		scalmult(t_p3d *c, t_p3d v, double s);
 void		normalize(t_p3d *n, t_p3d v);
 double		dot(t_p3d v, t_p3d u);
 double		dotAlpha(t_v3d v, double angle);
-double		cosSim(t_v3d v, t_v3d u);
+double		cos_sim(t_p3d v, t_p3d u);
 double		det2(t_p2d v, t_p2d u);
 void		cross(t_p3d *c, t_p3d v, t_p3d u);
 
