@@ -49,6 +49,8 @@ typedef struct	s_rt
 	t_shapes	shapes;
 	t_bilast	lsrcs;
 	t_bilast	cams;
+	int			has_res;
+	int			has_lamb;
 }				t_rt;
 
 double	ft_atof(char *s);

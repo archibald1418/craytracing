@@ -19,6 +19,7 @@ int main(int argc, char **argv)
 	if (argc == 2)
 	{
 		// Parsing
+		ft_bzero(&rt, sizeof(t_rt));
 		out = parser(argv[1], &rt);
 		if (out == -1)
 			return (handle_malloc());

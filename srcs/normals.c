@@ -13,8 +13,8 @@ void	get_pl_normal(t_v3d *orient, t_pl *pl, t_ray ray)
 	double ray_to_plane;
     init_p3d(&orient->dir, pl->dir.x, pl->dir.y, pl->dir.z);
 	ray_to_plane = dot(ray.dir, pl->dir);
-    // if (ray_to_plane < 0)
-    //     scalmult(&orient->dir, orient->dir, -1);
+    if (ray_to_plane < 0)
+        scalmult(&orient->dir, orient->dir, -1);
 }
 
 void    calc_point_normal(t_v3d *orient, t_shape shape, t_ray ray)

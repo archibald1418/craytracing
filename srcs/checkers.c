@@ -89,7 +89,7 @@ int		check_res (char **tokens, t_rt *rt)
 	int i;
 
 	i = 0;
-	if (rt->res.X != 0 && rt->res.Y != 0)
+	if (rt->has_res)
 		return (dprintf(1, "RESOLUION IS ALREADY SET! \\_(-_-)_/\n"));
 	if (check_tokens(&tokens, 3, "ELEMENT", "RESOLUTION") != 1)
 		return (dprintf(1, "RESOLUTION ERROR ¯\\_(ツ)_/¯\n"));
@@ -99,6 +99,7 @@ int		check_res (char **tokens, t_rt *rt)
 		return (dprintf(1, "BAD WINDOW HEIGHT >_<\n"));
 	rt->res.X = (int)X;
 	rt->res.Y = (int)Y;
+	rt->has_res = 1;
 	return (1);
 }
 
@@ -135,9 +136,8 @@ int		check_lamb(char **tokens, t_rt *rt)
 	t_color	color;
 
 	i = 0;
-	if (rt->lamb.lum != 0)
+	if (rt->has_lamb)
 		return(dprintf(1, "AMBIENCE IS ALREADY SET!\n"));
-		// No brightness results in no render
 	if (check_tokens(&tokens, 3, "ELEMENT", "AMBIENCE") != 1)
 		return (dprintf(1, "AMBIENCE ERROR... \n"));
 	if (isnan(lum = (double)ft_atof(tokens[1])))
@@ -149,6 +149,7 @@ int		check_lamb(char **tokens, t_rt *rt)
 	if (check_rgb(&rgb, &color) != 1)
 		return (dprintf(1, "BAD AMBIENT COLOR!\n"));
 	set_lamb(&rt->lamb, lum, &color);
+	rt->has_lamb = 1;
 	return (1);
 }
 
