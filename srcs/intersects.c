@@ -1,5 +1,23 @@
 #include "minirt.h"
 
+double	plane_intersect(t_pl *pl, t_ray r)
+{	
+	t_p3d ray_to_p;
+	double root;
+	double ray_dot_plane;
+	double ray_to_p_dot_plane;
+
+	p_sub(&ray_to_p, r.loc, pl->p);
+	ray_dot_plane = dot(r.dir, pl->dir);
+	if (-EPSILON <= ray_dot_plane && ray_dot_plane <= EPSILON)
+		return (NAN);
+	ray_to_p_dot_plane = dot(ray_to_p, pl->dir);
+	root = -ray_to_p_dot_plane / ray_dot_plane;
+	if (root <= 0)
+		return (NAN);
+	return (root);
+}
+
 double	sphere_intersect(t_sp *sp, t_ray r)
 {
 	t_p3d	ray_to_c;
