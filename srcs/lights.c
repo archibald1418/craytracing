@@ -17,7 +17,7 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
     intens = rt->lamb.lum;
     color = shape_color;
     if (get_hex(rt->lamb.col) > 0 || rt->lamb.lum > 0)
-        color = add_trgb(shape_color, get_hex(rt->lamb.col)); //add ambient; 
+        color = add_trgb(shape_color, get_hex(rt->lamb.col)); //add ambient;
     while (node)
     {   
         lsrc = (t_lsrc*)node->content;
