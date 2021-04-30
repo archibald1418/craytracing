@@ -72,7 +72,7 @@ int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient);
 
 // Normals
 void    get_sp_normal(t_v3d *orient, t_sp *sp);
-void    calc_shape_normal(t_v3d *orient, t_shape shape);
+void    calc_point_normal(t_v3d *orient, t_shape shape, t_ray ray);
 
 // Calc_light
 int	calc_lights(int color, t_v3d orient, t_rt *rt);

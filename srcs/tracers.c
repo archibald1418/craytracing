@@ -26,10 +26,10 @@ int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient)
         return (black);
     scalmult(&orient->loc, ray.dir, mindist);
     p_add(&orient->loc, ray.loc, orient->loc);
-    calc_shape_normal(orient, minshape);
+    calc_point_normal(orient, minshape, ray);
 
-    // Shift point from shape
-    scalmult(&tmp, orient->dir, 0.001);
+    // Nudge point away from shape to avoid self-intersect
+    scalmult(&tmp, orient->dir, EPSILON);
     p_add(&orient->loc, tmp, orient->loc);
     return (get_hex(get_shape_color(minshape)));
 }

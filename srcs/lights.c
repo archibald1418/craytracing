@@ -13,11 +13,9 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
     int color;
 
     s_ray.loc = orient.loc;
-    // amb = set_lum(add_trgb(shape_color, convert_color(rt->lamb.col)), rt->lamb.lum);
     node = rt->lsrcs.head;
     intens = rt->lamb.lum;
     color = add_trgb(shape_color, get_hex(rt->lamb.col));
-    // color = shape_color;
     while (node)
     {   
         lsrc = (t_lsrc*)node->content;
