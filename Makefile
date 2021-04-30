@@ -25,6 +25,7 @@ SRCS	= 	circle.c \
 			vectors.c \
 			utils.c \
 			parser.c \
+			plane.c \
 			parser_utils.c \
 			infobar.c \
 			ft_strsplit.c \

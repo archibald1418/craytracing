@@ -62,6 +62,7 @@ void			*init_infobar(void *mlx, int sizex, int sizey, char *title);
 // Intersects
 t_color get_shape_color(t_shape shape);
 double  intersect_shape(t_shape shape, t_ray ray);
+double	plane_intersect(t_pl *pl, t_ray r);
 double	sphere_intersect(t_sp *sp, t_ray r);
 
 // Render funcs
@@ -71,7 +72,7 @@ ssize_t render(t_conf *conf, t_rt *rt);
 int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient);
 
 // Normals
-void    get_sp_normal(t_v3d *orient, t_sp *sp);
+void    get_sp_normal(t_v3d *orient, t_sp *sp, t_ray ray);
 void    calc_point_normal(t_v3d *orient, t_shape shape, t_ray ray);
 
 // Calc_light

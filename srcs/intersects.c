@@ -12,7 +12,7 @@ double	plane_intersect(t_pl *pl, t_ray r)
 	if (-EPSILON <= ray_dot_plane && ray_dot_plane <= EPSILON)
 		return (NAN);
 	ray_to_p_dot_plane = dot(ray_to_p, pl->dir);
-	root = -ray_to_p_dot_plane / ray_dot_plane;
+	root = -ray_to_p_dot_plane * pow(ray_dot_plane, -1);
 	if (root <= 0)
 		return (NAN);
 	return (root);
@@ -47,8 +47,8 @@ double  intersect_shape(t_shape shape, t_ray ray)
     //TODO: 
 	// if (ft_strcmp(shape.label, SQ))
     //     return((double)sphere_intersect((t_sq *)shape.shape, ray));
-    // if (ft_strcmp(shape.label, PL))
-    //     return((double)sphere_intersect((t_pl *)shape.shape, ray));
+    if (ft_strcmp(shape.label, PL) == 0)
+        return((double)plane_intersect((t_pl *)shape.shape, ray));
     // if (ft_strcmp(shape.label, CY))
     //     return((double)sphere_intersect((t_cy *)shape.shape, ray));
     // if (ft_strcmp(shape.label, TR))

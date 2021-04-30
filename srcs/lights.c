@@ -15,7 +15,9 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
     s_ray.loc = orient.loc;
     node = rt->lsrcs.head;
     intens = rt->lamb.lum;
-    color = add_trgb(shape_color, get_hex(rt->lamb.col));
+    color = shape_color;
+    if (get_hex(rt->lamb.col) > 0 || rt->lamb.lum > 0)
+        color = add_trgb(shape_color, get_hex(rt->lamb.col)); //add ambient; 
     while (node)
     {   
         lsrc = (t_lsrc*)node->content;
@@ -39,11 +41,5 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
         }
         node = node->next;
     }
-    // return (amb);
-
-
-    // Shadows
-
-    // Diffuse
     return (set_lum(color, fmin(intens, 1)));
 }
