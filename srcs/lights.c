@@ -12,6 +12,7 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
     double angle;
     int color;
 
+    
     s_ray.loc = orient.loc;
     node = rt->lsrcs.head;
     intens = rt->lamb.lum;
