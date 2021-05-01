@@ -5,13 +5,12 @@
 /* 
 1 - gnl loop 👌
 2 - print non-empty lines loop 👌
-3 - split non-empty lines loop 👌
+3 - split non-empty lines loop 👌 
 4 - fill struct on valid file loop
 5 - map out possible errors
 6 - fill struct and handle errors (+ add struct setter)
 */
-
-
+ 
 char *g_ids[] = {RES, AMB, CAM, LS, PL, SP, SQ, CY, TR, NULL};
 
 /*

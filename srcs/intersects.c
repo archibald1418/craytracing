@@ -13,7 +13,7 @@ double	plane_intersect(t_pl *pl, t_ray r)
 		return (NAN);
 	ray_to_p_dot_plane = dot(ray_to_p, pl->dir);
 	root = -ray_to_p_dot_plane * pow(ray_dot_plane, -1);
-	if (root <= 0)
+	if (root < 0)
 		return (NAN);
 	return (root);
 }
