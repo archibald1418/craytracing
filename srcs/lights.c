@@ -34,11 +34,14 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
     {   
         lsrc = (t_lsrc*)node->content;
         p_sub(&s_ray.dir, lsrc->loc, orient.loc);
+        s_ray.loc.x = orient.loc.x;
+        s_ray.loc.y = orient.loc.y;
+        s_ray.loc.z = orient.loc.z;
         // normalize(&s_ray.dir, s_ray.dir);
         i = 0;
         while (i < rt->shapes.top)
         {
-            if (!(isnan(root = intersect_shape(rt->shapes.shapes[i], s_ray))) && (0.01 <= root && root <= 1))
+            if (!(isnan(root = intersect_shape(rt->shapes.shapes[i], s_ray))) && (0.1 <= root && root <= 1))
                 break;
             i++;
         }
