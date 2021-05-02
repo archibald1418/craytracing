@@ -40,7 +40,6 @@
 # define MotionNotify			6
 # define PointerMotionMask 		1L<<6
 
-#define EPSILON	0.00001
 #define INF	INFINITY
 
 typedef struct	s_args

@@ -1,6 +1,20 @@
 #include "minirt.h"
 
+//TODO: acculumate color function
 
+int     accumulate_color(int prev, int curr)
+{
+    int rnew;
+    int gnew;
+    int bnew;
+
+    rnew = fmin(get_r(prev) + get_r(curr), 255);
+    gnew = fmin(get_g(prev) + get_r(curr), 255);
+    bnew = fmin(get_b(prev) + get_b(curr), 255);
+
+    return (create_trgb(0, rnew, gnew, bnew));
+
+}
 
 int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
 {
@@ -8,17 +22,14 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
     t_bilist  *node;
     t_lsrc  *lsrc;
     int i;
-    double intens;
     double angle;
-    int color;
+    int total_color;
+    int curr_color;
 
-    
     s_ray.loc = orient.loc;
     node = rt->lsrcs.head;
-    intens = rt->lamb.lum;
-    color = shape_color;
-    if (get_hex(rt->lamb.col) > 0 || rt->lamb.lum > 0)
-        color = add_trgb(shape_color, get_hex(rt->lamb.col)); //add ambient;
+    total_color = 0;
+    total_color = set_lum(add_trgb(shape_color, get_hex(rt->lamb.col)), rt->lamb.lum); //add ambient;
     while (node)
     {   
         lsrc = (t_lsrc*)node->content;
@@ -36,11 +47,10 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
         if (i == rt->shapes.top)
         {
             angle = cos_sim(orient.dir, s_ray.dir);
-            if (!(isnan(angle)) && angle >= 0)
-                intens += angle;
-            color = add_trgb(color, get_hex(lsrc->col));
+            curr_color = set_lum(add_trgb(shape_color, get_hex(lsrc->col)), lsrc->lum * angle * (angle >= 0));
+            total_color = accumulate_color(total_color, curr_color);
         }
         node = node->next;
     }
-    return (set_lum(color, fmin(intens, 1)));
+    return (total_color);
 }

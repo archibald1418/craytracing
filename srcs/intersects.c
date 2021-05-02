@@ -9,7 +9,7 @@ double	plane_intersect(t_pl *pl, t_ray r)
 
 	p_sub(&ray_to_p, r.loc, pl->p);
 	ray_dot_plane = dot(r.dir, pl->dir);
-	if (-EPSILON <= ray_dot_plane && ray_dot_plane <= EPSILON)
+	if (-1e-11 <= ray_dot_plane && ray_dot_plane <= 1e-11)
 		return (NAN);
 	ray_to_p_dot_plane = dot(ray_to_p, pl->dir);
 	root = -ray_to_p_dot_plane * pow(ray_dot_plane, -1);

@@ -29,7 +29,7 @@ int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient)
     calc_point_normal(orient, minshape, ray);
 
     // Nudge point away from shape to avoid self-intersect
-    scalmult(&tmp, orient->dir, EPSILON);
+    scalmult(&tmp, orient->dir, 0.001);
     p_add(&orient->loc, tmp, orient->loc);
     return (get_hex(get_shape_color(minshape)));
 }

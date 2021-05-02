@@ -112,7 +112,7 @@ double		cos_sim(t_p3d v, t_p3d u)
 		printf("ZERO VECTOR CAN'T BE MEASURED!\n");
 		return ((double)NAN);
 	}
-	return (dot(v, u) / (len_v * get_len(u)));
+	return (dot(v, u) * pow(len_v * get_len(u), -1));
 }
 
 void		p_mult(t_p3d *c, t_p3d v, t_p3d u)
