@@ -36,9 +36,10 @@ void	init_ray(t_v3d *ray, t_res *res, int px, int py, t_cam cam) // TODO: pass t
 	viewz = 1;
 	
 	// Ray construction
-	ray->loc = cam.loc;
-	ray->dir = (t_p3d){0, 0, 0};
-	p_sub(&ray->dir, (t_p3d){viewx, viewy, viewz}, ray->loc); // z = -1 => camera is unit away from the canvas (in camera coords)
+	ray->loc.x = cam.loc.x;
+	ray->loc.y = cam.loc.y;
+	ray->loc.z = cam.loc.z;
+	p_sub(&ray->dir, (t_p3d){viewx, viewy, cam.loc.z + 1}, ray->loc); // z = -1 => camera is unit away from the canvas (in camera coords)
 	// normalize direction
 	
 	normalize(&ray->dir, ray->dir);

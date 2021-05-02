@@ -25,10 +25,11 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
     double angle;
     int total_color;
     int curr_color;
+    double root;
 
     s_ray.loc = orient.loc;
     node = rt->lsrcs.head;
-    total_color = set_lum(add_trgb( shape_color, get_hex(rt->lamb.col)), rt->lamb.lum); //add ambient;
+    total_color = set_lum(add_trgb(shape_color, get_hex(rt->lamb.col)), rt->lamb.lum); //add ambient;
     while (node)
     {   
         lsrc = (t_lsrc*)node->content;
@@ -37,7 +38,7 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
         i = 0;
         while (i < rt->shapes.top)
         {
-            if (!(isnan(intersect_shape(rt->shapes.shapes[i], s_ray))))
+            if (!(isnan(root = intersect_shape(rt->shapes.shapes[i], s_ray))) && (0.01 <= root && root <= 1))
                 break;
             i++;
         }
