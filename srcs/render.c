@@ -10,7 +10,7 @@ ssize_t render(t_conf *conf, t_rt *rt)
 
     j = 0;
     color = black;
-    t_cam cam = (t_cam){(t_p3d){0,0, -10}, (t_p3d){0, 0, 0}, 100};
+    t_cam cam = (t_cam){(t_p3d){0,0, -5}, (t_p3d){0, 0, 0}, 100};
     while (j < conf->res.Y)
     {
         i = 0;
