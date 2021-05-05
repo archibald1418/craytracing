@@ -34,6 +34,8 @@ void	init_ray(t_v3d *ray, t_res *res, int px, int py, t_cam cam) // TODO: pass t
 	// FIXME: multiply by screeny if aspect_ratio > 1 (to unsquish pixels vertically)
 
 	viewz = 1;
+
+	// TODO: try viewz = scene.width / (2 * tan(fov / 2))
 	
 	// Ray construction
 	ray->loc.x = cam.loc.x;
