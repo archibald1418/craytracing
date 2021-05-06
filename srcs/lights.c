@@ -38,10 +38,11 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
     {   
         lsrc = (t_lsrc*)node->content;
         s_ray.loc = orient.loc;
-        p_sub(&s_ray.dir, lsrc->loc, orient.loc);
+        s_ray.dir = p_sub(&s_ray.dir, lsrc->loc, orient.loc);
         
         // normalize(&s_ray.dir, s_ray.dir); // Should not be normalised
 
+        // while ()
         // Check for intersections
         node = node->next;
     }

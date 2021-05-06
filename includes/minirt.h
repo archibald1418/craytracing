@@ -65,7 +65,7 @@ double	plane_intersect(t_pl *pl, t_ray r);
 double	sphere_intersect(t_sp *sp, t_ray r);
 
 // Render funcs
-ssize_t render(t_conf *conf, t_rt *rt);
+ssize_t render(t_conf *conf, t_rt *rt, t_cam cam);
 
 // Tracers
 int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient);
@@ -77,5 +77,11 @@ void    calc_point_normal(t_v3d *orient, t_shape shape, t_ray ray);
 // Calc_light
 int	calc_lights(int color, t_v3d orient, t_rt *rt);
 
+// Matrix opeartions
+double	**init_matrix(t_p3d X, t_p3d Y, t_p3d Z);
+double  **get_unit_matrix(void);
+t_p3d   mat_mult_vec(double m[3][3], t_p3d vec);
+double  **get_new_basis(t_p3d tmp, t_cam cam);
+double  **get_rotation(t_cam cam);
 
 #endif

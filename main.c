@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 		args.conf = &conf;
 
 		// Rendering (pushing to image)
-		out = render(&conf, &rt);
+		out = render(&conf, &rt, *(t_cam *)rt.cams.head->content);
 		if (out != 1)
 			return (printf("Render error...\n"));
 

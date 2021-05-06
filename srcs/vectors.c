@@ -138,3 +138,8 @@ t_p3d	cross(t_p3d *c, t_p3d v, t_p3d u)
 	v.x * u.y - v.y * u.x);
 	return (*c);
 }
+
+int		is_zero(t_p3d vec)
+{
+	return (!vec.x && !vec.y && !vec.z);
+}

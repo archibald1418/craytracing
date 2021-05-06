@@ -16,6 +16,7 @@ void	get_pl_normal(t_v3d *orient, t_pl *pl, t_ray ray)
 	ray_dot_plane = dot(ray.dir, pl->dir);
     if (ray_dot_plane >= 0)
         scalmult(&orient->dir, orient->dir, -1);
+    
 }
 
 void    calc_point_normal(t_v3d *orient, t_shape shape, t_ray ray)

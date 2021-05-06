@@ -38,7 +38,8 @@ SRCS	= 	circle.c \
 			intersects.c \
 			render.c \
 			lights.c \
-			normals.c
+			normals.c \
+			matrix_utils.c
 
 DIR			=	srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))

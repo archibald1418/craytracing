@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-ssize_t render(t_conf *conf, t_rt *rt)
+ssize_t render(t_conf *conf, t_rt *rt, t_cam cam)
 {
     t_v3d orient;
     int color;
@@ -10,7 +10,7 @@ ssize_t render(t_conf *conf, t_rt *rt)
 
     j = 0;
     color = black;
-    t_cam cam = (t_cam){(t_p3d){0,0, -5}, (t_p3d){0, 0, 0}, 100};
+    ft_memcpy(cam.rot, get_rotation(cam), sizeof(cam.rot));
     while (j < conf->res.Y)
     {
         i = 0;

@@ -38,8 +38,10 @@ typedef struct	s_v3d
 	t_p3d	dir;
 }				t_v3d;
 
+
 typedef t_v3d t_ray;
 
+// Vector operations
 t_v3d		init_v3d(t_v3d *v, t_p3d loc, t_p3d dir);
 t_p3d		init_p3d(t_p3d *p, double x, double y, double z);
 int			is_equal(t_point *a, t_point *b);
@@ -56,5 +58,7 @@ double		dotAlpha(t_v3d v, double angle);
 double		cos_sim(t_p3d v, t_p3d u);
 double		det2(t_p2d v, t_p2d u);
 t_p3d		cross(t_p3d *c, t_p3d v, t_p3d u);
+int			is_zero(t_p3d vec);
+
 
 #endif
