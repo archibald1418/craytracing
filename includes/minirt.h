@@ -47,6 +47,7 @@ typedef struct   s_conf
     t_data  img;
     t_win   vars;
     t_res   res;
+    t_bilist *node;
 }               t_conf;
 
 typedef struct	s_args
@@ -58,7 +59,7 @@ typedef struct	s_args
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color);
 unsigned int	my_mlx_pixel_get(t_data *data, int x, int y);
 int             close_win(t_win *vars);
-int 			key_hook (int keycode, t_win *vars);
+int             key_hook (int keycode, t_conf *conf);
 void			put_text(void *mlx, void *win, char *str, t_point *loc);
 int				put_mouse_pos(int x, int y, t_args *args);
 void			*init_infobar(void *mlx, int sizex, int sizey, char *title);

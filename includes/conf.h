@@ -23,7 +23,6 @@ typedef struct	s_res
 }				t_res;
 
 
-int     key_hook (int keycode, t_win *vars);
 int     close_win(t_win *vars);
 void	init_window(t_win *vars, t_res *RES, char *title);
 void	init_img(t_data *data, t_win *vars, int width, int height);

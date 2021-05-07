@@ -1,18 +1,41 @@
 #include "minirt.h"
 
-int key_hook (int keycode, t_win *vars)   
+int	do_render(t_conf *conf, t_rt *rt, t_cam *cam)
 {
-
-	if (keycode == ESC)
-		close_win(vars);
-
-	// TODO: shift camera & render with new camera
-	else if (keycode == RIGHT)
-		dprintf(1, "RIGHT\n");
-	else if (keycode == LEFT)
-		dprintf(1, "LEFT\n");
+	int out;
+	out = render(conf, rt, *cam);
+	if (out != 1)
+		return (printf("Render error...'\n"));
 	return (0);
 }
+
+int key_hook (int keycode, t_conf *conf)   
+{
+	
+	if (keycode == ESC)
+		close_win(&conf->vars);
+	
+	if (keycode == RIGHT || keycode == LEFT)
+	{
+		ft_bzero(conf->img.addr, sizeof(char) * conf->img.line_length * conf->res.X);
+		if (keycode == RIGHT)
+		{
+			if (!conf->node->next)
+				return (0);
+			conf->node = conf->node->next;
+			do_render(conf, conf->rt, (t_cam *)conf->node->content);
+		}
+		if (keycode == LEFT)
+		{
+			if (!conf->node->prev)
+				return (0);
+			conf->node = conf->node->prev;
+			do_render(conf, conf->rt, (t_cam *)conf->node->content);
+		}
+	}
+	return (0);
+}
+
 
 int             close_win(t_win *vars)
 {

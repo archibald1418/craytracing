@@ -38,7 +38,7 @@ SRCS	= 	colors.c \
 
 DIR			=	srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))
-SOURCE		=	$(addprefix ./srcs/, $(SRCS))
+SOURCE		=	$(addprefix ./srcs/, $(SRCS)) main.c
 IFLAG		=	-I$(INCL) -I./$(MLX) -I$(LIBFT)
 FRM			=	-framework OpenGL -framework AppKit
 LIBAS		= 	$(MLXLL) $(LIBA)
@@ -64,7 +64,7 @@ fclean: clean
 	rm -rf ./*.a ./*.dylib a.out $(NAME)
 
 $(NAME): $(MLXLL) $(OBJ) $(HEADERS)
-	$(CC) -g main.c  $(LIBAS) $(SOURCE) $(IFLAG) $(FRM) -o $(NAME)
+	$(CC) -g $(LIBAS) $(SOURCE) $(IFLAG) $(FRM) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -g $(IFLAG) -c $< -o $@
