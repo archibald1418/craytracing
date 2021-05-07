@@ -11,6 +11,7 @@ a.out
 minilibx_*/
 minilibx_*/*
 gnl/*
+geometry/*
 window
 parser
 atof
