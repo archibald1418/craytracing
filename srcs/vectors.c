@@ -132,14 +132,14 @@ double	det2(t_p2d v, t_p2d u)
 
 t_p3d	cross(t_p3d *c, t_p3d v, t_p3d u)
 {
-	init_p3d(c, 
-	v.y * u.z - v.z * u.y,\
-	v.z * u.x - v.x * u.z,\
-	v.x * u.y - v.y * u.x);
+	init_p3d(c,
+	v.z * u.y - v.y * u.z,\
+	v.x * u.z - v.z * u.x,\
+	v.y * u.x - v.x * u.y);
 	return (*c);
 }
 
-int		is_zero(t_p3d vec)
+int		is_not_zero(t_p3d vec)
 {
-	return (!vec.x && !vec.y && !vec.z);
+	return (vec.x || vec.y || vec.z);
 }

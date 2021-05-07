@@ -10,7 +10,7 @@ ssize_t render(t_conf *conf, t_rt *rt, t_cam cam)
 
     j = 0;
     color = black;
-    ft_memcpy(cam.rot, get_rotation(cam), sizeof(cam.rot));
+    cam.rot = get_rotation(cam);
     while (j < conf->res.Y)
     {
         i = 0;

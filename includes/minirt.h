@@ -48,7 +48,6 @@ typedef struct	s_args
 	t_conf	*conf;
 }				t_args;
 
-
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color);
 unsigned int	my_mlx_pixel_get(t_data *data, int x, int y);
 int             close_win(t_win *vars);
@@ -78,10 +77,10 @@ void    calc_point_normal(t_v3d *orient, t_shape shape, t_ray ray);
 int	calc_lights(int color, t_v3d orient, t_rt *rt);
 
 // Matrix opeartions
-double	**init_matrix(t_p3d X, t_p3d Y, t_p3d Z);
-double  **get_unit_matrix(void);
-t_p3d   mat_mult_vec(double m[3][3], t_p3d vec);
-double  **get_new_basis(t_p3d tmp, t_cam cam);
-double  **get_rotation(t_cam cam);
+t_matrix	init_matrix(t_p3d X, t_p3d Y, t_p3d Z);
+t_matrix	get_unit_matrix(void);
+t_p3d  		mat_mult_vec(t_matrix m, t_p3d vec);
+t_matrix	get_new_basis(t_p3d tmp, t_cam cam);
+t_matrix	get_rotation(t_cam cam);
 
 #endif

@@ -38,6 +38,10 @@ typedef struct	s_v3d
 	t_p3d	dir;
 }				t_v3d;
 
+typedef struct	s_matrix
+{
+	double m[3][3];
+}				t_matrix;
 
 typedef t_v3d t_ray;
 
@@ -58,7 +62,7 @@ double		dotAlpha(t_v3d v, double angle);
 double		cos_sim(t_p3d v, t_p3d u);
 double		det2(t_p2d v, t_p2d u);
 t_p3d		cross(t_p3d *c, t_p3d v, t_p3d u);
-int			is_zero(t_p3d vec);
+int			is_not_zero(t_p3d vec);
 
 
 #endif

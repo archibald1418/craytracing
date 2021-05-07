@@ -5,11 +5,10 @@
 
 typedef struct	s_cam
 {
-	t_p3d	loc;
-	t_p3d	dir;
-	int		fov;
-	// TODO: struct for matrix - three dots; so that i can allocate it in functions
-	// double	rot[3][3];
+	t_p3d		loc;
+	t_p3d		dir;
+	int			fov;
+	t_matrix	rot;
 }				t_cam;
 
 void	init_camera(t_cam *cam, t_p3d loc, t_p3d dir, int fov);
