@@ -22,12 +22,6 @@ typedef struct	s_res
 	int Y;
 }				t_res;
 
-typedef struct   s_conf
-{
-    t_data  img;
-    t_win   vars;
-    t_res   res;
-}               t_conf;
 
 int     key_hook (int keycode, t_win *vars);
 int     close_win(t_win *vars);

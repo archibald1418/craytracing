@@ -42,6 +42,13 @@
 
 #define INF	INFINITY
 
+typedef struct   s_conf
+{
+    t_data  img;
+    t_win   vars;
+    t_res   res;
+}               t_conf;
+
 typedef struct	s_args
 {
 	void *outwin;

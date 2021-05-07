@@ -16,16 +16,11 @@ HFILES	=	colors.h \
 			vectors.h \
 			utils.h
 
-SRCS	= 	circle.c \
-			colors.c \
+SRCS	= 	colors.c \
 			conf.c \
-			line.c \
-			square.c \
-			triangle.c \
 			vectors.c \
 			utils.c \
 			parser.c \
-			plane.c \
 			parser_utils.c \
 			infobar.c \
 			ft_strsplit.c \
