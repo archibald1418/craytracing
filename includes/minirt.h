@@ -52,14 +52,22 @@ typedef struct   s_conf
 
 typedef struct	s_args
 {
-	void *outwin;
+	void    *outwin;
 	t_conf	*conf;
 }				t_args;
+
+typedef struct  s_norm
+{
+    t_conf  conf;
+    t_rt    rt;
+    t_args  args;
+}
+                t_norm;
 
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color);
 unsigned int	my_mlx_pixel_get(t_data *data, int x, int y);
 int             close_win(t_win *vars);
-int             key_hook (int keycode, t_conf *conf);
+int             key_hook (int keycode, t_norm *norm);
 void			put_text(void *mlx, void *win, char *str, t_point *loc);
 int				put_mouse_pos(int x, int y, t_args *args);
 void			*init_infobar(void *mlx, int sizex, int sizey, char *title);

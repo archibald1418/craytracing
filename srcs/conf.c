@@ -9,28 +9,28 @@ int	do_render(t_conf *conf, t_rt *rt, t_cam *cam)
 	return (0);
 }
 
-int key_hook (int keycode, t_conf *conf)   
+int key_hook (int keycode, t_norm *norm)   
 {
 	
 	if (keycode == ESC)
-		close_win(&conf->vars);
+		close_win(&norm->conf.vars);
 	
 	if (keycode == RIGHT || keycode == LEFT)
 	{
-		ft_bzero(conf->img.addr, sizeof(char) * conf->img.line_length * conf->res.X);
+		ft_bzero(norm->conf.img.addr, sizeof(char) * norm->conf.img.line_length * norm->conf.res.X);
 		if (keycode == RIGHT)
 		{
-			if (!conf->node->next)
+			if (!norm->conf.node->next)
 				return (0);
-			conf->node = conf->node->next;
-			do_render(conf, conf->rt, (t_cam *)conf->node->content);
+			norm->conf.node = norm->conf.node->next;
+			do_render(&norm->conf, &norm->rt, (t_cam *)norm->conf.node->content);
 		}
 		if (keycode == LEFT)
 		{
-			if (!conf->node->prev)
+			if (!norm->conf.node->prev)
 				return (0);
-			conf->node = conf->node->prev;
-			do_render(conf, conf->rt, (t_cam *)conf->node->content);
+			norm->conf.node = norm->conf.node->prev;
+			do_render(&norm->conf, &norm->rt, (t_cam *)norm->conf.node->content);
 		}
 	}
 	return (0);

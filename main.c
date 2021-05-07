@@ -10,18 +10,13 @@ int	handle_malloc(void)
 
 int main(int argc, char **argv)
 {
-	t_data	img;
-	t_conf	conf;
-	t_args	args;
-	t_rt	rt;
+	t_norm	norm;
 	int		out;
 
 	if (argc == 2)
 	{
 		// Parsing
-		ft_bzero(&rt.shapes, sizeof(t_shapes));
-		ft_bzero(&rt, sizeof(t_rt));
-		out = parser(argv[1], &rt);
+		out = parser(argv[1], &norm.rt);
 		if (out == -1)
 			return (handle_malloc());
 			// TODO: one more time for the leaks
@@ -30,26 +25,27 @@ int main(int argc, char **argv)
 			return (printf("Error...\n"));
 
 		// Window
-		conf.res = (t_res)rt.res;
-		init_window(&conf.vars, &conf.res, "RT");
-		init_img(&conf.img, &conf.vars, conf.res.X, conf.res.Y);
+		norm.conf.res = (t_res)norm.rt.res;
+		init_window(&norm.conf.vars, &norm.conf.res, "RT");
+		init_img(&norm.conf.img, &norm.conf.vars, norm.conf.res.X, norm.conf.res.Y);
 		
 		// Infobar
-		args.outwin = init_infobar(conf.vars.mlx, 210, 210, "RGB");
-		args.conf = &conf;
+		norm.args.outwin = init_infobar(norm.conf.vars.mlx, 210, 210, "RGB");
+		norm.args.conf = &norm.conf;
 
 		// Rendering (pushing to image)
-		out = render(&conf, &rt, *(t_cam *)rt.cams.head->content);
+		out = render(&norm.conf, &norm.rt, *(t_cam *)norm.rt.cams.head->content);
+		norm.conf.node = norm.rt.cams.head;
 		if (out != 1)
 			return (printf("Render error...\n"));
 
 		// Setup hooks
-		mlx_put_image_to_window(conf.vars.mlx, conf.vars.win, conf.img.img, 0, 0);
-		mlx_key_hook(conf.vars.win, key_hook, &conf.vars);
-		mlx_hook(conf.vars.win, DestroyNotify, StructureNotifyMask, close_win, &conf.vars);
-		mlx_hook(conf.vars.win, MotionNotify, PointerMotionMask, put_mouse_pos, &args);
-		mlx_hook(args.outwin, DestroyNotify, StructureNotifyMask, close_win, &args);
-		mlx_loop(conf.vars.mlx);
+		mlx_put_image_to_window(norm.conf.vars.mlx, norm.conf.vars.win, norm.conf.img.img, 0, 0);
+		mlx_key_hook(norm.conf.vars.win, key_hook, &norm);
+		mlx_hook(norm.conf.vars.win, DestroyNotify, StructureNotifyMask, close_win, &norm.conf.vars);
+		mlx_hook(norm.conf.vars.win, MotionNotify, PointerMotionMask, put_mouse_pos, &norm.args);
+		mlx_hook(norm.args.outwin, DestroyNotify, StructureNotifyMask, close_win, &norm.args);
+		mlx_loop(norm.conf.vars.mlx);
 	}
 	printf("\nPODAI FAIL NA VKHOD DOLBAEB!\n");
 	return (0);
