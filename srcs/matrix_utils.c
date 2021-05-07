@@ -58,7 +58,7 @@ t_matrix    get_new_basis(t_p3d tmp, t_cam cam)
     tmp = normalize(&tmp, tmp);
     forward = cam.dir;
     right = cross(&right, tmp, forward);
-    up = cross(&up, right, forward);
+    up = cross(&up, forward, right);
     
     up = normalize(&up, up);
     forward = normalize(&forward, forward);
@@ -75,7 +75,7 @@ t_matrix    get_rotation(t_cam cam)
     t_matrix res;
 
     up = (t_p3d){0, 1, 0};
-    tmp = cross(&tmp, up, cam.dir);
+    tmp = cross(&tmp, cam.dir, up);
     if (is_not_zero(tmp))
         res = get_new_basis(tmp, cam);
     else
