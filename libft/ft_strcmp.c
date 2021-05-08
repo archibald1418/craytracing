@@ -6,16 +6,18 @@
 /*   By: ldonita <ldonita@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/20 19:44:06 by ldonita           #+#    #+#             */
-/*   Updated: 2020/11/21 02:07:55 by ldonita          ###   ########.fr       */
+/*   Updated: 2021/05/08 20:51:24 by ldonita          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_strcmp(char *s1, char *s2)
 {
 	int i;
 
 	i = 0;
-	while (s1[i] != '\0')
+	while (s1[i] != '\0' || s2[i] != '\0')
 	{
 		if (s2[i] == '\0')
 		{
