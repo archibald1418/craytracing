@@ -32,6 +32,7 @@ int key_hook (int keycode, t_norm *norm)
 			norm->conf.node = norm->conf.node->prev;
 			do_render(&norm->conf, &norm->rt, (t_cam *)norm->conf.node->content);
 		}
+		mlx_put_image_to_window(norm->conf.vars.mlx, norm->conf.vars.win, norm->conf.img.img, 0, 0);
 	}
 	return (0);
 }

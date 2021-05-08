@@ -5,7 +5,7 @@ MLX		= minilibx_mms_20200219
 MLXLL	= $(MLX)/libmlx.dylib
 CC		= gcc
 INCL	= ./includes
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -fsanitize=address
 TESTDIR = ./tests
 
 HFILES	=	colors.h \
