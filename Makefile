@@ -5,7 +5,7 @@ MLX		= minilibx_mms_20200219
 MLXLL	= $(MLX)/libmlx.dylib
 CC		= gcc
 INCL	= ./includes
-CFLAGS	= -Wall -Wextra -Werror -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror
 TESTDIR = ./tests
 
 HFILES	=	colors.h \
@@ -63,7 +63,7 @@ fclean: clean
 	make fclean -C $(LIBFT)
 	rm -rf ./*.a ./*.dylib a.out $(NAME)
 
-$(NAME): $(MLXLL) $(OBJ) $(HEADERS)
+$(NAME): $(MLXLL) $(OBJ) $(HEADERS) Makefile
 	$(CC) -g $(LIBAS) $(SOURCE) $(IFLAG) $(FRM) -o $(NAME)
 
 %.o: %.c
