@@ -28,7 +28,7 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
     double lightdist;
     int curr_color;
     // double root;
-    // double mindist;
+    double mindist;
     // t_shape minshape;
     // double angle;
 
@@ -41,7 +41,6 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
     // Get shadow ray location (an already biased orient)
     s_ray.loc = orient.loc;
     node = rt->lsrcs.head;
-    t = NAN;
     while (node)
     {   
         lsrc = (t_lsrc*)node->content;
@@ -53,16 +52,17 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
 
         // Check for intersections
         i = 0;
+        mindist = INF;
         while (i < rt->shapes.top)
         {
             t = intersect_shape(rt->shapes.shapes[i], s_ray);
-            if (!(isnan(t)))
-                break;
+            if (!(isnan(t)) && (0.1 <= t && t < lightdist))
+                mindist = t;
             i++;
         }
 
         // If no intersection in the light's way, light it
-        if (isnan(t) || t > lightdist)
+        if (isinf(mindist) || t >= lightdist)
         {
             // todo: add light distance multpiplier
             curr_color = set_lum(add_trgb(shape_color, get_hex(lsrc->col)), lsrc->lum);

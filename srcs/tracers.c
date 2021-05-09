@@ -44,7 +44,7 @@ int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient)
     scalmult(&orient->loc, ray.dir, mindist);
     p_add(&orient->loc, ray.loc, orient->loc);
 
-    scalmult(&tmp, orient->dir, 0.01);
+    scalmult(&tmp, orient->dir, 0.05);
     p_add(&orient->loc, tmp, orient->loc);
     return (get_hex(get_shape_color(minshape)));
 }
