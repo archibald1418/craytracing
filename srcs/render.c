@@ -10,7 +10,7 @@ ssize_t render(t_conf *conf, t_rt *rt, t_cam cam)
     int rate;
 
     j = 0;
-    rate = 2;
+    rate = 1;
     color = black;
     cam.rot = get_rotation(cam);
     while (j <= conf->res.Y - rate)

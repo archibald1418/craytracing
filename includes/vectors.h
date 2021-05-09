@@ -63,6 +63,8 @@ double		cos_sim(t_p3d v, t_p3d u);
 double		det2(t_p2d v, t_p2d u);
 t_p3d		cross(t_p3d *c, t_p3d v, t_p3d u);
 int			is_not_zero(t_p3d vec);
+t_p3d		get_new_point(t_p3d loc, t_p3d dir, double t);
+double		get_dist(t_p3d v, t_p3d u);
 
 
 #endif

@@ -11,29 +11,49 @@ int	do_render(t_conf *conf, t_rt *rt, t_cam *cam)
 
 int key_hook (int keycode, t_norm *norm)   
 {
-	
+	t_cam *cam;
+	double rate;
+
+	ft_bzero(norm->conf.img.addr, sizeof(char) * norm->conf.img.line_length * norm->conf.res.X);
 	if (keycode == ESC)
 		close_win(&norm->conf.vars);
-	
+
+	// Flick cameras
 	if (keycode == RIGHT || keycode == LEFT)
 	{
-		ft_bzero(norm->conf.img.addr, sizeof(char) * norm->conf.img.line_length * norm->conf.res.X);
 		if (keycode == RIGHT)
 		{
 			if (!norm->conf.node->next)
 				return (0);
 			norm->conf.node = norm->conf.node->next;
-			do_render(&norm->conf, &norm->rt, (t_cam *)norm->conf.node->content);
 		}
 		if (keycode == LEFT)
 		{
 			if (!norm->conf.node->prev)
 				return (0);
 			norm->conf.node = norm->conf.node->prev;
-			do_render(&norm->conf, &norm->rt, (t_cam *)norm->conf.node->content);
 		}
+		do_render(&norm->conf, &norm->rt, (t_cam *)norm->conf.node->content);
 		mlx_put_image_to_window(norm->conf.vars.mlx, norm->conf.vars.win, norm->conf.img.img, 0, 0);
+		return (1);
 	}
+	rate = 0.2;
+	cam = (t_cam *)norm->conf.node->content;
+	// Move camera
+	if (keycode == WKEY)
+		cam->loc.y += rate;
+	if (keycode == AKEY)
+		cam->loc.x -= rate;
+	if (keycode == SKEY)
+		cam->loc.y -= rate;
+	if (keycode == DKEY)
+		cam->loc.x += rate;
+	if (keycode == UP)
+		cam->loc.z += rate;
+	if (keycode == DOWN)
+		cam->loc.z -= rate;
+	do_render(&norm->conf, &norm->rt, cam);
+	mlx_put_image_to_window(norm->conf.vars.mlx, norm->conf.vars.win, norm->conf.img.img, 0, 0);
 	return (0);
 }
 

@@ -65,6 +65,10 @@ double	get_len(t_p3d v)
 	return (sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2)));
 }
 
+double	get_dist(t_p3d v, t_p3d u)
+{
+	return (sqrt(pow(v.x - u.x, 2) + pow(v.y - u.y, 2) + pow(v.z - u.z, 2)));
+}
 
 t_p3d	scaldiv(t_p3d *c, t_p3d v, double s)
 {

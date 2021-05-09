@@ -38,7 +38,7 @@ int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient)
     orient->loc = get_new_point(orient->loc, orient->dir, mindist);
 
     // Nudge point away from shape to avoid self-intersect
-    orient->loc = get_new_point(orient->loc, orient->dir, 0.001);
+    orient->loc = get_new_point(orient->loc, orient->dir, 0.01);
 
     // scalmult(&orient->loc, ray.dir, mindist);
     // p_add(&orient->loc, ray.loc, orient->loc);

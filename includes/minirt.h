@@ -27,6 +27,10 @@
 # define DOWN	125
 # define RIGHT	124
 # define ESC	53
+# define WKEY      13
+# define AKEY      0
+# define SKEY      1
+# define DKEY      2
 
 // MOUSEMAPS:
 # define LCLICK		1
