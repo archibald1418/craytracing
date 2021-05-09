@@ -40,6 +40,7 @@ int key_hook (int keycode, t_norm *norm)
 	rate = 0.2;
 	cam = (t_cam *)norm->conf.node->content;
 	// Move camera
+	// FIXME: 
 	if (keycode == WKEY)
 		cam->loc.y += rate;
 	if (keycode == AKEY)

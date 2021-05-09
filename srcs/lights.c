@@ -28,7 +28,7 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
     double lightdist;
     int curr_color;
     // double root;
-    double mindist;
+    // double mindist;
     // t_shape minshape;
     // double angle;
 
