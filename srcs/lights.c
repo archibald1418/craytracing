@@ -52,17 +52,17 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt)
 
         // Check for intersections
         i = 0;
-        mindist = INF;
+        mindist = lightdist;
         while (i < rt->shapes.top)
         {
             t = intersect_shape(rt->shapes.shapes[i], s_ray);
-            if (!(isnan(t)) && (0.1 <= t && t < lightdist))
+            if (!(isnan(t)) && (0.05 < t && t < lightdist))
                 mindist = t;
             i++;
         }
 
         // If no intersection in the light's way, light it
-        if (isinf(mindist) || t >= lightdist)
+        if (isinf(mindist) || mindist >= lightdist)
         {
             // todo: add light distance multpiplier
             curr_color = set_lum(add_trgb(shape_color, get_hex(lsrc->col)), lsrc->lum);
