@@ -15,6 +15,7 @@ int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient)
     double mindist;
     double dist;
     t_shape minshape;
+    t_p3d tmp;
 
     mindist = INF;
     i = 0;
@@ -35,16 +36,15 @@ int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient)
     calc_point_normal(orient, minshape, ray);
 
     // Get exact point of intersection
-    orient->loc = get_new_point(orient->loc, orient->dir, mindist);
+    // orient->loc = get_new_point(orient->loc, orient->dir, mindist);
 
-    // Nudge point away from shape to avoid self-intersect
-    orient->loc = get_new_point(orient->loc, orient->dir, 0.01);
+    // // Nudge point away from shape to avoid self-intersect
+    // orient->loc = get_new_point(orient->loc, orient->dir, 0.0001);
 
-    // scalmult(&orient->loc, ray.dir, mindist);
-    // p_add(&orient->loc, ray.loc, orient->loc);
+    scalmult(&orient->loc, ray.dir, mindist);
+    p_add(&orient->loc, ray.loc, orient->loc);
 
-    
-    // scalmult(&tmp, orient->dir, 0.001);
-    // p_add(&orient->loc, tmp, orient->loc);
+    scalmult(&tmp, orient->dir, 0.01);
+    p_add(&orient->loc, tmp, orient->loc);
     return (get_hex(get_shape_color(minshape)));
 }
