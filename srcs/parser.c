@@ -163,18 +163,6 @@ int	check_line(t_rt *rt, char **tokens)
 		if (rt->shapes.top > MAX_SHAPES)
 			return (printf("\n MAX SHAPES EXCEEDED. ABORT..."));
 	}
-	// PL, SP, SQ, CY, TR	
-
-	//TODO:
-	/*
-	check_cam : add to bilist
-	check_lsrc
-	check_sp
-	check_pl
-	check_tr
-	check_sq
-	check_cy
-	*/
 	return (1);
 
 	
@@ -210,6 +198,7 @@ int		parser(const char *path, t_rt *rt)
 		i++;
 		free(line);
 	}
+
 	// clean_rt(rt);
 
 	if (out == 0)
