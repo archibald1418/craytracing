@@ -26,7 +26,7 @@ int main(int argc, char **argv)
 {
 	int i = 1;
 	double out;
-	while (i < 2)
+	while (i < argc)
 	{
 		if (isnan(out = ft_atof(argv[i])))
 		{

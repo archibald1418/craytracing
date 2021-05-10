@@ -1,5 +1,13 @@
 #include "minirt.h"
 
+static double	ssign(double x)
+{
+	if (x < 0)
+		return (-1.0);
+	if (x > 0)
+		return (1.0);
+	return (0.0);
+}
 static double	calc_mantissa(int e, double num, int esign)
 {
 	double mult;
@@ -65,5 +73,5 @@ double	ft_atof(char *s)
 	}
 	if (*s != '\0')
 		return ((double)NAN);
-	return (calc_mantissa(e, num, sign(e)));
+	return (calc_mantissa(e, num, ssign(e)));
 }

@@ -1,5 +1,17 @@
 #include "minirt.h"
 
+#ifndef RATEX
+# define RATEX 0.5
+#endif
+
+#ifndef RATEY
+# define RATEY 0.5
+#endif
+
+#ifndef RATEZ
+# define RATEZ 5
+#endif
+
 int	do_render(t_conf *conf, t_rt *rt, t_cam *cam)
 {
 	int out;
@@ -12,7 +24,6 @@ int	do_render(t_conf *conf, t_rt *rt, t_cam *cam)
 int key_hook (int keycode, t_norm *norm)   
 {
 	t_cam *cam;
-	double rate;
 
 	ft_bzero(norm->conf.img.addr, sizeof(char) * norm->conf.img.line_length * norm->conf.res.X);
 	if (keycode == ESC)
@@ -37,22 +48,21 @@ int key_hook (int keycode, t_norm *norm)
 		mlx_put_image_to_window(norm->conf.vars.mlx, norm->conf.vars.win, norm->conf.img.img, 0, 0);
 		return (1);
 	}
-	rate = 0.2;
 	cam = (t_cam *)norm->conf.node->content;
 	// Move camera
 	// FIXME: x & y axes inverted with movement lol)))
 	if (keycode == WKEY)
-		cam->loc.y += rate;
+		cam->loc.y += RATEY;
 	if (keycode == AKEY)
-		cam->loc.x -= rate;
+		cam->loc.x -= RATEX;
 	if (keycode == SKEY)
-		cam->loc.y -= rate;
+		cam->loc.y -= RATEY;
 	if (keycode == DKEY)
-		cam->loc.x += rate;
+		cam->loc.x += RATEX;
 	if (keycode == UP)
-		cam->loc.z += rate;
+		cam->loc.z += RATEZ;
 	if (keycode == DOWN)
-		cam->loc.z -= rate;
+		cam->loc.z -= RATEZ;
 	do_render(&norm->conf, &norm->rt, cam);
 	mlx_put_image_to_window(norm->conf.vars.mlx, norm->conf.vars.win, norm->conf.img.img, 0, 0);
 	return (0);

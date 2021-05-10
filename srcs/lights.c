@@ -89,7 +89,6 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt, t_cam cam)
         total_color = add_trgb(shape_color, get_hex(rt->lamb.col));
         total_lum = rt->lamb.lum;
     }
-        
 
     // Get shadow ray location (an already biased orient)
     s_ray.loc = orient.loc;
@@ -109,7 +108,7 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt, t_cam cam)
         while (i < rt->shapes.top)
         {
             t = intersect_shape(rt->shapes.shapes[i], s_ray);
-            if (!(isnan(t)) && (0.02 <= t && t < lightdist))
+            if (!(isnan(t)) && (0.05 <= t && t < lightdist))
                 mindist = t;
             i++;
         }

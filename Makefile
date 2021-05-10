@@ -80,8 +80,8 @@ test-triangle:
 test-window:
 	$(CC) main.c $(SOURCE) -g $(IFLAG) $(LIBAS) $(FRM) -o $(NAME)
 
-test-atof: $(MLXLL)
-	gcc $(TESTDIR)/ft_atof_test.c $(SOURCE) $(LIBA) -g $(IFLAG) -I $(TESTDIR)  $< -o atof
+test-atof:
+	gcc $(TESTDIR)/ft_atof_test.c srcs/ft_atof.c $(LIBA) -g $(IFLAG) -I $(TESTDIR)  $< -o atof
 
 test-parser: $(MLXLL) $(HEADERS)
 	gcc -g  $(LIBA) $(IFLAG) -I$(TESTDIR)  -o parser \

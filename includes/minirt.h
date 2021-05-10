@@ -82,6 +82,8 @@ t_color get_shape_color(t_shape shape);
 double  intersect_shape(t_shape shape, t_ray ray);
 double	plane_intersect(t_pl *pl, t_ray r);
 double	sphere_intersect(t_sp *sp, t_ray r);
+double	triangle_intersect(t_tr *tr, t_ray r);
+
 
 // Render funcs
 ssize_t render(t_conf *conf, t_rt *rt, t_cam cam);
