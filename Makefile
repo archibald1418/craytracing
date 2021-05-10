@@ -1,4 +1,4 @@
-NAME	= window
+NAME	= miniRT
 LIBFT	= ./libft
 LIBA	= $(LIBFT)/libft.a
 MLX		= minilibx_mms_20200219

@@ -2,12 +2,12 @@
 
 // Specular coefficient
 #ifndef SPEC
-# define SPEC 2
+# define SPEC 1250
 #endif
 
 // Specular light saliency
 #ifndef KS      
-# define KS     0.04
+# define KS     0.2
 #endif
 
 // Diffuse light saliency
