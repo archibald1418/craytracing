@@ -1,8 +1,19 @@
 #include "minirt.h"
 
-#define SPEC    10
-#define KS      0.08
-// #define KD      1 - KS   
+// Specular coefficient
+#ifndef SPEC
+# define SPEC 2
+#endif
+
+// Specular light saliency
+#ifndef KS      
+# define KS     0.04
+#endif
+
+// Diffuse light saliency
+#ifndef KD         
+# define KD     1
+#endif 
 
 int     accumulate_color(int prev, int curr)
 {
@@ -45,7 +56,7 @@ double  specular(t_v3d orient, t_ray l_ray, t_cam cam)
 
     angle = cos_sim(refl, orient_to_cam);
 
-    return ((angle >= 0) * pow(angle, SPEC) * KS);
+    return ((angle >= 0) * pow(angle, SPEC));
 }
 
 double phong(t_v3d orient, t_ray l_ray, t_cam cam, double base_lum)
@@ -55,7 +66,7 @@ double phong(t_v3d orient, t_ray l_ray, t_cam cam, double base_lum)
 
     diff = diffuse(orient, l_ray);
     spec = specular(orient, l_ray, cam);
-    return (base_lum * (spec + diff));
+    return (base_lum * (spec * KS + diff * KD));
 }
 
 int calc_lights(int shape_color, t_v3d orient, t_rt *rt, t_cam cam)
@@ -69,12 +80,16 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt, t_cam cam)
     double lightdist;
     int curr_color;
     double mindist;
+    double total_lum;
 
     // Add ambient;
+    total_color = total_lum = 0;
     if (rt->has_lamb)
-        total_color = set_lum(add_trgb(shape_color, get_hex(rt->lamb.col)), rt->lamb.lum);
-    else
-        total_color = 0;
+    {
+        total_color = add_trgb(shape_color, get_hex(rt->lamb.col));
+        total_lum = rt->lamb.lum;
+    }
+        
 
     // Get shadow ray location (an already biased orient)
     s_ray.loc = orient.loc;
@@ -102,10 +117,11 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt, t_cam cam)
         // If no intersection in the light's way, light it
         if (isinf(mindist) || mindist >= lightdist)
         {
-            curr_color = set_lum(add_trgb(shape_color, get_hex(lsrc->col)), phong(orient, s_ray, cam, lsrc->lum));
+            curr_color = add_trgb(shape_color, get_hex(lsrc->col));
             total_color = accumulate_color(total_color, curr_color);
+            total_lum += phong(orient, s_ray, cam, lsrc->lum);
         }
         node = node->next;
     }
-    return (total_color);
+    return (set_lum(total_color, fmin(total_lum, 1)));
 }
