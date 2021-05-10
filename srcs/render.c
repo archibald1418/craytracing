@@ -21,7 +21,7 @@ ssize_t render(t_conf *conf, t_rt *rt, t_cam cam)
             init_ray(&ray, &conf->res, i, j, cam);
             color = trace_shapes(ray, rt->shapes, &orient);
             if (color != black)
-                color = calc_lights(color, orient, rt);
+                color = calc_lights(color, orient, rt, cam);
             my_mlx_pixel_put(&conf->img, i, j, color);
             i += rate;
         }

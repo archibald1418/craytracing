@@ -94,7 +94,10 @@ void    get_sp_normal(t_v3d *orient, t_sp *sp, t_ray ray);
 void    calc_point_normal(t_v3d *orient, t_shape shape, t_ray ray);
 
 // Calc_light
-int	calc_lights(int color, t_v3d orient, t_rt *rt);
+double  diffuse(t_v3d orient, t_ray l_ray);
+double  specular(t_v3d orient, t_ray l_ray, t_cam cam);
+double  phong(t_v3d orient, t_ray l_ray, t_cam cam, double base_lum);
+int     calc_lights(int color, t_v3d orient, t_rt *rt, t_cam cam);
 
 // Matrix opeartions
 t_matrix	init_matrix(t_p3d X, t_p3d Y, t_p3d Z);
