@@ -98,7 +98,7 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt, t_cam cam)
         lsrc = (t_lsrc*)node->content;
         lightdist = get_dist(s_ray.loc, lsrc->loc);
 
-        // Get phit to light vector direction
+        /* Get phit to light vector direction */
         s_ray.dir = p_sub(&s_ray.dir, lsrc->loc, s_ray.loc);
         normalize(&s_ray.dir, s_ray.dir);
 

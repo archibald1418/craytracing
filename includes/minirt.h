@@ -83,6 +83,7 @@ double  intersect_shape(t_shape shape, t_ray ray);
 double	plane_intersect(t_pl *pl, t_ray r);
 double	sphere_intersect(t_sp *sp, t_ray r);
 double	triangle_intersect(t_tr *tr, t_ray r);
+double	cylinder_intersect(t_cy *cy, t_ray r);
 
 
 // Render funcs

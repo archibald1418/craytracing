@@ -16,7 +16,17 @@ void	get_pl_normal(t_v3d *orient, t_pl *pl, t_ray ray)
 	ray_dot_plane = dot(ray.dir, pl->dir);
     if (ray_dot_plane > 0)
         scalmult(&orient->dir, orient->dir, -1);
-    
+}
+
+void    get_sq_normal(t_v3d *orient, t_sq *sq, t_ray ray)
+{
+    double ray_dot_sq;
+
+    init_p3d(&orient->dir, sq->dir.x, sq->dir.y, sq->dir.z);
+    normalize(&orient->dir, orient->dir);
+    ray_dot_sq = dot(ray.dir, sq->dir);
+    if (ray_dot_sq > 0)
+        scalmult(&orient->dir, orient->dir, -1);
 }
 
 void    get_tr_normal(t_v3d *orient, t_tr *tr, t_ray ray)
@@ -31,28 +41,35 @@ void    get_tr_normal(t_v3d *orient, t_tr *tr, t_ray ray)
     normalize(&e2, e2);
 
     cross(&orient->dir, e1, e2);
-    normalize(&orient->dir, orient->dir);
+    normalize(&orient->dir,   orient->dir);
     ray_dot_tr = dot(ray.dir, orient->dir);
     if (ray_dot_tr >= 0)
         scalmult(&orient->dir, orient->dir, -1);
 }
 
+void    get_cy_normal(t_v3d *orient, t_cy *cy, t_ray ray)
+{
+    double ray_dot_cyl;
+    // double N;
+    p_sub(&orient->loc, orient->loc, cy->c);
+    normalize(&orient->loc, orient->loc);
+
+    ray_dot_cyl = dot 
+
+    
+}
+
+
 void    calc_point_normal(t_v3d *orient, t_shape shape, t_ray ray)
 {
-	(void)ray;
-	// t_p3d c_to_ray;
-	// double light_angle;
-     if (ft_strcmp(shape.label, SP) == 0)
+    if (ft_strcmp(shape.label, SP) == 0)
         return (get_sp_normal(orient, (t_sp *)shape.shape, ray));
-
-    //TODO: 
-	// if (ft_strcmp(shape.label, SQ))
-    //     return(get_sp_normal((t_sq *)shape.shape, ray));
+	if (ft_strcmp(shape.label, SQ) == 0)
+        return(get_sq_normal(orient, (t_sq *)shape.shape, ray));
     if (ft_strcmp(shape.label, PL) == 0)
         return(get_pl_normal(orient, (t_pl *)shape.shape, ray));
-    // if (ft_strcmp(shape.label, CY))
-    //     return(get_sp_normal((t_cy *)shape.shape, ray));
+    if (ft_strcmp(shape.label, CY) == 0)
+        return(get_cy_normal(orient, (t_cy *)shape.shape, ray));
     if (ft_strcmp(shape.label, TR) == 0)
         return(get_tr_normal(orient, (t_tr *)shape.shape, ray));
-	// p_sub(&c_to_ray, )
 }

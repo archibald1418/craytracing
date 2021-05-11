@@ -18,6 +18,101 @@ double	plane_intersect(t_pl *pl, t_ray r)
 	return (root);
 }
 
+double	infinite_cylinder_intersect(t_cy *cy, t_ray r)
+{
+	double a;
+	double b;
+	double c;
+	double disc;
+	t_p3d oc;
+	double root;
+
+	normalize(&cy->dir, cy->dir);
+	p_sub(&oc, r.loc, cy->c);
+	a = dot(r.dir, r.dir) - pow(dot(r.dir, cy->dir), 2);
+	b = 2 * (dot(r.dir, oc) - (dot(r.dir, cy->dir)) * dot(oc, cy->dir));
+	c = dot(oc, oc) - pow(dot(oc, cy->dir), 2) - pow(cy->d/2, 2);
+	disc = pow(b, 2) - 4 * a * c;
+	if (disc < 0)
+		return (NAN);
+	if (isnan(root = get_min_pos_root(disc, a, b)))
+		return (NAN);
+	return (root);
+}
+
+double	finite_cylinder_intersect(t_cy *cy, t_ray r, double root)
+{
+	double proj;
+	t_p3d phit;
+	double diff;
+	double halfh;
+	
+    scalmult(&phit, r.dir, root);
+    p_add(&phit, phit, r.loc);
+
+	halfh = cy->h / 2;
+	proj = dot(phit, cy->dir);
+	diff = fabs(halfh - proj);
+	if (diff > halfh)
+		return (NAN);
+	return (root);
+}
+
+double	square_intersect(t_sq *sq, t_ray r)
+{
+	// const double magn = sqrt(2)* sq->size;
+	t_p3d e1;
+	t_p3d e2;
+	t_p3d p;
+	double root;
+	double proja;
+	double projb;
+	
+	// t_p3d vert[4];
+	// t_p3d crss[4];
+	// double dots[4];
+
+	root = plane_intersect(&(t_pl){sq->dir, sq->c, sq->color}, r);
+	if (isnan(root))
+		return (NAN);
+
+	// Find square's basis
+	cross(&e1, sq->dir, (t_p3d){1,0,0});
+	cross(&e2, sq->dir, e1);
+	normalize(&e1, e1);
+	normalize(&e2, e2);
+
+	// Find point on ray
+	scalmult(&p, r.dir, root);
+	p_add(&p, r.loc, p);
+
+	// Get projections of point on axes
+	proja = dot(p, e1);
+	projb = dot(p, e2);
+	if (fabs(proja) <= (sq->size / 2) && fabs(projb) <= (sq->size / 2))
+		return (root);
+	return (NAN);
+	
+
+	// scalmult(&vert[0], e1, magn);
+	// p_add(&vert[0], vert[0], sq->c);
+
+	// scalmult(&vert[1], e1, -magn);
+	// p_add(&vert[1], vert[1], sq->c);
+
+	// scalmult(&vert[2], e2, magn);
+	// p_add(&vert[2], vert[2], sq->c);
+	
+	// scalmult(&vert[3], e2, -magn);
+	// p_add(&vert[3], vert[3], sq->c);
+
+
+	// TODO: two square axes dot plane hit -> the square hit
+
+
+
+}
+
 double	sphere_intersect(t_sp *sp, t_ray r)
 {
 	t_p3d	ray_to_c;
@@ -81,16 +176,21 @@ double	triangle_intersect(t_tr *tr, t_ray r)
 
 double  intersect_shape(t_shape shape, t_ray ray)
 {
+	double root;
+
+	root = NAN;
     if (ft_strcmp(shape.label, SP) == 0)
         return((double)sphere_intersect((t_sp *)shape.shape, ray));
-
-    //TODO: 
-	// if (ft_strcmp(shape.label, SQ))
-    //     return((double)sphere_intersect((t_sq *)shape.shape, ray));
+	if (ft_strcmp(shape.label, SQ) == 0)
+        return((double)square_intersect((t_sq *)shape.shape, ray));
     if (ft_strcmp(shape.label, PL) == 0)
         return((double)plane_intersect((t_pl *)shape.shape, ray));
-    // if (ft_strcmp(shape.label, CY))
-    //     return((double)sphere_intersect((t_cy *)shape.shape, ray));
+    if (ft_strcmp(shape.label, CY) == 0)
+	{
+		root = infinite_cylinder_intersect((t_cy *)shape.shape, ray);
+		if (!(isnan(root)))
+			return (finite_cylinder_intersect((t_cy *)shape.shape, ray, root));
+	}
     if (ft_strcmp(shape.label, TR) == 0)
         return((double)triangle_intersect((t_tr *)shape.shape, ray));
     return ((double)NAN);
