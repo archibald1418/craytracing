@@ -18,41 +18,47 @@ double	plane_intersect(t_pl *pl, t_ray r)
 	return (root);
 }
 
-double	infinite_cylinder_intersect(t_cy *cy, t_ray r)
+t_p2d	infinite_cylinder_intersect(t_cy *cy, t_ray r)
 {
-	double a;
-	double b;
-	double c;
+	double abc[3];
 	double disc;
 	t_p3d oc;
-	double root;
+	t_p2d roots;
 
+	roots.x = NAN;
+	roots.y = NAN;
 	normalize(&cy->dir, cy->dir);
 	p_sub(&oc, r.loc, cy->c);
-	a = dot(r.dir, r.dir) - pow(dot(r.dir, cy->dir), 2);
-	b = 2 * (dot(r.dir, oc) - (dot(r.dir, cy->dir)) * dot(oc, cy->dir));
-	c = dot(oc, oc) - pow(dot(oc, cy->dir), 2) - pow(cy->d/2, 2);
-	disc = pow(b, 2) - 4 * a * c;
+	abc[0] = dot(r.dir, r.dir) - pow(dot(r.dir, cy->dir), 2);
+	abc[1] = 2 * (dot(r.dir, oc) - (dot(r.dir, cy->dir)) * dot(oc, cy->dir));
+	abc[2] = dot(oc, oc) - pow(dot(oc, cy->dir), 2) - pow(cy->d/2, 2);
+	disc = pow(abc[1], 2) - 4 * abc[0] * abc[2];
 	if (disc < 0)
-		return (NAN);
-	if (isnan(root = get_min_pos_root(disc, a, b)))
-		return (NAN);
-	return (root);
+		return (roots);
+	roots.x = -abc[1] + sqrt(disc);
+	roots.y = -abc[1] - sqrt(disc);
+	return (roots);
 }
 
-double	finite_cylinder_intersect(t_cy *cy, t_ray r, double root)
+double	finite_cylinder_intersect(t_cy *cy, t_ray r, t_p2d roots)
 {
 	double proj;
 	t_p3d phit;
 	double diff;
 	double halfh;
+	double pos_root;
+
+	if (roots.x <= 0 && roots.y <= 0)
+		return (NAN);
 	
+
     scalmult(&phit, r.dir, root);
     p_add(&phit, phit, r.loc);
 
 	halfh = cy->h / 2;
 	proj = dot(phit, cy->dir);
-	diff = fabs(halfh - proj);
+	diff = fabs(halfh - fabs(proj));
+	// printf("diff=%f, proj=%f\n", diff,proj);
 	if (diff > halfh)
 		return (NAN);
 	return (root);
@@ -60,7 +66,6 @@ double	finite_cylinder_intersect(t_cy *cy, t_ray r, double root)
 
 double	square_intersect(t_sq *sq, t_ray r)
 {
-	// const double magn = sqrt(2)* sq->size;
 	t_p3d e1;
 	t_p3d e2;
 	t_p3d p;
@@ -68,10 +73,6 @@ double	square_intersect(t_sq *sq, t_ray r)
 	double proja;
 	double projb;
 	
-	// t_p3d vert[4];
-	// t_p3d crss[4];
-	// double dots[4];
-
 	root = plane_intersect(&(t_pl){sq->dir, sq->c, sq->color}, r);
 	if (isnan(root))
 		return (NAN);
@@ -92,25 +93,6 @@ double	square_intersect(t_sq *sq, t_ray r)
 	if (fabs(proja) <= (sq->size / 2) && fabs(projb) <= (sq->size / 2))
 		return (root);
 	return (NAN);
-	
-
-	// scalmult(&vert[0], e1, magn);
-	// p_add(&vert[0], vert[0], sq->c);
-
-	// scalmult(&vert[1], e1, -magn);
-	// p_add(&vert[1], vert[1], sq->c);
-
-	// scalmult(&vert[2], e2, magn);
-	// p_add(&vert[2], vert[2], sq->c);
-	
-	// scalmult(&vert[3], e2, -magn);
-	// p_add(&vert[3], vert[3], sq->c);
-
-
-	// TODO: two square axes dot plane hit -> the square hit
-
-
-
 }
 
 double	sphere_intersect(t_sp *sp, t_ray r)

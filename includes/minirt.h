@@ -68,6 +68,7 @@ typedef struct  s_norm
 }
                 t_norm;
 
+
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color);
 unsigned int	my_mlx_pixel_get(t_data *data, int x, int y);
 int             close_win(t_win *vars);
