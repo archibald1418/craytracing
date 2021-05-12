@@ -91,6 +91,10 @@ double	square_intersect(t_sq *sq, t_ray r)
 	// Find square's basis
 	cross(&e1, sq->dir, (t_p3d){1,0,0});
 	cross(&e2, sq->dir, e1);
+	if (!is_not_zero(e1))
+		init_p3d(&e1, sq->dir.x, sq->dir.y, sq->dir.z);
+	if (!is_not_zero(e2))
+		init_p3d(&e2, sq->dir.x, sq->dir.y, sq->dir.z);
 	normalize(&e1, e1);
 	normalize(&e2, e2);
 
