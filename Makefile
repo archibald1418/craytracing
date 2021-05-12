@@ -64,7 +64,7 @@ fclean: clean
 	rm -rf ./*.a ./*.dylib a.out $(NAME)
 
 $(NAME): $(MLXLL) $(OBJ) $(HEADERS) Makefile
-	$(CC) -g $(LIBAS) $(SOURCE) $(IFLAG) $(FRM) -o $(NAME)
+	$(CC) -g $(LIBAS) $(SOURCE) libft/*.c $(IFLAG) $(FRM) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -g $(IFLAG) -c $< -o $@

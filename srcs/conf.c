@@ -25,11 +25,12 @@ int key_hook (int keycode, t_norm *norm)
 {
 	t_cam *cam;
 
-	ft_bzero(norm->conf.img.addr, sizeof(char) * norm->conf.img.line_length * norm->conf.res.X);
 	if (keycode == ESC)
 		close_win(&norm->conf.vars);
 
 	// Flick cameras
+	// ft_bzero(norm->conf.img.addr, sizeof(char) * norm->conf.img.line_length * norm->conf.res.X);
+	mlx_clear_window(norm->conf.vars.mlx, norm->conf.vars.win);
 	if (keycode == RIGHT || keycode == LEFT)
 	{
 		if (keycode == RIGHT)
