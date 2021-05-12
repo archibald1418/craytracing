@@ -23,7 +23,7 @@ static double	calc_mantissa(int e, double num, int sgn, int esign)
 	return (num);
 }
 
-static double		iter_digits(char **str, int sgn, int is_e)
+static double		iter_digits(char **str, int sgn)
 {
 	double num;
 
@@ -58,7 +58,7 @@ double	ft_atof(char *s)
 	e = 0;
 	i = 0;
 	sgn = get_sign(s);
-	num = iter_digits(&s, sgn, 0);
+	num = iter_digits(&s, sgn);
 	if (*s == '.')
 		while (ft_isdigit(*++s))
 		{
@@ -68,7 +68,7 @@ double	ft_atof(char *s)
 	if (*s == 'e' || *s == 'E')
 	{
 		esgn = get_sign(++s);
-		i = (double)(iter_digits(&s, esgn, 1));
+		i = (double)(iter_digits(&s, esgn));
 		esgn = (esgn >= 0) ? 1 : -1;
 		e += (i * esgn);
 	}

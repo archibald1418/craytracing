@@ -42,26 +42,37 @@ t_p2d	infinite_cylinder_intersect(t_cy *cy, t_ray r)
 
 double	finite_cylinder_intersect(t_cy *cy, t_ray r, t_p2d roots)
 {
-	double proj;
-	t_p3d phit;
-	double diff;
-	double halfh;
-	double pos_root;
+	t_p3d phits[2];
+	double maxlen;
+	maxlen = cy->h/2;
 
 	if (roots.x <= 0 && roots.y <= 0)
 		return (NAN);
-	
 
-    scalmult(&phit, r.dir, root);
-    p_add(&phit, phit, r.loc);
+	if (roots.x <= 0)
+		return (roots.y);
 
-	halfh = cy->h / 2;
-	proj = dot(phit, cy->dir);
-	diff = fabs(halfh - fabs(proj));
+
+    scalmult(&phits[0], r.dir, roots.x);
+    p_add(&phits[0], phits[0], r.loc);
+	// normalize(&phits[0], phits[0]);
+
+	scalmult(&phits[1], r.dir, roots.y);
+	p_add(&phits[1], phits[1], r.loc);
+	// normalize(&phits[1], phits[1]);
+
+	if (roots.x < roots.y && roots.x > 0)
+		if (fabs(dot(phits[0], cy->dir)) < maxlen)
+			return (roots.x);
+	if (roots.y < roots.x && roots.y > 0)
+		if (fabs(dot(phits[1], cy->dir)) < maxlen)
+			return (roots.y);
+	return (NAN);
+
+
+	// proj = dot(phit, cy->dir);
+	// diff = fabs(halfh - fabs(proj));
 	// printf("diff=%f, proj=%f\n", diff,proj);
-	if (diff > halfh)
-		return (NAN);
-	return (root);
 }
 
 double	square_intersect(t_sq *sq, t_ray r)
@@ -158,9 +169,10 @@ double	triangle_intersect(t_tr *tr, t_ray r)
 
 double  intersect_shape(t_shape shape, t_ray ray)
 {
-	double root;
+	t_p2d cylinder_roots;
 
-	root = NAN;
+	cylinder_roots.x = NAN;
+	cylinder_roots.y = NAN;
     if (ft_strcmp(shape.label, SP) == 0)
         return((double)sphere_intersect((t_sp *)shape.shape, ray));
 	if (ft_strcmp(shape.label, SQ) == 0)
@@ -169,9 +181,9 @@ double  intersect_shape(t_shape shape, t_ray ray)
         return((double)plane_intersect((t_pl *)shape.shape, ray));
     if (ft_strcmp(shape.label, CY) == 0)
 	{
-		root = infinite_cylinder_intersect((t_cy *)shape.shape, ray);
-		if (!(isnan(root)))
-			return (finite_cylinder_intersect((t_cy *)shape.shape, ray, root));
+		cylinder_roots = infinite_cylinder_intersect((t_cy *)shape.shape, ray);
+		if (!(isnan(cylinder_roots.x) && !(isnan(cylinder_roots.y))))
+			return (finite_cylinder_intersect((t_cy *)shape.shape, ray, cylinder_roots));
 	}
     if (ft_strcmp(shape.label, TR) == 0)
         return((double)triangle_intersect((t_tr *)shape.shape, ray));

@@ -95,7 +95,7 @@ int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient);
 
 // Normals
 void    get_sp_normal(t_v3d *orient, t_sp *sp, t_ray ray);
-void    calc_point_normal(t_v3d *orient, t_shape shape, t_ray ray, double root);
+void    calc_point_normal(t_v3d *orient, t_shape shape, t_ray ray);
 
 // Calc_light
 double  diffuse(t_v3d orient, t_ray l_ray);
