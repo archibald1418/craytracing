@@ -8,7 +8,7 @@ static double	ssign(double x)
 		return (1.0);
 	return (0.0);
 }
-static double	calc_mantissa(int e, double num, int esign)
+static double	calc_mantissa(int e, double num, int sgn, int esign)
 {
 	double mult;
 
@@ -18,6 +18,8 @@ static double	calc_mantissa(int e, double num, int esign)
 		num *= mult;
 		e -= esign;
 	}
+	if (sgn == -1)
+		return (num * -1);
 	return (num);
 }
 
@@ -32,8 +34,6 @@ static double		iter_digits(char **str, int sgn, int is_e)
 		num = num * 10.0 + (double)((int)**str - '0');
 		(*str)++;
 	}
-	if (sgn < 0 && !is_e)
-		return (num * -1.0);
 	return (num);
 }
 
@@ -51,6 +51,7 @@ double	ft_atof(char *s)
 {
 	int		e;
 	double	num;
+	double	esgn;
 	int		sgn;
 	int		i;
 
@@ -66,12 +67,12 @@ double	ft_atof(char *s)
 		}
 	if (*s == 'e' || *s == 'E')
 	{
-		sgn = get_sign(++s);
-		i = (double)(iter_digits(&s, sgn, 1));
-		sgn = (sgn >= 0) ? 1 : -1;
-		e += (i * sgn);
+		esgn = get_sign(++s);
+		i = (double)(iter_digits(&s, esgn, 1));
+		esgn = (esgn >= 0) ? 1 : -1;
+		e += (i * esgn);
 	}
 	if (*s != '\0')
 		return ((double)NAN);
-	return (calc_mantissa(e, num, ssign(e)));
+	return (calc_mantissa(e, num, sgn, ssign(e)));
 }
