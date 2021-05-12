@@ -47,20 +47,35 @@ void    get_tr_normal(t_v3d *orient, t_tr *tr, t_ray ray)
         scalmult(&orient->dir, orient->dir, -1);
 }
 
-void    get_cy_normal(t_v3d *orient, t_cy *cy, t_ray ray)
+void    get_cy_normal(t_v3d *orient, t_cy *cy, t_ray ray, double root)
 {
+    t_p3d tmp;
+    t_p3d oc;
+    double m;
     double ray_dot_cyl;
-    // double N;
-    p_sub(&orient->loc, orient->loc, cy->c);
-    normalize(&orient->loc, orient->loc);
 
-    ray_dot_cyl = dot 
+    // Find closest point on axis
+    ray_dot_cyl = dot(ray.dir, cy->dir);
+    p_sub(&oc, ray.dir, cy->c);
+    m = ray_dot_cyl * root + dot(oc, cy->dir);
+
+    // Find Normal
+    p_sub(&orient->dir, orient->loc, cy->c);
+    scalmult(&tmp, cy->dir, m);
+    p_sub(&orient->dir, orient->dir, tmp);
+    normalize(&orient->dir, orient->dir);
+
+    // FIXME: the light is crap
+    // if (ray_dot_cyl < 0)
+    //     scalmult(&orient->dir, orient->dir, -1);
+
+    
 
     
 }
 
 
-void    calc_point_normal(t_v3d *orient, t_shape shape, t_ray ray)
+void    calc_point_normal(t_v3d *orient, t_shape shape, t_ray ray, double root)
 {
     if (ft_strcmp(shape.label, SP) == 0)
         return (get_sp_normal(orient, (t_sp *)shape.shape, ray));
@@ -69,7 +84,7 @@ void    calc_point_normal(t_v3d *orient, t_shape shape, t_ray ray)
     if (ft_strcmp(shape.label, PL) == 0)
         return(get_pl_normal(orient, (t_pl *)shape.shape, ray));
     if (ft_strcmp(shape.label, CY) == 0)
-        return(get_cy_normal(orient, (t_cy *)shape.shape, ray));
+        return(get_cy_normal(orient, (t_cy *)shape.shape, ray, root));
     if (ft_strcmp(shape.label, TR) == 0)
         return(get_tr_normal(orient, (t_tr *)shape.shape, ray));
 }
