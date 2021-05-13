@@ -65,6 +65,7 @@ t_matrix    get_new_basis(t_p3d tmp, t_cam cam)
     right = normalize(&right, right);
 
     return(init_matrix(up, right, forward));
+    
 }
 
 t_matrix    get_rot_x(t_cam cam)
