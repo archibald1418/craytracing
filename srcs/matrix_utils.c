@@ -49,11 +49,42 @@ t_p3d       mat_mult_vec(t_matrix m, t_p3d vec)
     return (res);
 }
 
-t_matrix    get_new_basis(t_p3d tmp, t_cam cam)
+double det3(t_matrix m)
+{
+	return (
+		m.m[0][0] * m.m[1][1] * m.m[2][2] - \
+		m.m[0][0] * m.m[1][2] * m.m[2][1] - \
+		m.m[0][1] * m.m[1][0] * m.m[2][2] + \
+		m.m[0][1] * m.m[1][2] * m.m[2][0] + \
+		m.m[0][2] * m.m[1][0] * m.m[2][1] - \
+		m.m[0][2] * m.m[1][1] * m.m[2][0]
+	);
+}
+
+t_matrix    get_inverse(t_matrix m)
+{
+    double det;
+    double inv_det;
+    t_p3d i;
+    t_p3d j;
+    t_p3d k;
+
+    det = det3(m);
+    inv_det = pow(det, -1);
+
+    i = (t_p3d){m.m[0][0], m.m[0][1], m.m[0][2]};
+    j = (t_p3d){m.m[1][0], m.m[1][1], m.m[1][2]};
+    k = (t_p3d){m.m[2][0], m.m[2][1], m.m[2][2]};
+    
+    
+}
+
+t_matrix    get_new_basis(t_p3d up, t_cam cam)
 {
     t_p3d forward;
     t_p3d right;
-    t_p3d up;
+    t_p3d tmp;
+    t_matrix basis;
 
     tmp = normalize(&tmp, tmp);
     forward = cam.dir;
@@ -64,22 +95,82 @@ t_matrix    get_new_basis(t_p3d tmp, t_cam cam)
     forward = normalize(&forward, forward);
     right = normalize(&right, right);
 
+    basis = init_matrix(up, right, forward);
     return(init_matrix(up, right, forward));
 
 }
 
+
+
 t_matrix    get_rotation(t_cam cam)
 {
     t_p3d up;
-    t_p3d tmp;
+    t_p3d right;
     t_matrix res;
 
-    up = (t_p3d){0, 1, 0};
-    tmp = cross(&tmp, cam.dir, up);
-    if (is_not_zero(tmp))
-        res = get_new_basis(tmp, cam);
-    else
+    if (!is_not_zero(cam.dir))
         res = get_unit_matrix();
+    else
+    {
+        up = (t_p3d){0, 1, 0};
+        cross(&right, cam.dir, up);
+        cross(&up, cam.dir, right);
+        res = get_new_basis(up, cam);
+    }
     return (res);
 }
 
+
+t_matrix    get_rot_x(t_cam cam)
+{
+    t_p3d i;
+    t_p3d j;
+    t_p3d k;
+
+    i = (t_p3d){1,      0,          0};
+    j = (t_p3d){0,      cam.dir.y,  -cam.dir.z};
+    k = (t_p3d){0,      cam.dir.z,  cam.dir.y};
+
+    return (init_matrix(i, j, k));
+}
+
+t_matrix    get_rot_y(t_cam cam)
+{
+    t_p3d i;
+    t_p3d j;
+    t_p3d k;
+
+    i = (t_p3d){cam.dir.x,  0,  cam.dir.z};
+    j = (t_p3d){0,          1,       0};
+    k = (t_p3d){-cam.dir.z, 0,  cam.dir.x};
+    return(init_matrix(i,j,k));
+}
+
+t_matrix    get_rot_z(t_cam cam)
+{
+    t_p3d i;
+    t_p3d j;
+    t_p3d k;
+
+    i = (t_p3d){cam.dir.x,  -cam.dir.y, 0};
+    j = (t_p3d){cam.dir.y,  cam.dir.x,   0};
+    k = (t_p3d){0,      0,              1};
+    return(init_matrix(i,j,k));
+}
+
+t_p3d   rot_ray(t_cam cam, t_ray ray)
+{
+    t_matrix i;
+    t_matrix j;
+    t_matrix k;
+    t_p3d tmp;
+
+    i = get_rot_x(cam);
+    j = get_rot_y(cam);
+    k = get_rot_z(cam);
+ 
+    tmp = mat_mult_vec(i, ray.dir);
+    tmp = mat_mult_vec(j, tmp);
+    tmp = mat_mult_vec(k, tmp);
+    return (tmp);
+ }

@@ -109,5 +109,9 @@ t_matrix	get_unit_matrix(void);
 t_p3d  		mat_mult_vec(t_matrix m, t_p3d vec);
 t_matrix	get_new_basis(t_p3d tmp, t_cam cam);
 t_matrix	get_rotation(t_cam cam);
+t_matrix    get_rot_x(t_cam cam);
+t_matrix    get_rot_y(t_cam cam);
+t_matrix    get_rot_z(t_cam cam);
+t_p3d       rot_ray(t_cam cam, t_ray ray);
 
 #endif

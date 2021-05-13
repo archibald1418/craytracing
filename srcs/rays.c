@@ -53,6 +53,8 @@ void	init_ray(t_v3d *ray, t_res *res, int px, int py, t_cam cam) // TODO: pass t
 	normalize(&ray->dir, ray->dir);
 	// Rotate camera
 	ray->dir = mat_mult_vec(cam.rot, ray->dir);
+	normalize(&ray->dir, ray->dir);
+	// ray->dir = rot_ray(cam, *ray);
 	// if ((camx == res->X / 2) && (camy == res->Y / 2))
 	// 	printf("RAYDIR -> (%f,%f,%f)\n", ray->dir.x, ray->dir.y, ray->dir.z);
 	// if (camx == res->X - 1 && camy == res->Y - 1)

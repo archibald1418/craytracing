@@ -134,6 +134,8 @@ double	det2(t_p2d v, t_p2d u)
 	return (v.x * u.y - u.x * v.y);
 }
 
+
+
 t_p3d	cross(t_p3d *c, t_p3d v, t_p3d u)
 {
 	init_p3d(c,
