@@ -1,6 +1,8 @@
 #include "minirt.h"
 
-#define PixelDataOffset 54
+#define PixelDataOffset 54 // Headers size
+#define BMPHeaderSize 14
+#define DIBHeaderSize 40
 #define PixelSize	4
 // Combined bitmap headers size is 54
 
@@ -11,6 +13,7 @@ void	set_fileheader(t_res res, int fd)
 	unsigned char header[PixelDataOffset];
 	ft_bzero(header, PixelDataOffset);
 	filesize = PixelDataOffset + (PixelSize * res.X * res.Y);
+	// BMP
 	header[0] = (unsigned char)'B';
 	header[1] = (unsigned char)'M';
 	header[2] = (unsigned char)filesize;
@@ -19,6 +22,7 @@ void	set_fileheader(t_res res, int fd)
 	header[5] = (unsigned char)(filesize >> 24);
 	header[10] = (unsigned char)(54);
 	header[14] = (unsigned char)(40);
+	// DIB
 	header[18] = (unsigned char)res.X;
 	header[19] = (unsigned char)(res.X >> 8);
 	header[20] = (unsigned char)(res.X >> 16);
@@ -29,18 +33,24 @@ void	set_fileheader(t_res res, int fd)
 	header[25] = (unsigned char)(res.Y >> 24);
 	header[26] = (unsigned char)(1);
 	header[28] = (unsigned char)(32);
+	header[34] = (unsigned char)((filesize - PixelDataOffset));
+	header[35] = (unsigned char)((filesize - PixelDataOffset) >> 8);
+	header[36] = (unsigned char)((filesize - PixelDataOffset) >> 16);
+	header[37] = (unsigned char)((filesize - PixelDataOffset) >> 24);
 	write(fd, header, 54);
 }
 
-int main()
-{	
+int save_bmp(t_conf *conf)
+{
+	(void)conf;	
 	int fd;
 	fd = open("test.bmp", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
 		return (0);
 
 	set_fileheader((t_res){10,10}, fd);
-	// TODO: join raytracer with this crap
+	// TODO: copy image at data->addr left to right bottom to top (note bpp in data & mlx_get_addr formula)
+	// write(fd, )
 	close(fd);
 	return (0);
 }

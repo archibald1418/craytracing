@@ -79,6 +79,7 @@ int             close_win(t_win *vars)
 	NOTE to self: I have two windows :)
 	*/
 	// TODO: clear all structs and stuff
+	// mlx_destroy_image()
 	exit(0);
 	return (0);
 }
@@ -100,6 +101,7 @@ void	init_img(t_data *data, t_win *vars, int width, int height)
 {
 	data->img = mlx_new_image(vars->mlx, width, height);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
+	// printf("%d -> ")
 }
 
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color)

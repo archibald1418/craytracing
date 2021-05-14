@@ -34,7 +34,8 @@ SRCS	= 	colors.c \
 			render.c \
 			lights.c \
 			normals.c \
-			matrix_utils.c
+			matrix_utils.c \
+			bmp.c
 
 DIR			=	srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))

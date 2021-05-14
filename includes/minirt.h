@@ -76,6 +76,7 @@ int             key_hook (int keycode, t_norm *norm);
 void			put_text(void *mlx, void *win, char *str, t_point *loc);
 int				put_mouse_pos(int x, int y, t_args *args);
 void			*init_infobar(void *mlx, int sizex, int sizey, char *title);
+void            clean_rt(t_rt *rt);
 
 
 // Intersects
@@ -114,4 +115,7 @@ t_matrix    get_rot_y(t_cam cam);
 t_matrix    get_rot_z(t_cam cam);
 t_p3d       rot_ray(t_cam cam, t_ray ray);
 
+// .bmp screenshot
+int save_bmp(t_conf *conf);
+void	set_fileheader(t_res res, int fd);
 #endif

@@ -10,8 +10,8 @@
 5 - map out possible errors
 6 - fill struct and handle errors (+ add struct setter)
 */
- 
-char *g_ids[] = {RES, AMB, CAM, LS, PL, SP, SQ, CY, TR, NULL};
+
+const char *g_ids[] = {RES, AMB, CAM, LS, PL, SP, SQ, CY, TR, NULL};
 
 /*
 
@@ -141,7 +141,7 @@ int	check_line(t_rt *rt, char **tokens)
 	}
 
 	// Check shapes
-	if (is_in_arr(id, g_ids + 4))
+	if (is_in_arr(id, (char **)(g_ids + 4)))
 	{
 		// update top
 		if (ft_strncmp(id, (char *)PL, ft_strlen((char*)PL)) == 0)	
