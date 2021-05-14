@@ -64,7 +64,7 @@ int save_bmp(t_conf *conf)
 			trgb[0] = addr[pi];
 			trgb[1] = addr[pi] >> 8;
 			trgb[2] = addr[pi] >> 16;
-			trgb[3] = addr[pi] >> 24;
+			trgb[3] = 0;
 			write(fd, trgb, 4);
 			i++;
 		}
