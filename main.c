@@ -13,10 +13,14 @@ int handle_errors(char *msg)
 	return(printf("Error\n%s...\n", msg));
 }
 
+
+
 int	has_extension(char *filename, char *ext)
 {
 	size_t len;
 	len = ft_strlen(filename);
+	if (len < ft_strlen(ext))
+		return (0);
 	if (ft_strcmp(&filename[len - 3], ext) != 0)
 		return (0);
 	return (1);
@@ -45,7 +49,7 @@ int main(int argc, char **argv)
 		if (out == -1)
 			return (handle_malloc());
 		if (out != 1)
-			return (printf("Parser error...\n"));
+			return (printf("Error\nParser error...\n"));
 
 		// Init an image
 		norm.conf.res = (t_res)norm.rt.res;
@@ -61,7 +65,6 @@ int main(int argc, char **argv)
 		if (argc == 3 && ft_strcmp(argv[2], "--save") == 0)
 			if (save_bmp(&norm.conf) != 1)
 				return (printf("Error\nBMP error...\n"));
-
 		// Setting up a window
 		
 		// Infobar

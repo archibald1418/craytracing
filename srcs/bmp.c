@@ -42,13 +42,36 @@ void	set_fileheader(t_res res, int fd)
 
 int save_bmp(t_conf *conf)
 {
-	(void)conf;	
 	int fd;
+	int i;
+	int j;
+	int pi;
+	char trgb[4]; 
+	char *addr;
 	fd = open("test.bmp", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
 		return (0);
 
-	set_fileheader((t_res){10,10}, fd);
+	set_fileheader(conf->res, fd);
+	addr = conf->img.addr; // unsigned?
+	j = conf->res.Y - 1;
+	while (j != -1)
+	{
+		i = 0;
+		while (i < conf->res.X)
+		{
+			pi = j * conf->res.X + i;
+			trgb[0] = addr[pi];
+			trgb[1] = addr[pi] >> 8;
+			trgb[2] = addr[pi] >> 16;
+			trgb[3] = addr[pi] >> 24;
+			write(fd, trgb, 4);
+			i++;
+		}
+		j--;
+	}
+	
+	
 	// TODO: copy image at data->addr left to right bottom to top (note bpp in data & mlx_get_addr formula)
 	// write(fd, )
 	close(fd);
