@@ -70,13 +70,18 @@ t_matrix    get_inverse(t_matrix m)
     t_p3d k;
 
     det = det3(m);
+    // printf("det=%f\n", det);
     inv_det = pow(det, -1);
+    // printf("inv_det=%f", inv_det);
 
     i = (t_p3d){m.m[0][0], m.m[0][1], m.m[0][2]};
     j = (t_p3d){m.m[1][0], m.m[1][1], m.m[1][2]};
     k = (t_p3d){m.m[2][0], m.m[2][1], m.m[2][2]};
     
-    
+    scalmult(&i, i, inv_det);
+    scalmult(&j, j, inv_det);
+    scalmult(&k, k, inv_det);
+    return(init_matrix(i, j, k));
 }
 
 t_matrix    get_new_basis(t_p3d up, t_cam cam)
@@ -86,7 +91,7 @@ t_matrix    get_new_basis(t_p3d up, t_cam cam)
     t_p3d tmp;
     t_matrix basis;
 
-    tmp = normalize(&tmp, tmp);
+    tmp = normalize(&tmp, up);
     forward = cam.dir;
     right = cross(&right, tmp, forward);
     up = cross(&up, forward, right);
@@ -106,19 +111,23 @@ t_matrix    get_rotation(t_cam cam)
 {
     t_p3d up;
     t_p3d right;
+    t_p3d forward;
     t_matrix res;
 
-    if (!is_not_zero(cam.dir))
+    up = (t_p3d){0,1,0};
+    if (!is_not_zero(cross(&up, cam.dir, up)))
         res = get_unit_matrix();
     else
     {
         up = (t_p3d){0, 1, 0};
         cross(&right, cam.dir, up);
         cross(&up, cam.dir, right);
+        forward = cam.dir;
         res = get_new_basis(up, cam);
     }
     return (res);
 }
+
 
 
 t_matrix    get_rot_x(t_cam cam)
@@ -158,19 +167,49 @@ t_matrix    get_rot_z(t_cam cam)
     return(init_matrix(i,j,k));
 }
 
+t_p3d   get_up(t_cam cam)
+{
+    t_p3d up;
+
+    up = (t_p3d){0,1,0};
+    if (cam.dir.x == 0 && \
+        cam.dir.y == 1 && \
+        cam.dir.z == 0)
+        up = (t_p3d){0,0,-1};
+    if (cam.dir.x == 0 && \
+        cam.dir.y == -1 && \
+        cam.dir.z == 0)
+        up = (t_p3d){0,0,1};
+    return (up);
+}
+
 t_p3d   rot_ray(t_cam cam, t_ray ray)
 {
-    t_matrix i;
-    t_matrix j;
-    t_matrix k;
+    t_p3d up;
+    t_p3d right;
+    t_p3d forward;
+    t_p3d res;
     t_p3d tmp;
 
-    i = get_rot_x(cam);
-    j = get_rot_y(cam);
-    k = get_rot_z(cam);
+    tmp = get_up(cam);
+    forward = cam.dir;
+
+    cross(&right, tmp, forward);
+    normalize(&right, right);
+
+    cross(&up, right, forward);
+    normalize(&up, up);
+
+    res.x = ray.dir.x * right.x + \
+            ray.dir.y * up.x + \
+            ray.dir.z * forward.x;
+    res.y = ray.dir.x * right.y + \
+            ray.dir.y * up.y + \
+            ray.dir.z * forward.y;
+    res.z = ray.dir.x * right.z + \
+            ray.dir.y * up.z + \
+            ray.dir.z * forward.z;
+    normalize(&res, res);
+    return (res);
+}
  
-    tmp = mat_mult_vec(i, ray.dir);
-    tmp = mat_mult_vec(j, tmp);
-    tmp = mat_mult_vec(k, tmp);
-    return (tmp);
- }

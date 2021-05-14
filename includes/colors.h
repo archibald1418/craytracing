@@ -16,7 +16,7 @@ int		get_b(int trgb);
 int		get_rgb(int trgb);
 int		add_shade(int trgb, double shade);
 int		set_lum(int trgb, double lum);
-int		add_trgb(int trgba, int trgbb);
+int		add_trgb(int trgba, int trgbb, double n);
 int		subtr_trgb(int trgba, int trgbb);
 int		get_opposite(int trgb);
 void	set_color(t_color *col, int r, int g, int b);

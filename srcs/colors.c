@@ -45,7 +45,17 @@ int		get_opposite(int trgb)
 	return ((~trgb & 0xFFFFFF) | (trgb & 0xFF000000));
 }
 
-int		add_trgb(int trgba, int trgbb)
+int t_min_max(int n, int min, int max)
+{
+	if (n < min)
+		n = min;
+	if (n > max)
+		n = max;
+	return(n);
+
+}
+
+int		add_trgb(int trgba, int trgbb, double n)
 {
 	double rnew;
 	double gnew;
@@ -54,9 +64,9 @@ int		add_trgb(int trgba, int trgbb)
 	// rnew = ((get_r(trgba) + get_r(trgbb))) / 2;
 	// gnew = ((get_g(trgba) + get_g(trgbb))) / 2;
 	// bnew = ((get_b(trgba) + get_b(trgbb))) / 2;
-	rnew = (get_r(trgba) * get_r(trgbb))   / 255;
-	gnew = (get_g(trgba) * get_g(trgbb)) / 255;
-	bnew = (get_b(trgba) * get_b(trgbb)) / 255;
+	rnew = t_min_max(n / 255 * get_r(trgba) * get_r(trgbb), 0, 255);
+	gnew = t_min_max(n / 255 * get_g(trgba) * get_g(trgbb), 0, 255);
+	bnew = t_min_max(n / 255 * get_b(trgba) * get_b(trgbb), 0, 255);
 	// rnew = fmin((get_r(trgba) + get_r(trgbb)), 255);
 	// gnew = fmin((get_g(trgba) + get_g(trgbb)), 255);
 	// bnew = fmin((get_b(trgba) + get_b(trgbb)), 255);
@@ -94,10 +104,10 @@ int		set_lum(int trgb, double lum)
 	return (create_trgb(0, (int)rnew, (int)gnew, (int)bnew));
 }
 
-int		mix_light(int color, double light_lum, int light_color)
-{
-	return (add_trgb(color, set_lum(light_lum, light_color)));
-}
+// int		mix_light(int color, double light_lum, int light_color)
+// {
+// 	return (add_trgb(color, set_lum(light_lum, light_color)));
+// }
 
 int     get_hex(t_color color)
 {

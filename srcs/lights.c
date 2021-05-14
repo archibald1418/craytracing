@@ -22,7 +22,7 @@ int     accumulate_color(int prev, int curr)
     int bnew;
 
     rnew = fmin(get_r(prev) + get_r(curr), 255);
-    gnew = fmin(get_g(prev) + get_r(curr), 255);
+    gnew = fmin(get_g(prev) + get_g(curr), 255);
     bnew = fmin(get_b(prev) + get_b(curr), 255);
 
     return (create_trgb(0, rnew, gnew, bnew));
@@ -80,14 +80,14 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt, t_cam cam)
     double lightdist;
     int curr_color;
     double mindist;
-    double total_lum;
+    double curr_lum;
 
     // Add ambient;
-    total_color = total_lum = 0;
+    total_color = curr_lum = 0;
     if (rt->has_lamb)
     {
-        total_color = add_trgb(shape_color, get_hex(rt->lamb.col));
-        total_lum = rt->lamb.lum;
+        total_color = add_trgb(shape_color, get_hex(rt->lamb.col), rt->lamb.lum);
+        // total_lum = rt->lamb.lum;
     }
 
     // Get shadow ray location (an already biased orient)
@@ -116,11 +116,13 @@ int calc_lights(int shape_color, t_v3d orient, t_rt *rt, t_cam cam)
         // If no intersection in the light's way, light it
         if (isinf(mindist) || mindist >= lightdist)
         {
-            curr_color = add_trgb(shape_color, get_hex(lsrc->col));
+            // curr_color = add_trgb(shape_color, get_hex(lsrc->col));
+            // total_color = accumulate_color(total_color, curr_color);
+            curr_lum = phong(orient, s_ray, cam, lsrc->lum);
+            curr_color = add_trgb(shape_color, get_hex(lsrc->col), curr_lum);
             total_color = accumulate_color(total_color, curr_color);
-            total_lum += phong(orient, s_ray, cam, lsrc->lum);
         }
         node = node->next;
     }
-    return (set_lum(total_color, fmin(total_lum, 1)));
+    return (total_color);
 }
