@@ -180,7 +180,7 @@ int		parser(const char *path, t_rt *rt)
 	i = 1;
 	fd = open(path, O_RDONLY);
 	out = 1;
-	while (out > 0)
+	while (out > 0 && fd != -1)
 	{
 		out = get_next_line(fd, &line);
 		if (out >= 0 && *line != '\0')
@@ -201,7 +201,7 @@ int		parser(const char *path, t_rt *rt)
 
 	// clean_rt(rt);
 
-	if (out == 0)
+	if (out == 0 && fd != -1)
 		close(fd);
 	else
 		return(printf("\nFILE ERROR...\n"));

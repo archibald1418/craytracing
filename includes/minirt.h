@@ -31,6 +31,12 @@
 # define AKEY      0
 # define SKEY      1
 # define DKEY      2
+# define NUM2      84
+# define NUM4      86
+# define NUM8      91
+# define NUM6      88
+# define NUMPLUS   69
+# define NUMMINUS  78
 
 // MOUSEMAPS:
 # define LCLICK		1

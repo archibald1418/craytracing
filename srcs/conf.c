@@ -12,6 +12,18 @@
 # define RATEZ 5
 #endif
 
+#ifndef ARATEX 
+# define ARATEX 0.1
+#endif
+
+#ifndef ARATEY
+# define ARATEY 0.1
+#endif
+
+#ifndef ARATEZ
+# define ARATEZ 0.1
+#endif
+
 int	do_render(t_conf *conf, t_rt *rt, t_cam *cam)
 {
 	int out;
@@ -19,6 +31,36 @@ int	do_render(t_conf *conf, t_rt *rt, t_cam *cam)
 	if (out != 1)
 		return (printf("Render error...'\n"));
 	return (0);
+}
+int	cam_hooks(int keycode, t_cam *cam)
+{
+	if (keycode == WKEY)
+		cam->loc.y += RATEY;
+	else if (keycode == AKEY)
+		cam->loc.x -= RATEX;
+	else if (keycode == SKEY)
+		cam->loc.y -= RATEY;
+	else if (keycode == DKEY)
+		cam->loc.x += RATEX;
+	else if (keycode == UP)
+		cam->loc.z += RATEZ;
+	else if (keycode == DOWN)
+		cam->loc.z -= RATEZ;
+	else if (keycode == NUM2)
+		cam->dir.y -= ARATEY;
+	else if (keycode == NUM8)
+		cam->dir.y += ARATEY;
+	else if (keycode == NUM4)
+		cam->dir.x += ARATEX;
+	else if (keycode == NUM6)
+		cam->dir.x -= ARATEX;
+	else if (keycode == NUMPLUS)
+		cam->dir.z += ARATEZ;
+	else if (keycode == NUMMINUS)
+		cam->dir.z -= ARATEZ;
+	else
+		return (0);
+	return (1);
 }
 
 int key_hook (int keycode, t_norm *norm)   
@@ -28,44 +70,36 @@ int key_hook (int keycode, t_norm *norm)
 	if (keycode == ESC)
 		close_win(&norm->conf.vars);
 
-	// Flick cameras
-	// ft_bzero(norm->conf.img.addr, sizeof(char) * norm->conf.img.line_length * norm->conf.res.X);
-	mlx_clear_window(norm->conf.vars.mlx, norm->conf.vars.win);
+	// Flick through cameras
 	if (keycode == RIGHT || keycode == LEFT)
 	{
 		if (keycode == RIGHT)
 		{
 			if (!norm->conf.node->next)
-				return (0);
+				return(printf("Reached last camera!\n"));
 			norm->conf.node = norm->conf.node->next;
 		}
 		if (keycode == LEFT)
 		{
 			if (!norm->conf.node->prev)
-				return (0);
+				return(printf("Reached first camera!\n"));
 			norm->conf.node = norm->conf.node->prev;
 		}
+		mlx_clear_window(norm->conf.vars.mlx, norm->conf.vars.win);
 		do_render(&norm->conf, &norm->rt, (t_cam *)norm->conf.node->content);
 		mlx_put_image_to_window(norm->conf.vars.mlx, norm->conf.vars.win, norm->conf.img.img, 0, 0);
 		return (1);
 	}
 	cam = (t_cam *)norm->conf.node->content;
+	if (cam_hooks(keycode, cam))
+	{
+		mlx_clear_window(norm->conf.vars.mlx, norm->conf.vars.win);
+		do_render(&norm->conf, &norm->rt, cam);
+		mlx_put_image_to_window(norm->conf.vars.mlx, norm->conf.vars.win, norm->conf.img.img, 0, 0);
+	}
 	// Move camera
 	// FIXME: x & y axes inverted with movement lol)))
-	if (keycode == WKEY)
-		cam->loc.y += RATEY;
-	if (keycode == AKEY)
-		cam->loc.x -= RATEX;
-	if (keycode == SKEY)
-		cam->loc.y -= RATEY;
-	if (keycode == DKEY)
-		cam->loc.x += RATEX;
-	if (keycode == UP)
-		cam->loc.z += RATEZ;
-	if (keycode == DOWN)
-		cam->loc.z -= RATEZ;
-	do_render(&norm->conf, &norm->rt, cam);
-	mlx_put_image_to_window(norm->conf.vars.mlx, norm->conf.vars.win, norm->conf.img.img, 0, 0);
+
 	return (0);
 }
 
