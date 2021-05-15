@@ -1,8 +1,8 @@
 #include "minirt.h"
 
-#define PixelDataOffset 54 // Headers size
 #define BMPHeaderSize 14
 #define DIBHeaderSize 40
+#define PixelDataOffset BMPHeaderSize + DIBHeaderSize // Headers size
 #define PixelSize	4
 // Combined bitmap headers size is 54
 
@@ -45,27 +45,29 @@ int save_bmp(t_conf *conf)
 	int fd;
 	int i;
 	int j;
-	int pi;
-	char trgb[4]; 
-	char *addr;
+	// int pi;
+	// unsigned char trgb[4]; 
+	unsigned int color;
+	// char *addr;
 	fd = open("test.bmp", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
 		return (0);
 
 	set_fileheader(conf->res, fd);
-	addr = conf->img.addr; // unsigned?
+	// addr = conf->img.addr; // unsigned?
 	j = conf->res.Y - 1;
 	while (j != -1)
 	{
 		i = 0;
 		while (i < conf->res.X)
 		{
-			pi = j * conf->res.X + i;
-			trgb[0] = addr[pi];
-			trgb[1] = addr[pi] >> 8;
-			trgb[2] = addr[pi] >> 16;
-			trgb[3] = 0;
-			write(fd, trgb, 4);
+			// color = my_mlx_pixel_get(&conf->img, i, j);
+			// trgb[3] = 0;
+			// trgb[2] = get_r(color);
+			// trgb[1] = get_g(color);
+			// trgb[0] = get_b(color);
+			color = my_mlx_pixel_get(&conf->img, i, j);
+			write(fd, &color, 4);
 			i++;
 		}
 		j--;
