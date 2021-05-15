@@ -37,6 +37,12 @@
 # define NUM6      88
 # define NUMPLUS   69
 # define NUMMINUS  78
+# define T         17
+# define G         5
+# define F         3
+# define H         4
+# define PLUS      24
+# define MINUS     27
 
 // MOUSEMAPS:
 # define LCLICK		1

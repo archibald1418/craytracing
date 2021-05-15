@@ -91,8 +91,11 @@ double	square_intersect(t_sq *sq, t_ray r)
 	// Find square's basis
 	cross(&e1, sq->dir, (t_p3d){1,0,0});
 	cross(&e2, sq->dir, e1);
-	normalize(&e1, e1);
-	normalize(&e2, e2);
+	if (is_not_zero(e1))
+		normalize(&e1, e1);
+	if (is_not_zero(e2))
+		normalize(&e2, e2);
+
 
 	// Find point on ray
 	scalmult(&p, r.dir, root);

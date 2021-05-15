@@ -46,17 +46,17 @@ int	cam_hooks(int keycode, t_cam *cam)
 		cam->loc.z += RATEZ;
 	else if (keycode == DOWN)
 		cam->loc.z -= RATEZ;
-	else if (keycode == NUM2)
+	else if (keycode == G)
 		cam->dir.y -= ARATEY;
-	else if (keycode == NUM8)
+	else if (keycode == T)
 		cam->dir.y += ARATEY;
-	else if (keycode == NUM4)
+	else if (keycode == F)
 		cam->dir.x += ARATEX;
-	else if (keycode == NUM6)
+	else if (keycode == H)
 		cam->dir.x -= ARATEX;
-	else if (keycode == NUMPLUS)
-		cam->dir.z += ARATEZ;
-	else if (keycode == NUMMINUS)
+	else if (keycode == PLUS)
+		cam->dir.x += ARATEZ;
+	else if (keycode == MINUS)
 		cam->dir.z -= ARATEZ;
 	else
 		return (0);
@@ -70,6 +70,7 @@ int key_hook (int keycode, t_norm *norm)
 	if (keycode == ESC)
 		close_win(&norm->conf.vars);
 
+	printf("keycode=%d\n", keycode);
 	// Flick through cameras
 	if (keycode == RIGHT || keycode == LEFT)
 	{
