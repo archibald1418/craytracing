@@ -77,5 +77,5 @@ int save_bmp(t_conf *conf)
 	// TODO: copy image at data->addr left to right bottom to top (note bpp in data & mlx_get_addr formula)
 	// write(fd, )
 	close(fd);
-	return (0);
+	return (1);
 }

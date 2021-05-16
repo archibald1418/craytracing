@@ -10,7 +10,9 @@ int	handle_malloc(void)
 
 int handle_errors(char *msg)
 {
-	return(printf("Error\n%s...\n", msg));
+	printf("Error\n%s...\n", msg);
+	exit(0);
+	return (0);
 }
 
 
@@ -42,14 +44,14 @@ int main(int argc, char **argv)
 	{
 		// Check file extension
 		if (!has_extension(argv[1], ".rt"))
-			return (printf("Error\nBad file extension"));
+			return (handle_errors("Bad file extension"));
 
 		// Parsing
 		out = parser(argv[1], &norm.rt);
 		if (out == -1)
-			return (handle_malloc());
+			return (handle_errors("Malloc error"));
 		if (out != 1)
-			return (printf("Error\nParser error...\n"));
+			return (handle_errors("Parser error..."));
 
 		// Init an image
 		norm.conf.res = (t_res)norm.rt.res;
@@ -61,10 +63,10 @@ int main(int argc, char **argv)
 		out = render(&norm.conf, &norm.rt, *(t_cam *)norm.rt.cams.head->content);
 		norm.conf.node = norm.rt.cams.head;
 		if (out != 1)
-			return (printf("Error\nRender error...\n"));
+			return (handle_error("Render error..."));
 		if (argc == 3 && ft_strcmp(argv[2], "--save") == 0)
 			if (save_bmp(&norm.conf) != 1)
-				return (printf("Error\nBMP error...\n"));
+				return (printf("BMP error..."));
 		// Setting up a window
 		
 		// Infobar
@@ -80,6 +82,6 @@ int main(int argc, char **argv)
 		mlx_loop(norm.conf.vars.mlx);
 	}
 	else 
-		return (printf("Error\nPODAI FAIL NA VKHOD DOLBAEB!\n"));
+		return (handle_errors("No file on input..."));
 	return (0);
 }
