@@ -6,9 +6,9 @@
 // Combined bitmap headers size is 54
 #define PIXELSIZE	4
 
-void	write_bits(int num, unsigned char *addr)
+static void	write_bits(int num, unsigned char *addr)
 {
-	unsigned char bits[4];
+	unsigned char	bits[4];
 
 	bits[0] = (unsigned char)num;
 	bits[1] = (unsigned char)(num >> 8);
@@ -36,12 +36,13 @@ void	set_fileheader(t_res res, int fd)
 	write(fd, header, 54);
 }
 
-int save_bmp(t_conf *conf)
+int	save_bmp(t_conf *conf)
 {
-	int fd;
-	int i;
-	int j;
-	unsigned int color;
+	int				fd;
+	int				i;
+	int				j;
+	unsigned int	color;
+
 	fd = open("test.bmp", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
 		return (0);
