@@ -140,6 +140,7 @@ t_p3d       rot_ray(t_cam cam, t_ray ray);
 
 // .bmp screenshot
 int save_bmp(t_conf *conf);
+// void	set_fileheader(t_res res, int fd);
 void	set_fileheader(t_res res, int fd);
 
 // Errors
