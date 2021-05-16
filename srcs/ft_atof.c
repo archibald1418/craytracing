@@ -49,11 +49,29 @@ static int		get_sign(char *str)
 	return (0);
 }
 
+static void	iter_frac(double *num, int *e, char **s)
+{
+	while (ft_isdigit(**++s))
+	{
+		*num = *num * 10.0 + (double)(**s - '0');
+		*e -= 1;
+	}	
+}
+
 double	get_esgn(double esgn)
 {
 	if (esgn >= 0)
 		return (1);
 	return (-1);
+}
+
+void kek(double *num, int *e, char **s)
+{
+	while (ft_isdigit(*++(*s)))
+	{
+		*num = *num * 10.0 + (double)(**s - '0');
+		*e -= 1;
+	}
 }
 
 double	ft_atof(char *s)
@@ -69,13 +87,7 @@ double	ft_atof(char *s)
 	sgn = get_sign(s);
 	num = iter_digits(&s, sgn);
 	if (*s == '.')
-	{
-		while (ft_isdigit(*++s))
-		{
-			num = num * 10.0 + (double)(*s - '0');
-			e -= 1;
-		}
-	}
+		kek(&num, &e, &s);
 	if (*s == 'e' || *s == 'E')
 	{
 		esgn = get_sign(++s);
