@@ -2,7 +2,7 @@
 
 #define BMPHEADERSIZE 14
 #define DIBHEADERSIZE 40
-#define PIXELDATAOFFSET 54 // Headers size
+#define PIXELDATAOFFSET 54 
 // Combined bitmap headers size is 54
 #define PIXELSIZE	4
 
