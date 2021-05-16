@@ -26,9 +26,9 @@ static double	calc_mantissa(int e, double num, int sgn, int esign)
 	return (num);
 }
 
-static double		iter_digits(char **str, int sgn)
+static double	iter_digits(char **str, int sgn)
 {
-	double num;
+	double	num;
 
 	num = 0.0;
 	*str += (sgn != 0);
@@ -40,7 +40,7 @@ static double		iter_digits(char **str, int sgn)
 	return (num);
 }
 
-static int		get_sign(char *str)
+static int	get_sign(char *str)
 {
 	if (*(unsigned char *)str == '+')
 		return (1);
@@ -65,7 +65,7 @@ double	get_esgn(double esgn)
 	return (-1);
 }
 
-void kek(double *num, int *e, char **s)
+void	kek(double *num, int *e, char **s)
 {
 	while (ft_isdigit(*++(*s)))
 	{
