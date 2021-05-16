@@ -80,6 +80,16 @@ typedef struct  s_norm
 }
                 t_norm;
 
+typedef struct  s_light
+{
+    t_v3d orient;
+    t_ray s_ray;
+    t_cam cam;
+    t_lsrc lsrc;
+    double lightdist;
+    int shape_color;
+    int total_color;
+}               t_light;               
 
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color);
 unsigned int	my_mlx_pixel_get(t_data *data, int x, int y);
@@ -114,6 +124,7 @@ void    calc_point_normal(t_v3d *orient, t_shape shape, t_ray ray);
 double  diffuse(t_v3d orient, t_ray l_ray);
 double  specular(t_v3d orient, t_ray l_ray, t_cam cam);
 double  phong(t_v3d orient, t_ray l_ray, t_cam cam, double base_lum);
+int     apply_shade(t_light light);
 int     calc_lights(int color, t_v3d orient, t_rt *rt, t_cam cam);
 
 // Matrix opeartions

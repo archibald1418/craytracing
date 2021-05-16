@@ -15,14 +15,13 @@ HFILES	=	colors.h \
 			parser.h \
 			vectors.h \
 			utils.h
-
+			
 SRCS	= 	colors.c \
 			conf.c \
 			vectors.c \
 			utils.c \
 			parser.c \
 			parser_utils.c \
-			infobar.c \
 			ft_strsplit.c \
 			ft_atof.c \
 			rays.c \
@@ -35,7 +34,8 @@ SRCS	= 	colors.c \
 			lights.c \
 			normals.c \
 			matrix_utils.c \
-			bmp.c
+			bmp.c \
+			infobar.c
 
 DIR			=	srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))
@@ -65,7 +65,7 @@ fclean: clean
 	rm -rf ./*.a ./*.dylib a.out $(NAME)
 
 $(NAME): $(MLXLL) $(OBJ) $(HEADERS) Makefile
-	$(CC) -g $(LIBAS) $(SOURCE) libft/*.c $(IFLAG) $(FRM) -o $(NAME)
+	$(CC) -g $(LIBAS) $(SOURCE) libft/*.c $(IFLAG) $(FRM) -fsanitize=address -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -g $(IFLAG) -c $< -o $@
@@ -73,7 +73,7 @@ $(NAME): $(MLXLL) $(OBJ) $(HEADERS) Makefile
 test-colors:
 	$(CC) $(TESTDIR)/colors_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
 
-test-line: 
+test-line:
 	$(CC) $(TESTDIR)/line_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
 test-triangle:
 	$(CC) $(TESTDIR)/triangle_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)

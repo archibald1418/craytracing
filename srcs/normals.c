@@ -5,7 +5,6 @@ void    get_sp_normal(t_v3d *orient, t_sp *sp, t_ray ray)
     (void)ray;
     p_sub(&orient->dir, orient->loc, sp->c);
 	normalize(&orient->dir, orient->dir);
-	// TODO: try reversing normals again (after normalizing)
 }
 
 void	get_pl_normal(t_v3d *orient, t_pl *pl, t_ray ray)
@@ -47,14 +46,11 @@ void    get_tr_normal(t_v3d *orient, t_tr *tr, t_ray ray)
         scalmult(&orient->dir, orient->dir, -1);
 }
 
-// void    get_cy_normal(t_v3d *orient, t_cy *cy, t_ray ray, double root)
 void    get_cy_normal(t_v3d *orient, t_cy *cy, t_ray ray)
 {
     t_p3d tangent;
     t_p3d pc;
     (void)ray;
-    // double m;
-    // double ray_dot_cyl;
 
     p_sub(&pc, orient->loc, cy->c);
     cross(&tangent, cy->dir, pc);

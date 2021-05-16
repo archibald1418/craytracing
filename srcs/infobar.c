@@ -9,7 +9,6 @@ int put_mouse_pos(int x, int y, t_args *args)
 		0 <= y && y <= args->conf->res.Y)
 	{
 		mlx_clear_window(args->conf->vars.mlx, args->outwin);
-
 		sprintf((char *)pos, "x=%-4d y=%-4d", x, y);
 		put_text(args->conf->vars.mlx, args->outwin, pos, &(t_point){10, 30});
 
