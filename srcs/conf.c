@@ -30,7 +30,7 @@ int	do_render(t_conf *conf, t_rt *rt, t_cam *cam)
 
 	out = render(conf, rt, *cam);
 	if (out != 1)
-		return (printf("Render error...'\n"));
+		return (handle_errors("Render error...'\n"));
 	return (0);
 }
 int	cam_hooks(int keycode, t_cam *cam)
@@ -60,6 +60,13 @@ int	cam_hooks(int keycode, t_cam *cam)
 	return (1);
 }
 
+void	do_window(t_norm *norm, t_cam *cam)
+{
+	mlx_clear_window(norm->conf.vars.mlx, norm->conf.vars.win);
+	do_render(&norm->conf, &norm->rt, cam);
+	mlx_put_image_to_window(norm->conf.vars.mlx, norm->conf.vars.win, norm->conf.img.img, 0, 0);
+}
+
 int key_hook (int keycode, t_norm *norm)   
 {
 	t_cam *cam;
@@ -81,18 +88,12 @@ int key_hook (int keycode, t_norm *norm)
 				return(printf("Reached first camera!\n"));
 			norm->conf.node = norm->conf.node->prev;
 		}
-		mlx_clear_window(norm->conf.vars.mlx, norm->conf.vars.win);
-		do_render(&norm->conf, &norm->rt, (t_cam *)norm->conf.node->content);
-		mlx_put_image_to_window(norm->conf.vars.mlx, norm->conf.vars.win, norm->conf.img.img, 0, 0);
+		do_window(norm, (t_cam *)norm->conf.node->content);
 		return (1);
 	}
 	cam = (t_cam *)norm->conf.node->content;
 	if (cam_hooks(keycode, cam))
-	{
-		mlx_clear_window(norm->conf.vars.mlx, norm->conf.vars.win);
-		do_render(&norm->conf, &norm->rt, cam);
-		mlx_put_image_to_window(norm->conf.vars.mlx, norm->conf.vars.win, norm->conf.img.img, 0, 0);
-	}
+		do_window(norm, cam);
 	return (0);
 }
 
