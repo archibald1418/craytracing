@@ -73,17 +73,9 @@ int apply_shade(t_light light)
 	return (curr_color);
 }
 
-int	calc_lights(int shape_color, t_v3d orient, t_rt *rt, t_cam cam)
+t_light	set_light(t_rt *rt, t_v3d orient, t_cam cam, int shape_color)
 {
-	// t_ray		s_ray;
-	t_bilist	*node;
-	// t_lsrc		*lsrc;
-	t_light		light;
-	int			i;
-	// int			total_color;
-	double		t;
-	double		mindist;
-
+	t_light light;
 	ft_bzero(&light, sizeof(light));
 	if (rt->has_lamb)
 		light.total_color = add_trgb(shape_color, get_hex(rt->lamb.col), rt->lamb.lum);
@@ -91,6 +83,18 @@ int	calc_lights(int shape_color, t_v3d orient, t_rt *rt, t_cam cam)
 	light.shape_color = shape_color;
 	light.s_ray.loc = orient.loc;
 	light.cam = cam;
+	return (light);
+}
+
+int	calc_lights(int shape_color, t_v3d orient, t_rt *rt, t_cam cam)
+{
+	t_bilist	*node;
+	t_light		light;
+	int			i;
+	double		t;
+	double		mindist;
+
+	light = set_light(rt, orient, cam, shape_color);
 	node = rt->lsrcs.head;
 	while (node)
 	{
