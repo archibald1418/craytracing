@@ -13,7 +13,9 @@ static double	calc_mantissa(int e, double num, int sgn, int esign)
 {
 	double	mult;
 
-	mult = (esign >= 0) ? 10.0 : 0.1;
+	mult = 0.1;
+	if (esign >= 0)
+		mult = 10.0;
 	while (e != 0)
 	{
 		num *= mult;
