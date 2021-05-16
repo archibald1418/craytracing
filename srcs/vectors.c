@@ -1,13 +1,14 @@
 #include "minirt.h"
 
-/*
-USEFUL FUNC:
-math.fma(x, y, z) -> x*y + z
-math.hypot (x, y) -> sqrt(x*x + y*y)
-math.modf (x, &y) -> the fractional part of x and stores the integral part in y
-math.frexp(x, &n) returns the mantissa of x and stores the exponent in n
-math.fdim (x, y) -> abs(x - y)
-math.copysign (-8, 154) -> 8 (magnitude of x + sign of y)
+/*		
+**		USEFUL FUNC:
+**
+** 		math.fma(x, y, z) -> x*y + z
+** 		math.hypot (x, y) -> sqrt(x*x + y*y)
+** 		math.modf (x, &y) -> the fractional part of x and stores the integral part in y
+** 		math.frexp(x, &n) returns the mantissa of x and stores the exponent in n
+** 		math.fdim (x, y) -> abs(x - y)
+** 		math.copysign (-8, 154) -> 8 (magnitude of x + sign of y)
 */
 
 t_p3d	init_p3d(t_p3d *p, double x, double y, double z)
@@ -18,14 +19,11 @@ t_p3d	init_p3d(t_p3d *p, double x, double y, double z)
 	return (*p);
 }
 
-
-
 t_v3d	init_v3d(t_v3d *v, t_p3d loc, t_p3d dir)
 {
 	init_p3d(&v->loc, loc.x, loc.y, loc.z);
 	init_p3d(&v->dir, dir.x, dir.y, dir.z);
 
-	// If direction is (0, 0, 0), vector has no direction
 	return (*v);
 
 }
@@ -74,7 +72,7 @@ t_p3d	scaldiv(t_p3d *c, t_p3d v, double s)
 {
 	if (s == 0)
 	{
-		printf("DIVISION BY ZERO ERROR!\n");
+		handle_errors("DIVISION BY ZERO ERROR!\n");
 		return ((t_p3d){0,0,0});
 	}
 	init_p3d(c, v.x * pow(s, -1), v.y * pow(s, -1), v.z * pow(s, -1));
@@ -93,7 +91,7 @@ t_p3d	normalize(t_p3d *n, t_p3d v)
 	len = get_len(v);
 	if (len == 0)
 	{
-		printf("ZERO VECTOR CAN'T BE NORMALIZED!\n");
+		handle_errors("ZERO VECTOR CAN'T BE NORMALIZED!\n");
 		return ((t_p3d){0,0,0});
 	}
 	
@@ -117,7 +115,7 @@ double		cos_sim(t_p3d v, t_p3d u)
 	len_v = get_len(v);
 	if (len_v == 0)
 	{
-		printf("ZERO VECTOR CAN'T BE MEASURED!\n");
+		handle_errors("ZERO VECTOR CAN'T BE MEASURED!\n");
 		return ((double)NAN);
 	}
 	return (dot(v, u) * pow(len_v * get_len(u), -1));

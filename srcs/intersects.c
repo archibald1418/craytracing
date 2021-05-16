@@ -55,11 +55,9 @@ double	finite_cylinder_intersect(t_cy *cy, t_ray r, t_p2d roots)
 
     scalmult(&phits[0], r.dir, roots.x);
     p_add(&phits[0], phits[0], r.loc);
-	// normalize(&phits[0], phits[0]);
 
 	scalmult(&phits[1], r.dir, roots.y);
 	p_add(&phits[1], phits[1], r.loc);
-	// normalize(&phits[1], phits[1]);
 
 	if (roots.x < roots.y && roots.x > 0)
 		if (fabs(dot(phits[0], cy->dir)) < maxlen)
@@ -70,9 +68,6 @@ double	finite_cylinder_intersect(t_cy *cy, t_ray r, t_p2d roots)
 	return (NAN);
 
 
-	// proj = dot(phit, cy->dir);
-	// diff = fabs(halfh - fabs(proj));
-	// printf("diff=%f, proj=%f\n", diff,proj);
 }
 
 double	square_intersect(t_sq *sq, t_ray r)

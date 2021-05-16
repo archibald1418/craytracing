@@ -44,7 +44,6 @@ t_p3d       mat_mult_vec(t_matrix m, t_p3d vec)
     y = m.m[0][1] * vec.x + m.m[1][1] * vec.y + m.m[2][1] * vec.z;
     z = m.m[0][2] * vec.x + m.m[1][2] * vec.y + m.m[2][2] * vec.z;
 
-    // printf("x=%f y=%f z=%f\n", x, y, z);
     res = init_p3d(&res, x, y, z);
     return (res);
 }
@@ -70,9 +69,7 @@ t_matrix    get_inverse(t_matrix m)
     t_p3d k;
 
     det = det3(m);
-    // printf("det=%f\n", det);
     inv_det = pow(det, -1);
-    // printf("inv_det=%f", inv_det);
 
     i = (t_p3d){m.m[0][0], m.m[0][1], m.m[0][2]};
     j = (t_p3d){m.m[1][0], m.m[1][1], m.m[1][2]};

@@ -70,8 +70,6 @@ int key_hook (int keycode, t_norm *norm)
 	if (keycode == ESC)
 		close_win(&norm->conf.vars);
 
-	printf("keycode=%d\n", keycode);
-	// Flick through cameras
 	if (keycode == RIGHT || keycode == LEFT)
 	{
 		if (keycode == RIGHT)
@@ -98,9 +96,6 @@ int key_hook (int keycode, t_norm *norm)
 		do_render(&norm->conf, &norm->rt, cam);
 		mlx_put_image_to_window(norm->conf.vars.mlx, norm->conf.vars.win, norm->conf.img.img, 0, 0);
 	}
-	// Move camera
-	// FIXME: x & y axes inverted with movement lol)))
-
 	return (0);
 }
 
@@ -108,13 +103,6 @@ int key_hook (int keycode, t_norm *norm)
 int             close_win(t_win *vars)
 {
 	(void)vars;
-	/*
-	TODO: mlx_destroy_window + mlx_destroy_image
-	helps with leaks
-	NOTE to self: I have two windows :)
-	*/
-	// TODO: clear all structs and stuff
-	// mlx_destroy_image()
 	exit(0);
 	return (0);
 }
@@ -136,7 +124,6 @@ void	init_img(t_data *data, t_win *vars, int width, int height)
 {
 	data->img = mlx_new_image(vars->mlx, width, height);
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
-	// printf("%d -> ")
 }
 
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color)

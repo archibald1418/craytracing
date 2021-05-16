@@ -15,8 +15,6 @@ int handle_errors(char *msg)
 	return (0);
 }
 
-
-
 int	has_extension(char *filename, char *ext)
 {
 	size_t len;
@@ -63,10 +61,10 @@ int main(int argc, char **argv)
 		out = render(&norm.conf, &norm.rt, *(t_cam *)norm.rt.cams.head->content);
 		norm.conf.node = norm.rt.cams.head;
 		if (out != 1)
-			return (handle_error("Render error..."));
+			return (handle_errors("Render error..."));
 		if (argc == 3 && ft_strcmp(argv[2], "--save") == 0)
 			if (save_bmp(&norm.conf) != 1)
-				return (printf("BMP error..."));
+				return (handle_errors("BMP error..."));
 		// Setting up a window
 		
 		// Infobar
