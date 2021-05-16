@@ -27,6 +27,7 @@
 int	do_render(t_conf *conf, t_rt *rt, t_cam *cam)
 {
 	int out;
+
 	out = render(conf, rt, *cam);
 	if (out != 1)
 		return (printf("Render error...'\n"));
@@ -54,10 +55,6 @@ int	cam_hooks(int keycode, t_cam *cam)
 		cam->dir.x += ARATEX;
 	else if (keycode == H)
 		cam->dir.x -= ARATEX;
-	else if (keycode == PLUS)
-		cam->dir.x += ARATEZ;
-	else if (keycode == MINUS)
-		cam->dir.z -= ARATEZ;
 	else
 		return (0);
 	return (1);
