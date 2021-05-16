@@ -86,12 +86,29 @@ t_light	set_light(t_rt *rt, t_v3d orient, t_cam cam, int shape_color)
 	return (light);
 }
 
+double iter_shapes(t_rt *rt, t_light *light)
+{
+	double mindist;
+	double t;
+	int i;
+
+	i = 0;
+	mindist = light->lightdist;
+	while (i < rt->shapes.top)
+	{
+		t = intersect_shape(rt->shapes.shapes[i], light->s_ray);
+		if (!(isnan(t)) && (0.05 <= t && t < light->lightdist))
+			mindist = t;
+		i++;
+	}	
+
+	return (mindist);
+}
+
 int	calc_lights(int shape_color, t_v3d orient, t_rt *rt, t_cam cam)
 {
 	t_bilist	*node;
 	t_light		light;
-	int			i;
-	double		t;
 	double		mindist;
 
 	light = set_light(rt, orient, cam, shape_color);
@@ -102,15 +119,8 @@ int	calc_lights(int shape_color, t_v3d orient, t_rt *rt, t_cam cam)
 		light.lightdist = get_dist(light.s_ray.loc, light.lsrc.loc);
 		light.s_ray.dir = p_sub(&light.s_ray.dir, light.lsrc.loc, light.s_ray.loc);
 		normalize(&light.s_ray.dir, light.s_ray.dir);
-		i = 0;
 		mindist = light.lightdist;
-		while (i < rt->shapes.top)
-		{
-			t = intersect_shape(rt->shapes.shapes[i], light.s_ray);
-			if (!(isnan(t)) && (0.05 <= t && t < light.lightdist))
-				mindist = t;
-			i++;
-		}
+		mindist = iter_shapes(rt, &light);
 		if (isinf(mindist) || mindist >= light.lightdist)
 			light.total_color = accumulate_color(light.total_color, apply_shade(light));
 		node = node->next;
