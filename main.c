@@ -63,9 +63,11 @@ int main(int argc, char **argv)
 		if (out != 1)
 			return (handle_errors("Render error..."));
 		if (argc == 3 && ft_strcmp(argv[2], "--save") == 0)
+		{
 			if (save_bmp(&norm.conf) != 1)
 				return (handle_errors("BMP error..."));
 			return (printf("Screenshot is ready\n"));
+		}
 		// Setting up a window
 		// Infobar
 		norm.args.outwin = init_infobar(norm.conf.vars.mlx, 210, 210, "RGB");
