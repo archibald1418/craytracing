@@ -9,7 +9,7 @@ t_p3d	get_new_point(t_p3d loc, t_p3d dir, double t)
 	return (p);
 }
 
-void	treat_mins(double *mindist, double *dist, \
+static void	treat_mins(double *mindist, double *dist, \
 					t_shape *minshape, t_shape *shape)
 {
 	if (*dist < *mindist)

@@ -17,6 +17,8 @@ HFILES	=	colors.h \
 			utils.h
 			
 SRCS	= 	colors.c \
+			colors_bits.c \
+			colors_extra.c \
 			conf.c \
 			utils.c \
 			vectors.c \
@@ -45,6 +47,7 @@ SRCS	= 	colors.c \
 			intersects_bodies.c \
 			render.c \
 			lights.c \
+			lights_phong.c \
 			normals.c \
 			normals_planes.c \
 			normals_bodies.c \

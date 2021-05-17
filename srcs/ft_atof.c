@@ -40,23 +40,7 @@ static double	iter_digits(char **str, int sgn)
 	return (num);
 }
 
-static int	get_sign(char *str)
-{
-	if (*(unsigned char *)str == '+')
-		return (1);
-	if (*(unsigned char *)str == '-')
-		return (-1);
-	return (0);
-}
-
-double	get_esgn(double esgn)
-{
-	if (esgn >= 0)
-		return (1);
-	return (-1);
-}
-
-void	kek(double *num, int *e, char **s)
+static void	kek(double *num, int *e, char **s)
 {
 	while (ft_isdigit(*(++(*s))))
 	{

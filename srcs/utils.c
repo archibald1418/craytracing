@@ -26,3 +26,12 @@ double	sign(double x)
 		return (1.0);
 	return (0.0);
 }
+
+int	t_min_max(int n, int min, int max)
+{
+	if (n < min)
+		n = min;
+	if (n > max)
+		n = max;
+	return (n);
+}
