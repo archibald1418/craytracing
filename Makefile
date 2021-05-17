@@ -18,8 +18,12 @@ HFILES	=	colors.h \
 			
 SRCS	= 	colors.c \
 			conf.c \
-			vectors.c \
 			utils.c \
+			vectors.c \
+			vectors_angles.c \
+			vectors_arithmetic.c \
+			vectors_products.c \
+			vectors_utils.c \
 			parser.c \
 			parser_points.c \
 			parser_set.c \
@@ -31,6 +35,7 @@ SRCS	= 	colors.c \
 			checkers_utils.c \
 			ft_strsplit.c \
 			ft_atof.c \
+			ft_atof_utils.c \
 			rays.c \
 			camera.c \
 			setters.c \
