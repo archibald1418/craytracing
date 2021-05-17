@@ -112,66 +112,51 @@ double	sphere_intersect(t_sp *sp, t_ray r)
 
 double	triangle_intersect(t_tr *tr, t_ray r)
 {
-	// t_p3d	e1;
-	// t_p3d	e2;
 	t_p3d	e[2];
-	// t_p3d	pvec;
-	// t_p3d	tvec;
-	// t_p3d	qvec;
 	t_p3d	ptq[3];
 	double	det;
 	double	inv_det;
-	// double	u;
-	// double	v;
 	double	uv[2];
-
 
 	p_sub(&e[0], tr->B, tr->A);
 	p_sub(&e[1], tr->C, tr->A);
-	// normalize(&e1, e1);
-	// normalize(&e2, e2);
 	cross(&ptq[0], r.dir, e[1]);
-	// normalize(&pvec, pvec);
 	det = dot(e[0], ptq[0]);
-
-	// Is parallel
 	if (-1e-8 <= det && det <= 1e-8)
 		return (NAN);
-
 	inv_det = pow(det, -1);
 	p_sub(&ptq[1], r.loc, tr->A);
-	// normalize(&tvec, tvec);
 	uv[0] = dot(ptq[1], ptq[0]) * inv_det;
 	if (uv[0] < 0 || uv[0] > 1)
 		return (NAN);
-
 	cross(&ptq[2], ptq[1], e[0]);
-	// normalize(&qvec, qvec);
 	uv[1] = dot(r.dir, ptq[2]) * inv_det;
 	if (uv[1] < 0 || uv[0] + uv[1] > 1)
 		return (NAN);
 	return (dot(e[1], ptq[2]) * inv_det);
 }
 
-double  intersect_shape(t_shape shape, t_ray ray)
+double	intersect_shape(t_shape shape, t_ray ray)
 {
-	t_p2d cylinder_roots;
+	t_p2d	cylinder_roots;
 
 	cylinder_roots.x = NAN;
 	cylinder_roots.y = NAN;
-    if (ft_strcmp(shape.label, SP) == 0)
-        return((double)sphere_intersect((t_sp *)shape.shape, ray));
+	if (ft_strcmp(shape.label, SP) == 0)
+		return ((double)sphere_intersect((t_sp *)shape.shape, ray));
 	if (ft_strcmp(shape.label, SQ) == 0)
-        return((double)square_intersect((t_sq *)shape.shape, ray));
-    if (ft_strcmp(shape.label, PL) == 0)
-        return((double)plane_intersect((t_pl *)shape.shape, ray));
-    if (ft_strcmp(shape.label, CY) == 0)
+		return ((double)square_intersect((t_sq *)shape.shape, ray));
+	if (ft_strcmp(shape.label, PL) == 0)
+		return ((double)plane_intersect((t_pl *)shape.shape, ray));
+	if (ft_strcmp(shape.label, CY) == 0)
 	{
 		cylinder_roots = infinite_cylinder_intersect((t_cy *)shape.shape, ray);
 		if (!(isnan(cylinder_roots.x) && !(isnan(cylinder_roots.y))))
-			return (finite_cylinder_intersect((t_cy *)shape.shape, ray, cylinder_roots));
+			return (finite_cylinder_intersect((t_cy *)shape.shape, \
+			ray, \
+			cylinder_roots));
 	}
-    if (ft_strcmp(shape.label, TR) == 0)
-        return((double)triangle_intersect((t_tr *)shape.shape, ray));
-    return ((double)NAN);
+	if (ft_strcmp(shape.label, TR) == 0)
+		return ((double)triangle_intersect((t_tr *)shape.shape, ray));
+	return ((double)NAN);
 }
