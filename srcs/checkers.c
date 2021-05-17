@@ -1,12 +1,12 @@
 #include "minirt.h"
 
-int		check_tokens(char ***tokens, int len, char *token_name, char *unit)
+int	check_tokens(char ***tokens, int len, char *token_name, char *unit)
 {
-	int i;
+	int	i;
+
 	(void)token_name;
 	(void)len;
 	(void)unit;
-
 	i = 0;
 	while ((*tokens)[i] != NULL)
 		if (++i > len)
@@ -16,27 +16,30 @@ int		check_tokens(char ***tokens, int len, char *token_name, char *unit)
 	return (1);
 }
 
-int		check_fov(int fov)
+int	check_fov(int fov)
 {
 	if (!(0 < fov && fov <= 180))
 		return (handle_errors("FOV NOT IN RANGE [0, 180]\n"));
 	return (1);
 }
 
-int		check_point(char ***tokens, t_p3d *p, int is_normal)
+int	check_point(char ***tokens, t_p3d *p, int is_normal)
 {
-	const char *msgs[] = {"POINT", "NORMAL"};
-	double x;
-	double y;
-	double z;
+	const char	*msgs[] = {"POINT", "NORMAL"};
+	double		x;
+	double		y;
+	double		z;
 
 	if (check_tokens(tokens, 3, "COORD", (char *)(msgs[is_normal])) != 1)
 		return (handle_errors("POINT ERROR RLY??¯\\_(ツ)_/¯\n"));
-	if (isnan(x = (double)ft_atof((*tokens)[0])))
+	x = (double)ft_atof((*tokens)[0]);
+	y = (double)ft_atof((*tokens)[1]);
+	z = (double)ft_atof((*tokens)[2]);
+	if (isnan(x))
 		return (handle_errors("BAD X COORD \n"));
-	if (isnan(y = (double)ft_atof((*tokens)[1])))
+	if (isnan(y))
 		return (handle_errors("BAD Y COORD !\n"));
-	if (isnan(z = (double)ft_atof((*tokens)[2])))
+	if (isnan(z))
 		return (handle_errors("BAD Z COORD !\n"));
 	if (is_normal)
 		if (x == 0 && y == 0 && z == 0)
@@ -44,18 +47,17 @@ int		check_point(char ***tokens, t_p3d *p, int is_normal)
 	init_p3d(p, x, y, z);
 	free_arr((void**)*tokens, 3);
 	return (1);
-	//
 }
 
-int		check_cam (char **tokens, t_cam *cam)
+int	check_cam (char **tokens, t_cam *cam)
 {
-	int i;
-	t_p3d loc;
-	t_p3d dir1;
-	t_p3d dir2;
-	double fov;
-	char **ploc;
-	char **pdir;
+	int		i;
+	t_p3d	loc;
+	t_p3d	dir1;
+	t_p3d	dir2;
+	double	fov;
+	char	**ploc;
+	char	**pdir;
 
 	i = 0;
 	if (check_tokens(&tokens, 4, "ELEMENT", "CAMERA") != 1)
@@ -84,11 +86,11 @@ int		check_cam (char **tokens, t_cam *cam)
 	return (1);
 }
 
-int		check_res (char **tokens, t_rt *rt)
+int	check_res (char **tokens, t_rt *rt)
 {
-	double X;
-	double Y;
-	int i;
+	double	X;
+	double	Y;
+	int		i;
 
 	i = 0;
 	if (rt->has_res)
@@ -105,7 +107,7 @@ int		check_res (char **tokens, t_rt *rt)
 	return (1);
 }
 
-int		check_rgb(char ***tokens, t_color *color)
+int	check_rgb(char ***tokens, t_color *color)
 {
 	int i;
 	double r;
@@ -130,7 +132,7 @@ int		check_rgb(char ***tokens, t_color *color)
 }
 
 
-int		check_lamb(char **tokens, t_rt *rt)
+int	check_lamb(char **tokens, t_rt *rt)
 {
 	double lum;
 	char **rgb;
@@ -156,11 +158,11 @@ int		check_lamb(char **tokens, t_rt *rt)
 }
 
 
-int		check_lsrc(char **tokens, t_lsrc *lsrc)
+int	check_lsrc(char **tokens, t_lsrc *lsrc)
 {
-	double lum;
-	char **rgb;
-	char **ploc;
+	double	lum;
+	char	**rgb;
+	char	**ploc;
 
 	if (check_tokens(&tokens, 4, "ELEMENT", "LIGHT SOURCE") != 1)
 		return (handle_errors("LIGHT ERROR... \n"));
