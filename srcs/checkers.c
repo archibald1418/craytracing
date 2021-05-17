@@ -45,44 +45,47 @@ int	check_point(char ***tokens, t_p3d *p, int is_normal)
 		if (x == 0 && y == 0 && z == 0)
 			return (handle_errors("ZERO NORMAL ERROR ¯\\_(ツ)_/¯\n"));
 	init_p3d(p, x, y, z);
-	free_arr((void**)*tokens, 3);
+	free_arr((void **)*tokens, 3);
 	return (1);
+}
+
+void	parse_location(char ***ploc, t_p3d *loc, char **tokens)
+{
+	*ploc = ft_strsplit(tokens[1], ",");
+	if (!(*ploc))
+		handle_errors("Malloc error...\n");
+	if (check_point(ploc, loc, 0) != 1)
+		handle_errors("LOCATION ERROR ¯\\_(ツ)_/¯\n");
+}
+
+void	parse_direction(char ***pdir, t_p3d *dir2, char **tokens)
+{
+	*pdir = ft_strsplit(tokens[2], ",");
+	if (!(*pdir))
+		handle_errors("Malloc error...\n");
+	if (check_point(pdir, dir2, 1) != 1)
+		handle_errors("DIRECTION ERROR ¯\\_(ツ)_/¯\n");
 }
 
 int	check_cam (char **tokens, t_cam *cam)
 {
-	int		i;
 	t_p3d	loc;
 	t_p3d	dir1;
 	t_p3d	dir2;
-	double	fov;
 	char	**ploc;
 	char	**pdir;
 
-	i = 0;
 	if (check_tokens(&tokens, 4, "ELEMENT", "CAMERA") != 1)
 		return (handle_errors("CAMERA ERROR ¯\\_(ツ)_/¯\n"));
-
-	// Parse location
-	if (!(ploc = ft_strsplit(tokens[1], ",")))
-		return (-1);
-	if (check_point(&ploc, &loc, 0) != 1)
-		return (handle_errors("CAMERA LOCATION ERROR ¯\\_(ツ)_/¯\n"));
-
-	// Parse direction
-	if (!(pdir = ft_strsplit(tokens[2], ",")))
-		return (-1);
-	if (check_point(&pdir, &dir2, 1) != 1)
-		return (handle_errors("CAMERA DIRECTION ERROR ¯\\_(ツ)_/¯\n"));
-
-	// Parse fov
-	if (isnan(fov = (double)ft_atof(tokens[3])))
-		return(handle_errors("BAD FOV ...\n"));
-	if (!check_fov((int)fov))
+	parse_location(&ploc, &loc, tokens);
+	parse_direction(&pdir, &dir2, tokens);
+	cam->fov = (double)ft_atof(tokens[3]);
+	if (isnan(cam->fov))
+		return (handle_errors("BAD FOV ...\n"));
+	if (!check_fov((int)cam->fov))
 		return (handle_errors("FOV ERROR ...\n"));
-
 	normalize(&dir1, dir2);
-	init_camera(cam, loc, dir1, fov);
+	init_camera(cam, loc, dir1, cam->fov);
 	return (1);
 }
 
@@ -90,16 +93,16 @@ int	check_res (char **tokens, t_rt *rt)
 {
 	double	X;
 	double	Y;
-	int		i;
 
-	i = 0;
 	if (rt->has_res)
 		return (handle_errors("RESOLUION IS ALREADY SET! \\_(-_-)_/\n"));
 	if (check_tokens(&tokens, 3, "ELEMENT", "RESOLUTION") != 1)
 		return (handle_errors("RESOLUTION ERROR ¯\\_(ツ)_/¯\n"));
-	if (isnan(X = (double)ft_atoi(tokens[1])) || (int)X <= 0)
+	X = (double)ft_atoi(tokens[1]);
+	if (isnan(X) || (int)X <= 0)
 		return (handle_errors("BAD WINDOW WIDTH >_<\n"));
-	if (isnan(Y = (double)ft_atoi(tokens[2])) || (int)Y <= 0)
+	Y = (double)ft_atoi(tokens[2]);
+	if (isnan(Y) || (int)Y <= 0)
 		return (handle_errors("BAD WINDOW HEIGHT >_<\n"));
 	rt->res.X = (int)X;
 	rt->res.Y = (int)Y;
@@ -109,46 +112,46 @@ int	check_res (char **tokens, t_rt *rt)
 
 int	check_rgb(char ***tokens, t_color *color)
 {
-	int i;
-	double r;
-	double g;
-	double b;
+	double	r;
+	double	g;
+	double	b;
 
-	i = 0;
 	if (check_tokens(tokens, 3, "COLOR", "RGB") != 1)
 		return (0);
-	if (isnan(r = (double)ft_atof((*tokens)[0])) || (int)r < 0 || (int)r > 255)
+	r = (double)ft_atof((*tokens)[0]);
+	if (isnan(r) || (int)r < 0 || (int)r > 255)
 		return (0);
-	if (isnan(g = (double)ft_atof((*tokens)[1])) || (int)g < 0 || (int)g > 255)
+	g = (double)ft_atof((*tokens)[1]);
+	if (isnan(g) || (int)g < 0 || (int)g > 255)
 		return (0);
-	if (isnan(b = (double)ft_atof((*tokens)[2])) || (int)b < 0 || (int)b > 255)
+	b = (double)ft_atof((*tokens)[2]);
+	if (isnan(b) || (int)b < 0 || (int)b > 255)
 		return (0);
 	if (r - (double)((int)r) > 0.0 || g - (double)((int)g) > 0.0 || \
 		b - (double)((int)b) > 0.0)
 		return (handle_errors("COLOR MUST BE AN INT! OH BOI\n"));
 	set_color(color, (int)r, (int)g, (int)b);
-	free_arr((void**)*tokens, 3);
+	free_arr((void **)*tokens, 3);
 	return (1);
 }
 
-
 int	check_lamb(char **tokens, t_rt *rt)
 {
-	double lum;
-	char **rgb;
-	int i;
+	double	lum;
+	char	**rgb;
 	t_color	color;
 
-	i = 0;
 	if (rt->has_lamb)
-		return(handle_errors("AMBIENCE IS ALREADY SET!\n"));
+		return (handle_errors("AMBIENCE IS ALREADY SET!\n"));
 	if (check_tokens(&tokens, 3, "ELEMENT", "AMBIENCE") != 1)
 		return (handle_errors("AMBIENCE ERROR... \n"));
-	if (isnan(lum = (double)ft_atof(tokens[1])))
+	lum = (double)ft_atof(tokens[1]);
+	if (isnan(lum))
 		return (handle_errors("BAD LUMINANCE!\n"));
 	if (lum < 0 || lum > 1)
 		return (handle_errors("LUMINANCE OUT OF RANGE [0,1]\n"));
-	if (!(rgb = ft_strsplit(tokens[2], ",")))
+	rgb = ft_strsplit(tokens[2], ",");
+	if (!(rgb))
 		return (handle_errors("Malloc errror"));
 	if (check_rgb(&rgb, &color) != 1)
 		return (handle_errors("BAD AMBIENT COLOR!\n"));
@@ -156,7 +159,6 @@ int	check_lamb(char **tokens, t_rt *rt)
 	rt->has_lamb = 1;
 	return (1);
 }
-
 
 int	check_lsrc(char **tokens, t_lsrc *lsrc)
 {
@@ -259,7 +261,7 @@ int		check_sp(char **tokens, t_rt *rt)
 	if (!(rgb = ft_strsplit(tokens[3], ",")))
 		return (-1);
 	if (check_rgb(&rgb, &sp.color) != 1)
-		return(handle_errors("SPHERE COLOR ERROR\n"));
+		return (handle_errors("SPHERE COLOR ERROR\n"));
 
 	// Copy sphere to array
 	if (!(rt->shapes.shapes[rt->shapes.top].shape = ft_memdup(&sp, sizeof(t_sp))))
@@ -290,7 +292,7 @@ int		check_sq(char **tokens, t_rt *rt)
 	if (!(rgb = ft_strsplit(tokens[4], ",")))
 		return (-1);
 	if (check_rgb(&rgb, &sq.color) != 1)
-		return(handle_errors("SQUARE COLOR ERROR\n"));
+		return (handle_errors("SQUARE COLOR ERROR\n"));
 
 	// Copy square to array
 	if (!(out = ft_memdup(&sq, sizeof(t_sq))))
