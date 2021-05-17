@@ -14,8 +14,8 @@
 
 t_chnk	*ft_lstnew_(size_t len)
 {
-	t_chnk *newnode;
-	size_t i;
+	t_chnk	*newnode;
+	size_t	i;
 
 	if (!(newnode = (t_chnk *)malloc(sizeof(t_chnk))))
 		return (NULL);

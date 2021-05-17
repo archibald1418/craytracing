@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static char		*iter_spaces(char *c)
+static char	*iter_spaces(char *c)
 {
 	while (*c != '\0' && ((*c == 32) || (9 <= *c && *c <= 13)))
 	{
@@ -21,14 +21,14 @@ static char		*iter_spaces(char *c)
 	return (c);
 }
 
-static int		is_int(long num)
+static int	is_int(long num)
 {
 	return (INT_MIN <= num && num <= INT_MAX);
 }
 
-static long		iter_digits(const char *str, int sign)
+static long	iter_digits(const char *str, int sign)
 {
-	long num;
+	long	num;
 
 	num = 0;
 	str += (sign != 0);
@@ -42,7 +42,7 @@ static long		iter_digits(const char *str, int sign)
 	return (num);
 }
 
-static int		get_sign(const char *str)
+static int	get_sign(const char *str)
 {
 	if (*(unsigned char *)str == '+')
 		return (1);
@@ -51,10 +51,10 @@ static int		get_sign(const char *str)
 	return (0);
 }
 
-int				ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
-	long num;
-	char *cstr;
+	long	num;
+	char	*cstr;
 
 	cstr = iter_spaces((char *)str);
 	num = iter_digits(cstr, get_sign(cstr));
@@ -62,5 +62,5 @@ int				ft_atoi(const char *str)
 		return (-1);
 	if (num > INT_MAX)
 		return (1);
-	return ((int)num); 
+	return ((int)num);
 }

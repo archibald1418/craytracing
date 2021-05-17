@@ -100,6 +100,11 @@ void			put_text(void *mlx, void *win, char *str, t_point *loc);
 int				put_mouse_pos(int x, int y, t_args *args);
 void			*init_infobar(void *mlx, int sizex, int sizey, char *title);
 void			clean_rt(t_rt *rt);
+int				do_render(t_conf *conf, t_rt *rt, t_cam *cam);
+int				cam_hooks(int keycode, t_cam *cam);
+int				do_window(t_norm *norm, t_cam *cam);
+void			do_parser(char *path, t_rt *rt);
+void			do_bmp(int argc, char **argv, t_norm *norm);
 
 // Colors
 int	create_trgb(int t, int r, int g, int b);
@@ -167,6 +172,5 @@ void	set_fileheader(t_res res, int fd);
 // Errors
 int	has_extension(char *filename, char *ext);
 int handle_errors(char *msg);
-int	handle_malloc(void);
 
 #endif

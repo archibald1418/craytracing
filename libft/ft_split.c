@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-static size_t		iter_chars(char const *s, char sep, size_t flag)
+static size_t	iter_chars(char const *s, char sep, size_t flag)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (((s[i] == sep) == flag) && (s[i] != '\0'))
@@ -22,10 +22,10 @@ static size_t		iter_chars(char const *s, char sep, size_t flag)
 	return (i);
 }
 
-static size_t		count_words(char const *s, char c)
+static size_t	count_words(char const *s, char c)
 {
-	size_t flag;
-	size_t words;
+	size_t	flag;
+	size_t	words;
 
 	flag = 1;
 	words = 0;
@@ -39,9 +39,9 @@ static size_t		count_words(char const *s, char c)
 	return (words);
 }
 
-static char			**free_arr(char **arr, size_t len)
+static char	**free_arr(char **arr, size_t len)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < len)
@@ -50,14 +50,14 @@ static char			**free_arr(char **arr, size_t len)
 		i++;
 	}
 	free(arr);
-	return ((char **)NULL);
+	return ((char **) NULL);
 }
 
-static char			**fill_arr(char **arr, size_t len, char const *s, char sep)
+static char	**fill_arr(char **arr, size_t len, char const *s, char sep)
 {
-	size_t leni;
-	size_t flag;
-	size_t i;
+	size_t	leni;
+	size_t	flag;
+	size_t	i;
 
 	i = 0;
 	flag = 1;
@@ -67,7 +67,7 @@ static char			**fill_arr(char **arr, size_t len, char const *s, char sep)
 		leni = iter_chars(s, sep, flag);
 		if (flag == 0)
 		{
-			arr[i] = malloc((leni + 1) * sizeof(char)); 
+			arr[i] = malloc((leni + 1) * sizeof(char));
 			if (arr[i] == NULL)
 				return (free_arr(arr, i));
 			ft_strlcpy(arr[i], s, leni + 1);
@@ -80,7 +80,7 @@ static char			**fill_arr(char **arr, size_t len, char const *s, char sep)
 	return (arr);
 }
 
-char				**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	size_t	nwords;
 	char	**out;

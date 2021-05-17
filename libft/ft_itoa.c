@@ -12,14 +12,14 @@
 
 #include "libft.h"
 
-static size_t		is_neg(int n)
+static size_t	is_neg(int n)
 {
 	if (n < 0)
 		return (1);
 	return (0);
 }
 
-static void			fill_digits(unsigned long n, char *str)
+static void	fill_digits(unsigned long n, char *str)
 {
 	if (n >= 10)
 	{
@@ -30,7 +30,7 @@ static void			fill_digits(unsigned long n, char *str)
 		*str = n + '0';
 }
 
-static size_t		count_digits(int n, size_t i)
+static size_t	count_digits(int n, size_t i)
 {
 	if (n == 0 && i == 0)
 		return (1);
@@ -39,7 +39,7 @@ static size_t		count_digits(int n, size_t i)
 	return (count_digits(n / 10, i + 1));
 }
 
-char				*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	char			*out;
 	size_t			has_minus;

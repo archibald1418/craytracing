@@ -12,14 +12,14 @@
 
 #include "libft.h"
 
-static int		ft_islower(int c)
+static int	ft_islower(int c)
 {
 	if (97 <= c && c <= 122)
 		return (1);
 	return (0);
 }
 
-int				ft_toupper(int c)
+int	ft_toupper(int c)
 {
 	if (ft_islower(c))
 		return (c - 32);

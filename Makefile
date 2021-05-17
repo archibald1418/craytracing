@@ -20,6 +20,7 @@ SRCS	= 	colors.c \
 			colors_bits.c \
 			colors_extra.c \
 			conf.c \
+			conf_utils.c \
 			utils.c \
 			vectors.c \
 			vectors_angles.c \
@@ -54,7 +55,8 @@ SRCS	= 	colors.c \
 			matrix_utils.c \
 			bmp.c \
 			rt.c \
-			infobar.c
+			infobar.c \
+			main_wrappers.c
 
 DIR			=	srcs/
 HEADERS		=	$(addprefix $(INCL)/, $(HFILES))

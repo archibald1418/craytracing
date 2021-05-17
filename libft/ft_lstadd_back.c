@@ -14,9 +14,9 @@
 
 void	ft_lstadd_back(t_list **lst, t_list *newnode)
 {
-	t_list *last;
+	t_list	*last;
 
-	last = ft_lstlast(*lst); 
+	last = ft_lstlast(*lst);
 	last->next = newnode;
 	newnode->next = NULL;
 }

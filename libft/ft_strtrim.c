@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-static int		is_in(char const c, char const *set)
+static int	is_in(char const c, char const *set)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (set[i] != '\0')
@@ -26,7 +26,7 @@ static int		is_in(char const c, char const *set)
 	return (0);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*out;
 	size_t	i;

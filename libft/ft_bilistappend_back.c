@@ -12,10 +12,11 @@
 
 #include "libft.h"
 
-void    ft_bilist_append_back(t_bilast *bilast, t_bilist *node)
+void	ft_bilist_append_back(t_bilast *bilast, t_bilist *node)
 {
-	t_bilist *old_tail;
-    if (node == NULL)
+	t_bilist	*old_tail;
+
+	if (node == NULL)
 		return ;
 	if (bilast->head == NULL)
 	{
