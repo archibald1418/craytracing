@@ -69,12 +69,12 @@ double	square_intersect(t_sq *sq, t_ray r)
 	t_p3d	e2;
 	t_p3d	p;
 	double	root;
-	double projs[2];
-	
+	double	projs[2];
+
 	root = plane_intersect(&(t_pl){sq->dir, sq->c, sq->color}, r);
 	if (isnan(root))
 		return (NAN);
-	cross(&e1, sq->dir, (t_p3d){1,0,0});
+	cross(&e1, sq->dir, (t_p3d){1, 0, 0});
 	cross(&e2, sq->dir, e1);
 	if (is_not_zero(e1))
 		normalize(&e1, e1);
@@ -99,55 +99,58 @@ double	sphere_intersect(t_sp *sp, t_ray r)
 
 	p_sub(&ray_to_c, r.loc, sp->c);
 	prod = 2 * dot(r.dir, ray_to_c);
-	d = pow(prod, 2) - 4 * (dot(ray_to_c, ray_to_c) - pow((double)(sp->d/2), 2));
+	d = pow(prod, 2) - 4 * (dot(ray_to_c, ray_to_c) - \
+	pow((double)(sp->d / 2), 2));
 	a = dot(r.dir, r.dir);
 	if (d < 0)
 		return ((double)NAN);
-	if (isnan((double)(root = get_min_pos_root(d, a, prod))))
+	root = get_min_pos_root(d, a, prod);
+	if (isnan((double)root))
 		return ((double)NAN);
-	// scalmult(ipoint, r->dir, root);
-	// p_add(ipoint, ipoint, r->loc);
 	return (root);
 }
 
 double	triangle_intersect(t_tr *tr, t_ray r)
 {
-	t_p3d e1;
-	t_p3d e2;
-	t_p3d pvec;
-	t_p3d tvec;
-	t_p3d qvec;
-	double det;
-	double inv_det;
-	double u;
-	double v;
+	// t_p3d	e1;
+	// t_p3d	e2;
+	t_p3d	e[2];
+	// t_p3d	pvec;
+	// t_p3d	tvec;
+	// t_p3d	qvec;
+	t_p3d	ptq[3];
+	double	det;
+	double	inv_det;
+	// double	u;
+	// double	v;
+	double	uv[2];
 
 
-	p_sub(&e1, tr->B, tr->A);
-	p_sub(&e2, tr->C, tr->A);
+	p_sub(&e[0], tr->B, tr->A);
+	p_sub(&e[1], tr->C, tr->A);
 	// normalize(&e1, e1);
 	// normalize(&e2, e2);
-	cross(&pvec, r.dir, e2);
+	cross(&ptq[0], r.dir, e[1]);
 	// normalize(&pvec, pvec);
-	det = dot(e1, pvec);
+	det = dot(e[0], ptq[0]);
 
 	// Is parallel
 	if (-1e-8 <= det && det <= 1e-8)
 		return (NAN);
 
 	inv_det = pow(det, -1);
-	p_sub(&tvec, r.loc, tr->A);
+	p_sub(&ptq[1], r.loc, tr->A);
 	// normalize(&tvec, tvec);
-	u = dot(tvec, pvec) * inv_det;
-	if (u < 0 || u > 1)
+	uv[0] = dot(ptq[1], ptq[0]) * inv_det;
+	if (uv[0] < 0 || uv[0] > 1)
 		return (NAN);
 
-	cross(&qvec, tvec, e1);
+	cross(&ptq[2], ptq[1], e[0]);
 	// normalize(&qvec, qvec);
-	v = dot(r.dir, qvec) * inv_det;
-	if (v < 0 || u + v > 1)
+	uv[1] = dot(r.dir, ptq[2]) * inv_det;
+	if (uv[1] < 0 || uv[0] + uv[1] > 1)
 		return (NAN);
-	return (dot(e2, qvec) * inv_det);
+	return (dot(e[1], ptq[2]) * inv_det);
 }
 
 double  intersect_shape(t_shape shape, t_ray ray)
