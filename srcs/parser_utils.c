@@ -1,8 +1,8 @@
 #include "minirt.h"
 
-void			**free_arr(void **arr, size_t len)
+void	**free_arr(void **arr, size_t len)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < len)
@@ -12,12 +12,12 @@ void			**free_arr(void **arr, size_t len)
 	}
 	free(arr);
 	arr = NULL;
-	return ((void **)NULL);
+	return ((void **) NULL);
 }
 
-int			is_in_arr(char *s, char **arr)
+int	is_in_arr(char *s, char **arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (arr[i] != NULL)
@@ -29,7 +29,6 @@ int			is_in_arr(char *s, char **arr)
 	return (0);
 }
 
-
 double	sign(double x)
 {
 	if (x < 0)
@@ -39,10 +38,10 @@ double	sign(double x)
 	return (0.0);
 }
 
-size_t		ft_count_words(char const *s, char *set)
+size_t	ft_count_words(char const *s, char *set)
 {
-	size_t flag;
-	size_t words;
+	size_t	flag;
+	size_t	words;
 
 	flag = 1;
 	words = 0;
@@ -56,9 +55,9 @@ size_t		ft_count_words(char const *s, char *set)
 	return (words);
 }
 
-size_t		ft_iter_chars(char const *s, char *set, size_t flag)
+size_t	ft_iter_chars(char const *s, char *set, size_t flag)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while ((((size_t)ft_is_in(s[i], set) == flag)) && (s[i] != '\0'))
@@ -66,9 +65,9 @@ size_t		ft_iter_chars(char const *s, char *set, size_t flag)
 	return (i);
 }
 
-int		ft_is_in(char const c, char const *set)
+int	ft_is_in(char const c, char const *set)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (set[i] != '\0')
