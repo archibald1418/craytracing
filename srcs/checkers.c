@@ -168,50 +168,30 @@ int	check_lsrc(char **tokens, t_lsrc *lsrc)
 
 	if (check_tokens(&tokens, 4, "ELEMENT", "LIGHT SOURCE") != 1)
 		return (handle_errors("LIGHT ERROR... \n"));
-
-	// Check lum
-	if (isnan(lum = (double)ft_atof(tokens[2])))
+	lum = (double)ft_atof(tokens[2]);
+	if (isnan(lum))
 		return (handle_errors("BAD LUMINANCE!\n"));
 	if (lum < 0 || lum > 1)
-		return (handle_errors("LUMINANCE OUT OF RANGE [0,1]\n"));		
+		return (handle_errors("LUMINANCE OUT OF RANGE [0,1]\n"));
 	lsrc->lum = lum;
-
-	// Check rgb
-	if (!(rgb = ft_strsplit(tokens[3], ",")))
+	rgb = ft_strsplit(tokens[3], ",");
+	if (!(rgb))
 		return (-1);
 	if (check_rgb(&rgb, &lsrc->col) != 1)
 		return (handle_errors("BAD LIGHT COLOR!\n"));
-	
-	// Check location
-	if (!(ploc = ft_strsplit(tokens[1], ",")))
-		return (-1);
-	if (check_point(&ploc, &lsrc->loc, 0) != 1)
-		return (handle_errors("LIGHT LOCATION ERROR ¯\\_(ツ)_/¯\n"));
-	// set_lsrc(lsrc, lum, color, p);
+	parse_location(&ploc, &lsrc->loc, tokens);
 	return (1);
 }
 
-int			check_posdir(char **tokens, t_p3d *l, t_p3d *d, char *type)
+int	check_posdir(char **tokens, t_p3d *l, t_p3d *d, char *type)
 {
-	char **ploc;
-	char **pdir;
+	char	**ploc;
+	char	**pdir;
+
 	(void)type;
-	// TODO: char **rgb;
-
-	// Parse location
-	if (!(ploc = ft_strsplit(tokens[1], ",")))
-		return (-1);
-	if (check_point(&ploc, l, 0) != 1)
-		return (0);
-
-	// Parse direction
+	parse_location(&ploc, l, tokens);
 	if (d != NULL)
-	{
-		if (!(pdir = ft_strsplit(tokens[2], ",")))
-			return (-1);
-		if (check_point(&pdir, d, 1) != 1)
-			return (0);
-	}
+		parse_direction(&pdir, d, tokens);
 	return (1);
 }
 
@@ -233,7 +213,7 @@ int			check_pl(char **tokens, t_rt *rt)
 
 	normalize(&pl.dir, tmp);
 	if (!(out = ft_memdup(&pl, sizeof(t_pl))))
-		return (-1);
+		return (handle_errors("Malloc error...\n"));
 	rt->shapes.shapes[rt->shapes.top].shape = out;
 	ft_strlcpy(rt->shapes.shapes[rt->shapes.top].label, PL, 4);
 	return (1);
