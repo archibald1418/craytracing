@@ -51,45 +51,8 @@ static int	has_single_id(char **tokens)
 	return (1);
 }
 
-int	check_line(t_rt *rt, char **tokens)
+int	parse_shapes(char *id, char **tokens, t_rt *rt)
 {
-	char		*id;
-	t_cam		cam;
-	t_lsrc		lsrc;
-	t_bilist	*camnode;
-	t_bilist	*lightnode;
-
-	id = tokens[0];
-	// Parse set
-	if (!(is_in_arr(id, (char **)g_ids)) && ft_strncmp(id, "#", 1) != 0)
-		return (handle_errors("BAD IDENTIFIER IN FILE"));
-	if (!(has_single_id(tokens)))
-		return (handle_errors("MORE THAN ONE IDENTIFIER IN LINE\n"));
-	if (ft_strncmp(id, (char *)RES, ft_strlen((char *)id)) == 0)
-		if (check_res(tokens, rt) != 1)
-			return (handle_errors("RESOLUTION ERROR...\n"));
-	if (ft_strncmp(id, (char *)AMB, ft_strlen((char *)AMB)) == 0)
-		if (check_lamb(tokens, rt) != 1)
-			return (handle_errors("\nAMBIENT LIGHT ERROR...\n"));
-	if (ft_strncmp(id, (char *)CAM, ft_strlen(id)) == 0)
-	{
-		if (check_cam(tokens, &cam) != 1)
-			return (handle_errors("CAMERA ERROR...\n"));
-		camnode = ft_bilistnew(&cam, sizeof(t_cam));
-		if (!(camnode))
-			return (handle_errors("Malloc error...\n"));
-		ft_bilist_append_back(&rt->cams, camnode);
-	}
-	if (ft_strncmp(id, (char *)LS, ft_strlen(id)) == 0)
-	{
-		if (check_lsrc(tokens, &lsrc) != 1)
-			return (handle_errors("\nLIGHT SOURCE ERROR...\n"));
-		lightnode = ft_bilistnew(&lsrc, sizeof(t_lsrc));
-		if (!(lightnode))
-			return (-1);
-		ft_bilist_append_back(&rt->lsrcs, lightnode);
-	}
-	// Parse shapes
 	if (is_in_arr(id, (char **)(g_ids + 4)))
 	{
 		if (ft_strncmp(id, (char *)PL, ft_strlen((char *)PL)) == 0)
@@ -111,6 +74,61 @@ int	check_line(t_rt *rt, char **tokens)
 		if (rt->shapes.top > MAX_SHAPES)
 			return (handle_errors("\n MAX SHAPES EXCEEDED. ABORT..."));
 	}
+	return (0);
+}
+
+int	parse_camera(char *id, char **tokens, t_rt *rt)
+{
+	t_bilist	*camnode;
+	t_cam		cam;
+
+	if (ft_strncmp(id, (char *)CAM, ft_strlen(id)) == 0)
+	{
+		if (check_cam(tokens, &cam) != 1)
+			return (handle_errors("CAMERA ERROR...\n"));
+		camnode = ft_bilistnew(&cam, sizeof(t_cam));
+		if (!(camnode))
+			return (handle_errors("Malloc error...\n"));
+		ft_bilist_append_back(&rt->cams, camnode);
+	}
+	return (0);
+}
+
+int parse_lsrc(char *id, char **tokens, t_rt *rt)
+{
+	t_bilist	*lightnode;
+	t_lsrc		lsrc;
+
+	if (ft_strncmp(id, (char *)LS, ft_strlen(id)) == 0)
+	{
+		if (check_lsrc(tokens, &lsrc) != 1)
+			return (handle_errors("\nLIGHT SOURCE ERROR...\n"));
+		lightnode = ft_bilistnew(&lsrc, sizeof(t_lsrc));
+		if (!(lightnode))
+			return (handle_errors("Malloc error...\n"));
+		ft_bilist_append_back(&rt->lsrcs, lightnode);
+	}
+	return (0);
+}
+
+int	check_line(t_rt *rt, char **tokens)
+{
+	char		*id;
+
+	id = tokens[0];
+	if (!(is_in_arr(id, (char **)g_ids)) && ft_strncmp(id, "#", 1) != 0)
+		return (handle_errors("BAD IDENTIFIER IN FILE"));
+	if (!(has_single_id(tokens)))
+		return (handle_errors("MORE THAN ONE IDENTIFIER IN LINE\n"));
+	if (ft_strncmp(id, (char *)RES, ft_strlen((char *)id)) == 0)
+		if (check_res(tokens, rt) != 1)
+			return (handle_errors("RESOLUTION ERROR...\n"));
+	if (ft_strncmp(id, (char *)AMB, ft_strlen((char *)AMB)) == 0)
+		if (check_lamb(tokens, rt) != 1)
+			return (handle_errors("\nAMBIENT LIGHT ERROR...\n"));
+	parse_camera(id, tokens, rt);
+	parse_lsrc(id, tokens, rt);
+	parse_shapes(id, tokens, rt);
 	return (1);
 }
 
