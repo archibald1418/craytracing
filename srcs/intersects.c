@@ -2,10 +2,10 @@
 
 double	plane_intersect(t_pl *pl, t_ray r)
 {	
-	t_p3d ray_to_p;
-	double root;
-	double ray_dot_plane;
-	double ray_to_p_dot_plane;
+	t_p3d	ray_to_p;
+	double	root;
+	double	ray_dot_plane;
+	double	ray_to_p_dot_plane;
 
 	p_sub(&ray_to_p, r.loc, pl->p);
 	ray_dot_plane = dot(r.dir, pl->dir);
@@ -20,10 +20,10 @@ double	plane_intersect(t_pl *pl, t_ray r)
 
 t_p2d	infinite_cylinder_intersect(t_cy *cy, t_ray r)
 {
-	double abc[3];
-	double disc;
-	t_p3d oc;
-	t_p2d roots;
+	double	abc[3];
+	double	disc;
+	t_p3d	oc;
+	t_p2d	roots;
 
 	roots.x = NAN;
 	roots.y = NAN;
@@ -31,7 +31,7 @@ t_p2d	infinite_cylinder_intersect(t_cy *cy, t_ray r)
 	p_sub(&oc, r.loc, cy->c);
 	abc[0] = dot(r.dir, r.dir) - pow(dot(r.dir, cy->dir), 2);
 	abc[1] = 2 * (dot(r.dir, oc) - (dot(r.dir, cy->dir)) * dot(oc, cy->dir));
-	abc[2] = dot(oc, oc) - pow(dot(oc, cy->dir), 2) - pow(cy->d/2, 2);
+	abc[2] = dot(oc, oc) - pow(dot(oc, cy->dir), 2) - pow(cy->d / 2, 2);
 	disc = pow(abc[1], 2) - 4 * abc[0] * abc[2];
 	if (disc < 0)
 		return (roots);
@@ -42,23 +42,18 @@ t_p2d	infinite_cylinder_intersect(t_cy *cy, t_ray r)
 
 double	finite_cylinder_intersect(t_cy *cy, t_ray r, t_p2d roots)
 {
-	t_p3d phits[2];
-	double maxlen;
-	maxlen = cy->h/2;
+	t_p3d	phits[2];
+	double	maxlen;
 
+	maxlen = cy->h / 2;
 	if (roots.x <= 0 && roots.y <= 0)
 		return (NAN);
-
 	if (roots.x <= 0)
 		return (roots.y);
-
-
-    scalmult(&phits[0], r.dir, roots.x);
-    p_add(&phits[0], phits[0], r.loc);
-
+	scalmult(&phits[0], r.dir, roots.x);
+	p_add(&phits[0], phits[0], r.loc);
 	scalmult(&phits[1], r.dir, roots.y);
 	p_add(&phits[1], phits[1], r.loc);
-
 	if (roots.x < roots.y && roots.x > 0)
 		if (fabs(dot(phits[0], cy->dir)) < maxlen)
 			return (roots.x);
@@ -66,40 +61,30 @@ double	finite_cylinder_intersect(t_cy *cy, t_ray r, t_p2d roots)
 		if (fabs(dot(phits[1], cy->dir)) < maxlen)
 			return (roots.y);
 	return (NAN);
-
-
 }
 
 double	square_intersect(t_sq *sq, t_ray r)
 {
-	t_p3d e1;
-	t_p3d e2;
-	t_p3d p;
-	double root;
-	double proja;
-	double projb;
+	t_p3d	e1;
+	t_p3d	e2;
+	t_p3d	p;
+	double	root;
+	double projs[2];
 	
 	root = plane_intersect(&(t_pl){sq->dir, sq->c, sq->color}, r);
 	if (isnan(root))
 		return (NAN);
-
-	// Find square's basis
 	cross(&e1, sq->dir, (t_p3d){1,0,0});
 	cross(&e2, sq->dir, e1);
 	if (is_not_zero(e1))
 		normalize(&e1, e1);
 	if (is_not_zero(e2))
 		normalize(&e2, e2);
-
-
-	// Find point on ray
 	scalmult(&p, r.dir, root);
 	p_add(&p, r.loc, p);
-
-	// Get projections of point on axes
-	proja = dot(p, e1);
-	projb = dot(p, e2);
-	if (fabs(proja) <= (sq->size / 2) && fabs(projb) <= (sq->size / 2))
+	projs[0] = dot(p, e1);
+	projs[1] = dot(p, e2);
+	if (fabs(projs[0]) <= (sq->size / 2) && fabs(projs[1]) <= (sq->size / 2))
 		return (root);
 	return (NAN);
 }
