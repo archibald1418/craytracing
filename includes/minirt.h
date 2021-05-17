@@ -89,7 +89,7 @@ typedef struct  s_light
     double lightdist;
     int shape_color;
     int total_color;
-}               t_light;               
+}               t_light;
 
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color);
 unsigned int	my_mlx_pixel_get(t_data *data, int x, int y);
@@ -100,14 +100,16 @@ int				put_mouse_pos(int x, int y, t_args *args);
 void			*init_infobar(void *mlx, int sizex, int sizey, char *title);
 void            clean_rt(t_rt *rt);
 
-
 // Intersects
 t_color get_shape_color(t_shape shape);
 double  intersect_shape(t_shape shape, t_ray ray);
 double	plane_intersect(t_pl *pl, t_ray r);
+double	square_intersect(t_sq *sq, t_ray r);
 double	sphere_intersect(t_sp *sp, t_ray r);
 double	triangle_intersect(t_tr *tr, t_ray r);
-double	cylinder_intersect(t_cy *cy, t_ray r);
+t_p2d	infinite_cylinder_intersect(t_cy *cy, t_ray r);
+double	finite_cylinder_intersect(t_cy *cy, t_ray r, t_p2d roots);
+double	sphere_intersect(t_sp *sp, t_ray r);
 
 
 // Render funcs
@@ -117,7 +119,11 @@ ssize_t render(t_conf *conf, t_rt *rt, t_cam cam);
 int trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient);
 
 // Normals
-void    get_sp_normal(t_v3d *orient, t_sp *sp, t_ray ray);
+void	get_sp_normal(t_v3d *orient, t_sp *sp, t_ray ray);
+void	get_pl_normal(t_v3d *orient, t_pl *pl, t_ray ray);
+void	get_sq_normal(t_v3d *orient, t_sq *sq, t_ray ray);
+void	get_tr_normal(t_v3d *orient, t_tr *tr, t_ray ray);
+void	get_cy_normal(t_v3d *orient, t_cy *cy, t_ray ray);
 void    calc_point_normal(t_v3d *orient, t_shape shape, t_ray ray);
 
 // Calc_light

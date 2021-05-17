@@ -29,15 +29,6 @@ int	is_in_arr(char *s, char **arr)
 	return (0);
 }
 
-double	sign(double x)
-{
-	if (x < 0)
-		return (-1.0);
-	if (x > 0)
-		return (1.0);
-	return (0.0);
-}
-
 size_t	ft_count_words(char const *s, char *set)
 {
 	size_t	flag;

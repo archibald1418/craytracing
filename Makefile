@@ -21,20 +21,31 @@ SRCS	= 	colors.c \
 			vectors.c \
 			utils.c \
 			parser.c \
+			parser_points.c \
+			parser_set.c \
+			parser_shapes.c \
 			parser_utils.c \
+			checkers_set.c \
+			checkers_planes.c \
+			checkers_bodies.c \
+			checkers_utils.c \
 			ft_strsplit.c \
 			ft_atof.c \
 			rays.c \
 			camera.c \
-			checkers.c \
 			setters.c \
 			tracers.c \
 			intersects.c \
+			intersects_planes.c \
+			intersects_bodies.c \
 			render.c \
 			lights.c \
 			normals.c \
+			normals_planes.c \
+			normals_bodies.c \
 			matrix_utils.c \
 			bmp.c \
+			rt.c \
 			infobar.c
 
 DIR			=	srcs/

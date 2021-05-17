@@ -17,3 +17,12 @@ double	get_min_pos_root(double disc, double a, double b)
 		return (r2);
 	return ((double)NAN);
 }
+
+double	sign(double x)
+{
+	if (x < 0)
+		return (-1.0);
+	if (x > 0)
+		return (1.0);
+	return (0.0);
+}

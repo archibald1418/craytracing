@@ -58,7 +58,7 @@ double	get_esgn(double esgn)
 
 void	kek(double *num, int *e, char **s)
 {
-	while (ft_isdigit(*++(*s)))
+	while (ft_isdigit(*(++(*s))))
 	{
 		*num = *num * 10.0 + (double)(**s - '0');
 		*e -= 1;

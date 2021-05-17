@@ -97,18 +97,3 @@ int	get_hex(t_color color)
 {
 	return (create_trgb(0, color.r, color.g, color.b));
 }
-
-t_color	get_shape_color(t_shape shape)
-{
-	if (ft_strncmp(shape.label, SP, ft_strlen(SP)) == 0)
-		return (((t_sp *)shape.shape)->color);
-	if (ft_strncmp(shape.label, SQ, ft_strlen(SQ)) == 0)
-		return (((t_sq *)shape.shape)->color);
-	if (ft_strncmp(shape.label, PL, ft_strlen(PL)) == 0)
-		return (((t_pl *)shape.shape)->color);
-	if (ft_strncmp(shape.label, CY, ft_strlen(CY)) == 0)
-		return (((t_cy *)shape.shape)->color);
-	if (ft_strncmp(shape.label, TR, ft_strlen(TR)) == 0)
-		return (((t_tr *)shape.shape)->color);
-	return ((t_color){0, 0, 0});
-}
