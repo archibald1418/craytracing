@@ -94,7 +94,7 @@ int	parse_camera(char *id, char **tokens, t_rt *rt)
 	return (0);
 }
 
-int parse_lsrc(char *id, char **tokens, t_rt *rt)
+int	parse_lsrc(char *id, char **tokens, t_rt *rt)
 {
 	t_bilist	*lightnode;
 	t_lsrc		lsrc;
@@ -132,19 +132,12 @@ int	check_line(t_rt *rt, char **tokens)
 	return (1);
 }
 
-int	parser(const char *path, t_rt *rt)
+int	gnl_loop(int fd, t_rt *rt)
 {
 	char	*line;
-	int		fd;
-	int		out;
-	int		i;
 	char	**tokens;
+	int		out;
 
-	init_rt(rt);
-
-	// GNL LOOP
-	i = 1;
-	fd = open(path, O_RDONLY);
 	out = 1;
 	while (out > 0 && fd != -1)
 	{
@@ -157,17 +150,27 @@ int	parser(const char *path, t_rt *rt)
 				free_arr((void **)tokens, ft_count_words(line, SPACES));
 				clean_rt(rt);
 				free(line);
-				return (handle_errors("\nCONFIGU ERROR\n"));
+				return (handle_errors("\nCONFIG ERROR\n"));
 			}
 			free_arr((void **)tokens, ft_count_words(line, SPACES));
 		}
-		i++;
 		free(line);
 	}
-	// Check gnl output
-	if (out == 0 && fd != -1)
-		close(fd);
-	else
+	return (out);
+}
+
+int	parser(const char *path, t_rt *rt)
+{
+	int		fd;
+	int		out;
+
+	init_rt(rt);
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (handle_errors("\nFILE ERROR...\n"));
+	out = gnl_loop(fd, rt);
+	close(fd);
+	if (out == -1)
 		return (handle_errors("\nFILE ERROR...\n"));
 	return (1);
 }
