@@ -1,14 +1,12 @@
 #include "minirt.h"
 
-ssize_t render(t_conf *conf, t_rt *rt, t_cam cam)
+ssize_t	render(t_conf *conf, t_rt *rt, t_cam cam)
 {
-	t_v3d orient;
-	int color;
-	// int i;
-	// int j;
-	t_point p;
-	t_ray ray;
-	int rate;
+	t_v3d	orient;
+	int		color;
+	t_point	p;
+	t_ray	ray;
+	int		rate;
 
 	p.y = 0;
 	rate = 1;
