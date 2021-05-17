@@ -248,33 +248,29 @@ int	check_sp(char **tokens, t_rt *rt)
 	return (1);
 }
 
-int		check_sq(char **tokens, t_rt *rt)
+int	check_sq(char **tokens, t_rt *rt)
 {
-	t_sq sq;
+	t_sq	sq;
 	char	**rgb;
-	double size;
-	t_sq *out;
+	double	size;
+	t_sq	*out;
 
 	if (check_tokens(&tokens, 5, "ELEMENT", "SQUARE") != 1)
 		return (handle_errors("SQUARE ERROR... \n"));
-	// Check size
-	if (isnan(size = (double)ft_atof(tokens[3])) || size <= 0)
+	size = (double)ft_atof(tokens[3]);
+	if (isnan(size) || size <= 0)
 		return (handle_errors("SQUARE SIZE MUST BE POSITIVE!\n"));
 	sq.size = size;
-
-	// Check center & normal
 	if (check_posdir(tokens, &sq.c, &sq.dir, "SQUARE") != 1)
 		return (handle_errors("SQUARE ERROR...\n"));
-
-	// Check rgb
-	if (!(rgb = ft_strsplit(tokens[4], ",")))
-		return (-1);
+	rgb = ft_strsplit(tokens[4], ",");
+	if (!(rgb))
+		return (handle_errors("Malloc error...\n"));
 	if (check_rgb(&rgb, &sq.color) != 1)
 		return (handle_errors("SQUARE COLOR ERROR\n"));
-
-	// Copy square to array
-	if (!(out = ft_memdup(&sq, sizeof(t_sq))))
-		return (-1);
+	out = ft_memdup(&sq, sizeof(t_sq));
+	if (!(out))
+		return (handle_errors("Malloc error...\n"));
 	rt->shapes.shapes[rt->shapes.top].shape = out;
 	ft_strlcpy(rt->shapes.shapes[rt->shapes.top].label, SQ, 4);
 	return (1);
