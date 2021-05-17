@@ -9,6 +9,16 @@ t_p3d	get_new_point(t_p3d loc, t_p3d dir, double t)
 	return (p);
 }
 
+void	treat_mins(double *mindist, double *dist, \
+					t_shape *minshape, t_shape *shape)
+{
+	if (*dist < *mindist)
+	{
+		*mindist = *dist;
+		*minshape = *shape;
+	}
+}
+
 int	trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient)
 {
 	int		i;
@@ -23,13 +33,7 @@ int	trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient)
 	{
 		dist = (double)intersect_shape(shapes.shapes[i], ray);
 		if (!(isnan(dist)))
-		{
-			if (dist < mindist)
-			{
-				mindist = dist;
-				minshape = shapes.shapes[i];
-			}
-		}
+			treat_mins(&mindist, &dist, &minshape, &shapes.shapes[i]);
 		i++;
 	}
 	if (isinf(mindist))
@@ -41,4 +45,3 @@ int	trace_shapes(t_ray ray, t_shapes shapes, t_v3d *orient)
 	p_add(&orient->loc, tmp, orient->loc);
 	return (get_hex(get_shape_color(minshape)));
 }
-
