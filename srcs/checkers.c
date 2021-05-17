@@ -276,11 +276,11 @@ int	check_sq(char **tokens, t_rt *rt)
 	return (1);
 }
 
-int		check_tr(char **tokens, t_rt *rt)
+int	check_tr(char **tokens, t_rt *rt)
 {
-	t_tr tr;
+	t_tr	tr;
 	char	**arr;
-	t_tr *out;
+	t_tr	*out;
 
 	if (check_tokens(&tokens, 5, "ELEMENT", "TRIANGLE") != 1)
 		return (handle_errors("TRIANGLE ERROR... \n"));
@@ -288,48 +288,44 @@ int		check_tr(char **tokens, t_rt *rt)
 		check_posdir(tokens + 1, &tr.B, NULL, "TRIANGLE") != 1 || \
 		check_posdir(tokens + 2, &tr.C, NULL, "TRIANGLE") != 1)
 		return (handle_errors("TRIANGLE POINT ERROR...\n"));
-	if (!(arr = ft_strsplit(tokens[4], ",")))
-		return (-1);
+	arr = ft_strsplit(tokens[4], ",");
+	if (!(arr))
+		return (handle_errors("Malloc error...\n"));
 	if (check_rgb(&arr, &tr.color) != 1)
 		return (handle_errors("TRIANGLE COLOR ERROR...\n"));
-	if (!(out = ft_memdup(&tr, sizeof(t_tr))))
-		return (-1);
+	out = ft_memdup(&tr, sizeof(t_tr));
+	if (!(out))
+		return (handle_errors("Malloc error...\n"));
 	rt->shapes.shapes[rt->shapes.top].shape = out;
 	ft_strlcpy(rt->shapes.shapes[rt->shapes.top].label, TR, 4);
 	return (1);
 }
 
-int		check_cy(char **tokens, t_rt *rt)
+int	check_cy(char **tokens, t_rt *rt)
 {
-	t_cy cy;
-	char **rgb;
-	t_cy *out;
+	t_cy	cy;
+	char	**rgb;
+	t_cy	*out;
 
 	if (check_tokens(&tokens, 6, "ELEMENT", "CYLINDER") != 1)
 		return (handle_errors("PLANE CYLINDER... \n"));
-	// Check diameter
-	if (isnan(cy.d = (double)ft_atof(tokens[3])) || cy.d <= 0)
-		return (handle_errors("CYLINDER DIAMETER MUST BE POSITIVE!\n"));	
-
-	// Check height
-	if (isnan(cy.h = (double)ft_atof(tokens[4])) || cy.h <= 0)
+	cy.d = (double)ft_atof(tokens[3]);
+	if (isnan(cy.d) || cy.d <= 0)
+		return (handle_errors("CYLINDER DIAMETER MUST BE POSITIVE!\n"));
+	cy.h = (double)ft_atof(tokens[4]);
+	if (isnan(cy.h) || cy.h <= 0)
 		return (handle_errors("CYLINDER HEIGHT MUST BE POSITIVE!\n"));
-
-	// Check rgb
-	if (!(rgb = ft_strsplit(tokens[5], ",")))
-		return (-1);
+	rgb = ft_strsplit(tokens[5], ",");
+	if (!(rgb))
+		return (handle_errors("Malloc error...\n"));
 	if (check_rgb(&rgb, &cy.color) != 1)
 		return (handle_errors("CYLINDER COLOR ERROR...\n"));
-
-	// Check posdir
 	if (check_posdir(tokens, &cy.c, &cy.dir, "CYLINDER") != 1)
 		return (handle_errors("CYLINDER POINT ERROR...\n"));
-
-	// Copy cylinder to array
-	if (!(out = ft_memdup(&cy, sizeof(t_cy))))
-		return (-1);
+	out = ft_memdup(&cy, sizeof(t_cy));
+	if (!(out))
+		return (handle_errors("Malloc error...\n"));
 	rt->shapes.shapes[rt->shapes.top].shape = out;
 	ft_strlcpy(rt->shapes.shapes[rt->shapes.top].label, CY, 4);
 	return (1);
 }
-
