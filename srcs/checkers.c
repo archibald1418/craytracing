@@ -195,57 +195,55 @@ int	check_posdir(char **tokens, t_p3d *l, t_p3d *d, char *type)
 	return (1);
 }
 
-int			check_pl(char **tokens, t_rt *rt)
+int	check_pl(char **tokens, t_rt *rt)
 {
 	t_pl	pl;
 	t_p3d	tmp;
 	char	**rgb;
 	t_pl	*out;
-	
+
 	if (check_tokens(&tokens, 4, "ELEMENT", "PLANE") != 1)
-		return (handle_errors("PLANE ERROR... \n"));	
+		return (handle_errors("PLANE ERROR... \n"));
 	if (check_posdir(tokens, &pl.p, &tmp, "PLANE") != 1)
 		return (handle_errors("PLANE ERROR...\n"));
-	if (!(rgb = ft_strsplit(tokens[3], ",")))
-		return (-1);
+	rgb = ft_strsplit(tokens[3], ",");
+	if (!(rgb))
+		return (handle_errors("Malloc error...\n"));
 	if (check_rgb(&rgb, &pl.color) != 1)
 		return (handle_errors("PLANE COLOR ERROR...\n"));
-
 	normalize(&pl.dir, tmp);
-	if (!(out = ft_memdup(&pl, sizeof(t_pl))))
+	out = ft_memdup(&pl, sizeof(t_pl));
+	if (!(out))
 		return (handle_errors("Malloc error...\n"));
 	rt->shapes.shapes[rt->shapes.top].shape = out;
 	ft_strlcpy(rt->shapes.shapes[rt->shapes.top].label, PL, 4);
 	return (1);
 }
 
-int		check_sp(char **tokens, t_rt *rt)
+int	check_sp(char **tokens, t_rt *rt)
 {
-	t_sp sp;
+	t_sp	sp;
 	char	**rgb;
 	char	**ploc;
 
 	if (check_tokens(&tokens, 4, "ELEMENT", "SP") != 1)
 		return (handle_errors("SPHERE ERROR... \n"));
-	// Check diameter
-	if (isnan(sp.d = (double)ft_atof(tokens[2])) || sp.d <= 0)
+	sp.d = (double)ft_atof(tokens[2]);
+	if (isnan(sp.d) || sp.d <= 0)
 		return (handle_errors("SPHERE DIAMETER MUST BE POSITIVE!\n"));
-
-	// Check center
-	if (!(ploc = ft_strsplit(tokens[1], ",")))
-		return (-1);
+	ploc = ft_strsplit(tokens[1], ",");
+	if (!(ploc))
+		return (handle_errors("SPHERE LOCATION ERROR...\n"));
 	if (check_point(&ploc, &sp.c, 0) != 1)
 		return (handle_errors("SPHERE CENTER ERROR\n"));
-
-	// Check rgb
-	if (!(rgb = ft_strsplit(tokens[3], ",")))
-		return (-1);
+	rgb = ft_strsplit(tokens[3], ",");
+	if (!(rgb))
+		return (handle_errors("Malloc error...\n"));
 	if (check_rgb(&rgb, &sp.color) != 1)
 		return (handle_errors("SPHERE COLOR ERROR\n"));
-
-	// Copy sphere to array
-	if (!(rt->shapes.shapes[rt->shapes.top].shape = ft_memdup(&sp, sizeof(t_sp))))
-		return (-1);
+	rt->shapes.shapes[rt->shapes.top].shape = ft_memdup(&sp, sizeof(t_sp));
+	if (!(rt->shapes.shapes[rt->shapes.top].shape))
+		return (handle_errors("Malloc error...\n"));
 	ft_strlcpy(rt->shapes.shapes[rt->shapes.top].label, SP, 4);
 	return (1);
 }
@@ -290,19 +288,14 @@ int		check_tr(char **tokens, t_rt *rt)
 
 	if (check_tokens(&tokens, 5, "ELEMENT", "TRIANGLE") != 1)
 		return (handle_errors("TRIANGLE ERROR... \n"));
-	// Check points
 	if (check_posdir(tokens, &tr.A, NULL, "TRIANGLE") != 1 || \
 		check_posdir(tokens + 1, &tr.B, NULL, "TRIANGLE") != 1 || \
 		check_posdir(tokens + 2, &tr.C, NULL, "TRIANGLE") != 1)
 		return (handle_errors("TRIANGLE POINT ERROR...\n"));
-
-	// Check rgb
 	if (!(arr = ft_strsplit(tokens[4], ",")))
 		return (-1);
 	if (check_rgb(&arr, &tr.color) != 1)
 		return (handle_errors("TRIANGLE COLOR ERROR...\n"));
-
-	// Copy triangle to array
 	if (!(out = ft_memdup(&tr, sizeof(t_tr))))
 		return (-1);
 	rt->shapes.shapes[rt->shapes.top].shape = out;
