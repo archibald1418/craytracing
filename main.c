@@ -1,7 +1,6 @@
-// #include "tests.h"
 #include "minirt.h"
 
-int handle_errors(char *msg)
+int	handle_errors(char *msg)
 {
 	printf("Error\n%s...\n", msg);
 	exit(0);
@@ -10,7 +9,8 @@ int handle_errors(char *msg)
 
 int	has_extension(char *filename, char *ext)
 {
-	size_t len;
+	size_t	len;
+
 	len = ft_strlen(filename);
 	if (len < ft_strlen(ext))
 		return (0);
@@ -22,16 +22,16 @@ int	has_extension(char *filename, char *ext)
 static void	setup_hooks(t_norm *norm)
 {
 	mlx_key_hook(norm->conf.vars.win, key_hook, norm);
-	mlx_hook(norm->conf.vars.win, DestroyNotify, StructureNotifyMask, \
+	mlx_hook(norm->conf.vars.win, DESTROYNOTIFY, 1L << 17, \
 			close_win, &norm->conf.vars);
-	mlx_hook(norm->conf.vars.win, MotionNotify, PointerMotionMask, \
+	mlx_hook(norm->conf.vars.win, MOTIONNOTIFY, 1L << 6, \
 			put_mouse_pos, &norm->args);
-	mlx_hook(norm->args.outwin, DestroyNotify, StructureNotifyMask, \
+	mlx_hook(norm->args.outwin, DESTROYNOTIFY, 1L << 17, \
 			close_win, &norm->args.conf->vars);
 	mlx_loop(norm->conf.vars.mlx);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_norm	norm;
 
@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 		norm.conf.img.img, 0, 0);
 		setup_hooks(&norm);
 	}
-	else 
+	else
 		return (handle_errors("No file on input..."));
 	return (0);
 }

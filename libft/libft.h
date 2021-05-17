@@ -18,25 +18,33 @@
 # include <limits.h>
 # include <unistd.h>
 
-typedef struct	s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }				t_list;
 
-typedef struct	s_bilist
+typedef struct s_bilist
 {
 	void			*content;
 	struct s_bilist	*next;
 	struct s_bilist	*prev;
 }				t_bilist;
 
-typedef struct	s_bilast
+typedef struct s_bilast
 {
 	t_bilist	*head;
 	t_bilist	*tail;
 }				t_bilast;
 
+typedef struct s_gnl
+{
+	char			*shed;
+	long			length;
+	long			lineu;
+	int				read_res;
+	char			*line_end;
+}					t_gnl;
 
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *s, size_t n);
@@ -52,9 +60,9 @@ size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
 char			*ft_strnstr(
-				const char *haystack,
-				const char *needle,
-				size_t len);
+					const char *haystack, \
+					const char *needle, \
+					size_t len);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_strcmp(char *s1, char *s2);
 int				ft_atoi(const char *str);
@@ -85,15 +93,16 @@ void			ft_lstadd_back(t_list **lst, t_list *newnode);
 void			ft_lstdelone(t_list *lst, void (*del)(void*));
 void			ft_lstclear(t_list **lst, void (*del)(void*));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
-t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),void (*del)(void *));
+t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), \
+					void (*del)(void *));
 
 /*
 **	Doubly linked lists
 */
 
-void		ft_bilist_append_back(t_bilast *bilast, t_bilist *node);
-t_bilist 	*ft_bilistnew(void *content, size_t size);
-void		ft_bilistdelone(t_bilist *lst, void(*del)(void *));
-void		ft_bilistclear(t_bilist **lst, void (*f)(void *));
+void			ft_bilist_append_back(t_bilast *bilast, t_bilist *node);
+t_bilist		*ft_bilistnew(void *content, size_t size);
+void			ft_bilistdelone(t_bilist *lst, void(*del)(void *));
+void			ft_bilistclear(t_bilist **lst, void (*f)(void *));
 
 #endif

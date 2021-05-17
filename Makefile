@@ -91,39 +91,6 @@ $(NAME): $(MLXLL) $(OBJ) $(HEADERS) Makefile
 %.o: %.c
 	$(CC) $(CFLAGS) -g $(IFLAG) -c $< -o $@
 
-test-colors:
-	$(CC) $(TESTDIR)/colors_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
-
-test-line:
-	$(CC) $(TESTDIR)/line_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
-test-triangle:
-	$(CC) $(TESTDIR)/triangle_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
-
-test-window:
-	$(CC) main.c $(SOURCE) -g $(IFLAG) $(LIBAS) $(FRM) -o $(NAME)
-
-test-atof:
-	gcc $(TESTDIR)/ft_atof_test.c srcs/ft_atof.c $(LIBA) -g $(IFLAG) -I $(TESTDIR)  $< -o atof
-
-test-parser: $(MLXLL) $(HEADERS)
-	gcc -g  $(LIBA) $(IFLAG) -I$(TESTDIR)  -o parser \
-	$(TESTDIR)/parser_test.c $(TESTDIR)/test_funcs.c \
-	$(LIBFT)/*.c \
-	srcs/setters.c \
-	srcs/checkers.c \
-	srcs/parser.c \
-	srcs/parser_utils.c \
-	srcs/ft_strsplit.c \
-	srcs/ft_atof.c \
-	srcs/camera.c \
-	srcs/vectors.c
-
-test-vectors: $(MLXLL) $(LIBA)
-	$(CC) $(TESTDIR)/vectors_test.c $(TESTDIR)/infobar.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
-
-test-rays: $(MLXLL) $(LIBA)
-	$(CC) $(TESTDIR)/rays_test.c $(SOURCE) $(LIBAS) -g $(IFLAG) -I $(TESTDIR) $(FRM) -o $(NAME)
-
 re: fclean all
 
 .PHONY: fclean clean all

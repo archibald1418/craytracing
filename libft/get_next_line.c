@@ -1,119 +1,71 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ldonita <ldonita@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/13 05:22:10 by ldonita           #+#    #+#             */
-/*   Updated: 2021/04/21 00:10:56 by ldonita          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
-void		*memmove_(void *dst, const void *src, size_t len)
+static int	fill_data_buf(int fd, char **data_buf)
 {
-	unsigned char	*cdst;
-	unsigned char	*csrc;
-	size_t			i;
+	char	*buf;
+	char	*old_data_buf;
+	int		num_of_read_bytes;
 
-	cdst = (unsigned char *)dst;
-	csrc = (unsigned char *)src;
-	i = 0;
-	if (dst == NULL && src == NULL)
-		return (NULL);
-	if (dst < src)
-		while (i++ < len)
-			*cdst++ = *csrc++;
-	else if (dst > src)
+	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!(buf))
+		return (-1);
+	num_of_read_bytes = read(fd, buf, BUFFER_SIZE);
+	if (num_of_read_bytes == -1)
 	{
-		i = len;
-		while (i > 0)
-		{
-			*(cdst + i - 1) = *(csrc + i - 1);
-			i--;
-		}
+		free(buf);
+		return (-1);
 	}
-	return (dst);
+	buf[num_of_read_bytes] = '\0';
+	old_data_buf = *data_buf;
+	*data_buf = ft_strjoin_(*data_buf, buf);
+	if (!*data_buf)
+		return (-1);
+	free(old_data_buf);
+	free(buf);
+	return (num_of_read_bytes);
 }
 
-ssize_t		ft_memchri(const void *s, int c, size_t n)
+static int	check_result_of_read(int n_bytes, char **data_buf, char **line)
 {
-	size_t			i;
-	unsigned char	*cs;
-
-	i = 0;
-	cs = (unsigned char *)s;
-	while (i < n)
+	if (n_bytes == -1)
 	{
-		if (cs[i] == (unsigned char)c)
-			return (i);
-		i++;
+		free(*data_buf);
+		*data_buf = 0;
+		return (-1);
+	}
+	if (n_bytes == 0)
+	{
+		*line = ft_strjoin_(*data_buf, 0);
+		if (!*line)
+			return (-1);
+		free(*data_buf);
+		*data_buf = 0;
+		return (0);
 	}
 	return (-1);
 }
 
-void		*memdup_(const void *s, size_t size)
+int	get_next_line(int fd, char **line)
 {
-	void *out;
+	char		*nl_founder;
+	static char	*data_buf;
+	int			num_of_read_bytes;
 
-	if (!(out = malloc(size + 1)))
-		return (NULL);
-	memmove_(out, s, size);
-	((char *)out)[size] = '\0';
-	return (out);
-}
-
-int			parse_buffer(t_last *last, t_chnk *chunk, char **line)
-{
-	ssize_t	nli;
-	t_chnk	*old_tail;
-	size_t	old_len;
-
-	nli = ft_memchri(chunk->text, '\n', chunk->len);
-	if (nli == -1)
-		return (0);
-	old_tail = (!(last->tail)) ? chunk : last->tail;
-	old_len = (!old_tail || !old_tail->next) ? chunk->len : old_tail->len;
-	ft_lstappend_back_null(last, chunk);
-	last->tail->len = nli;
-	if (!(*line = ft_lstjoin(&(last->head), line)))
-		return (ft_lstclear_(&(last->head)));
-	old_tail->next = NULL;
-	if (last->head != last->tail)
-		ft_lstclear_(&(last->head));
-	last->head = last->tail;
-	last->head->len = old_len - nli - 1;
-	memmove_(last->head->text, last->head->text + nli + 1, old_len - nli);
-	return (1);
-}
-
-int			get_next_line(int fd, char **line)
-{
-	static t_last	last;
-	t_chnk			*chunk;
-	ssize_t			bytes_read;
-	ssize_t			res;
-
-	if (BUFFER_SIZE == 0 || fd < 0 || line == NULL)
+	if (!line || BUFFER_SIZE <= 0 || fd < 0 || read(fd, NULL, 0) == -1)
 		return (-1);
-	if (last.head != NULL && (res = parse_buffer(&last, last.head, line)) != 0)
-		return (res);
-	bytes_read = 1;
-	while (bytes_read != 0)
+	nl_founder = ft_strchr_(data_buf, '\n');
+	while (!(nl_founder))
 	{
-		if (!(chunk = ft_lstnew_(BUFFER_SIZE)))
-			return (ft_lstclear_(&(last.head)));
-		if ((bytes_read = read(fd, chunk->text, BUFFER_SIZE)) < 0)
-			return (ft_lstclear_(&(last.head)));
-		chunk->len = bytes_read;
-		if ((res = parse_buffer(&last, chunk, line)) != 0)
-			return (res);
-		ft_lstappend_back_null(&last, chunk);
+		num_of_read_bytes = fill_data_buf(fd, &data_buf);
+		if (num_of_read_bytes <= 0)
+			return (check_result_of_read(num_of_read_bytes, &data_buf, line));
+		nl_founder = ft_strchr_(data_buf, '\n');
 	}
-	if (!(*line = ft_lstjoin(&(last.head), line)))
-		return (ft_lstclear_(&(last.head)));
-	ft_lstclear_(&(last.head));
-	return (0);
+	*nl_founder = '\0';
+	nl_founder++;
+	*line = ft_strjoin_(0, data_buf);
+	if (!*line)
+		return (-1);
+	ft_strlcpy_(data_buf, nl_founder, ft_strlen_(nl_founder) + 1);
+	return (1);
 }

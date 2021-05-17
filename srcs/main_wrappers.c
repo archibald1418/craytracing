@@ -2,7 +2,7 @@
 
 void	do_parser(char *path, t_rt *rt)
 {
-	int out;
+	int	out;
 
 	if (!has_extension(path, ".rt"))
 		handle_errors("Bad file extension");

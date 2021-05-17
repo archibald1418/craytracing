@@ -1,97 +1,79 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ldonita <ldonita@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/13 04:59:24 by ldonita           #+#    #+#             */
-/*   Updated: 2021/04/21 00:00:41 by ldonita          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
-t_chnk	*ft_lstnew_(size_t len)
+int	ft_strlen_(const char *s)
 {
-	t_chnk	*newnode;
-	size_t	i;
+	int	i;
 
-	newnode = (t_chnk *)malloc(sizeof(t_chnk));
-	if (!(newnode))
-		return (NULL);
-	newnode->text = (char *)malloc(sizeof(char) * len + 1);
-	if (!(newnode->text))
-		return (NULL);
-	newnode->len = len;
+	if (!s)
+		return (0);
 	i = 0;
-	while (i <= len)
+	while (s[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strchr_(const char *s, int c)
+{
+	int		i;
+	char	cc;
+
+	i = 0;
+	cc = c;
+	if (!s)
+		return (NULL);
+	while (s[i] != '\0')
 	{
-		(newnode->text)[i] = '\0';
+		if (s[i] == cc)
+			return ((char *)s + i);
 		i++;
 	}
-	newnode->next = NULL;
-	return (newnode);
+	if (s[i] == '\0' && (char)c == '\0')
+		return ((char *)s + i);
+	return (NULL);
 }
 
-void	ft_lstappend_back_null(t_last *last, t_chnk *node)
+size_t	ft_strlcpy_(char *dst, const char *src, size_t dstsize)
 {
-	if (node == NULL)
-		return ;
-	if (last->head == NULL)
+	size_t	i;
+
+	i = 0;
+	if (!dst || !src)
+		return (0);
+	if (dstsize == 0)
+		return (ft_strlen_(src));
+	while (src[i] != '\0' && (i < dstsize - 1))
 	{
-		last->head = node;
-		last->tail = node;
-		return ;
+		dst[i] = src[i];
+		i++;
 	}
-	last->tail->next = node;
-	node->next = NULL;
-	last->tail = node;
+	dst[i] = '\0';
+	return (ft_strlen_(src));
 }
 
-ssize_t	ft_lstclear_(t_chnk **lst)
+char	*ft_strjoin_(char const *s1, char const *s2)
 {
-	t_chnk	*current;
-	t_chnk	*next;
+	char	*newstr;
+	int		i;
 
-	current = *lst;
-	while (current)
-	{
-		next = current->next;
-		free(current->text);
-		current->text = NULL;
-		free(current);
-		current = NULL;
-		current = next;
-	}
-	*lst = NULL;
-	return (-1);
-}
-
-char	*ft_lstjoin(t_chnk **phead, char **line)
-{
-	t_chnk	*node;
-	char	*pline;
-	size_t	sumlen;
-
-	node = *phead;
-	sumlen = 0;
-	while (node)
-	{
-		sumlen += node->len;
-		node = node->next;
-	}
-	*line = (char *)malloc(sizeof(char) * (sumlen + 1));
-	if (!(line))
+	i = 0;
+	if (!s1 && !s2)
 		return (NULL);
-	node = *phead;
-	pline = *line;
-	while (node)
+	newstr = (char *)malloc(sizeof(*newstr) \
+		* (ft_strlen_(s1) + ft_strlen_(s2) + 1));
+	if (!newstr)
+		return (NULL);
+	while (s1 != NULL && *s1 != '\0')
 	{
-		memmove_(pline, node->text, node->len);
-		pline += node->len;
-		node = node->next;
+		newstr[i] = *s1;
+		i++;
+		s1++;
 	}
-	*pline = '\0';
-	return (*line);
+	while (s2 != NULL && *s2 != '\0')
+	{
+		newstr[i] = *s2;
+		i++;
+		s2++;
+	}
+	newstr[i] = '\0';
+	return (newstr);
 }

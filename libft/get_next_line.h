@@ -1,46 +1,18 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ldonita <ldonita@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/13 05:01:16 by ldonita           #+#    #+#             */
-/*   Updated: 2021/04/21 00:10:40 by ldonita          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE	1
+#  define BUFFER_SIZE 80
 # endif
-# include <fcntl.h>
-# include <stdlib.h>
+
 # include <unistd.h>
-# include <stdio.h>
+# include <stdlib.h>
+# include <fcntl.h>
 
-typedef struct		s_chnk
-{
-	char			*text;
-	size_t			len;
-	struct s_chnk	*next;
-}					t_chnk;
-
-typedef struct		s_last
-{
-	t_chnk			*head;
-	t_chnk			*tail;
-}					t_last;
-
-ssize_t				ft_memchri(const void *s, int c, size_t n);
-void				*memmove_(void *dst, const void *src, size_t len);
-void				*memdup_(const void *s, size_t size);
-t_chnk				*ft_lstnew_(size_t len);
-void				ft_lstappend_back_null(t_last *last, t_chnk *node);
-ssize_t				ft_lstclear_(t_chnk **lst);
-char				*ft_lstjoin(t_chnk **phead, char **line);
-int					parse_buffer(t_last *last, t_chnk *chunk, char **line);
-int					get_next_line(int fd, char **line);
+int		get_next_line(int fd, char **line);
+char	*ft_strchr_(const char *s, int c);
+char	*ft_strjoin_(char const *s1, char const *s2);
+size_t	ft_strlcpy_(char *dst, const char *src, size_t dstsize);
+int		ft_strlen_(const char *s);
 
 #endif

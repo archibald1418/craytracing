@@ -13,7 +13,7 @@
 
 # define MAX_SHAPES	100
 
-#define SPACES "\v\t \r\f"
+# define SPACES "\v\t \r\f"
 
 # define	RES		(char*)"R"
 # define	AMB		(char*)"A"
@@ -30,19 +30,19 @@
 typedef t_list		t_lsrcs;
 typedef t_bilist	t_cams;
 
-typedef struct	s_shape
+typedef struct s_shape
 {
 	char	label[4];
 	void	*shape;
 }				t_shape;
 
-typedef struct	s_shapes
+typedef struct s_shapes
 {
 	t_shape		shapes[MAX_SHAPES + 1];
-	int			top; //	 Заполненность массива
+	int			top;
 }				t_shapes;
 
-typedef struct	s_rt
+typedef struct s_rt
 {
 	t_res		res;
 	t_lamb		lamb;

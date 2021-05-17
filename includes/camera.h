@@ -3,7 +3,7 @@
 
 # include "vectors.h"
 
-typedef struct	s_cam
+typedef struct s_cam
 {
 	t_p3d		loc;
 	t_p3d		dir;

@@ -1,11 +1,11 @@
 #ifndef COLORS_H
 # define COLORS_H
 
-typedef struct	s_color
+typedef struct s_color
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 }				t_color;
 
 int		create_trgb(int t, int r, int g, int b);
@@ -21,7 +21,7 @@ int		subtr_trgb(int trgba, int trgbb);
 int		get_opposite(int trgb);
 void	set_color(t_color *col, int r, int g, int b);
 int		mix_light(int color, double light_lum, int light_color);
-int     get_hex(t_color color);
+int		get_hex(t_color color);
 
 /*
 ** This is from a generated file with rgb2c.pl and rgb.txt from

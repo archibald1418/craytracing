@@ -30,12 +30,13 @@ double	finite_cylinder_intersect(t_cy *cy, t_ray r, t_p2d roots)
 	maxlen = cy->h / 2;
 	if (roots.x <= 0 && roots.y <= 0)
 		return (NAN);
-	if (roots.x <= 0)
-		return (roots.y);
 	scalmult(&phits[0], r.dir, roots.x);
 	p_add(&phits[0], phits[0], r.loc);
 	scalmult(&phits[1], r.dir, roots.y);
 	p_add(&phits[1], phits[1], r.loc);
+	if (roots.x <= 0)
+		if (fabs(dot(phits[1], cy->dir)) < maxlen)
+			return (roots.y);
 	if (roots.x < roots.y && roots.x > 0)
 		if (fabs(dot(phits[0], cy->dir)) < maxlen)
 			return (roots.x);
