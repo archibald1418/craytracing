@@ -17,9 +17,11 @@ t_chnk	*ft_lstnew_(size_t len)
 	t_chnk	*newnode;
 	size_t	i;
 
-	if (!(newnode = (t_chnk *)malloc(sizeof(t_chnk))))
+	newnode = (t_chnk *)malloc(sizeof(t_chnk));
+	if (!(newnode))
 		return (NULL);
-	if (!(newnode->text = (char *)malloc(sizeof(char) * len + 1)))
+	newnode->text = (char *)malloc(sizeof(char) * len + 1);
+	if (!(newnode->text))
 		return (NULL);
 	newnode->len = len;
 	i = 0;
@@ -49,8 +51,8 @@ void	ft_lstappend_back_null(t_last *last, t_chnk *node)
 
 ssize_t	ft_lstclear_(t_chnk **lst)
 {
-	t_chnk *current;
-	t_chnk *next;
+	t_chnk	*current;
+	t_chnk	*next;
 
 	current = *lst;
 	while (current)
@@ -79,7 +81,8 @@ char	*ft_lstjoin(t_chnk **phead, char **line)
 		sumlen += node->len;
 		node = node->next;
 	}
-	if (!(*line = (char *)malloc(sizeof(char) * (sumlen + 1))))
+	*line = (char *)malloc(sizeof(char) * (sumlen + 1));
+	if (!(line))
 		return (NULL);
 	node = *phead;
 	pline = *line;
