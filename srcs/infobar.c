@@ -18,7 +18,7 @@ int	put_mouse_pos(int x, int y, t_args *args)
 		get_g(rgbval), \
 		get_b(rgbval));
 		put_text(args->conf->vars.mlx, args->outwin, col, &(t_point){10, 70});
-		sprintf((char *)col, "#%X", rgbval);
+		sprintf((char *)col, "#%08x", rgbval);
 		put_text(args->conf->vars.mlx, args->outwin, col, &(t_point){10, 100});
 	}
 	return (0);
