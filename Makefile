@@ -66,15 +66,15 @@ FRM			=	-framework OpenGL -framework AppKit
 LIBAS		= 	$(MLXLL) $(LIBA)
 OBJ			=	${SOURCE:.c=.o}
 
-all: $(NAME)
+all: libft $(MLXLL) $(NAME)
 
-$(LIBA):
-	make bonus -j4 -C libft
-	cp $(LIBA) ./
+libft:
+	make -j4 -C libft
+	# make bonus -j4 -C libft
 
-$(MLXLL): $(LIBA)
+
+$(MLXLL):
 	make -C ./$(MLX)
-	cp $(MLXLL) ./
 
 clean:
 	make clean -C $(LIBFT)
@@ -85,12 +85,12 @@ fclean: clean
 	make fclean -C $(LIBFT)
 	rm -rf ./*.a ./*.dylib a.out $(NAME)
 
-$(NAME): $(MLXLL) $(OBJ) $(HEADERS) Makefile
-	$(CC) -g $(LIBAS) $(SOURCE) libft/*.c $(IFLAG) $(FRM) -fsanitize=address -o $(NAME)
+$(NAME): $(OBJ) $(HEADERS) Makefile
+	$(CC) -g -L./libft -lft $(MLXLL) $(SOURCE) $(IFLAG) $(FRM) -fsanitize=address -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -g $(IFLAG) -c $< -o $@
 
 re: fclean all
 
-.PHONY: fclean clean all
+.PHONY: libft fclean clean all

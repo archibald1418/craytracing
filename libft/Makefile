@@ -18,18 +18,22 @@ BONUSSRCS = ft_lstadd_front.c ft_lstadd_back.c \
 			ft_lstlast.c ft_lstiter.c ft_lstclear.c ft_lstdelone.c
 CC = gcc
 CFLAGS = -Werror -Wall -Wextra
-.c.o:
-	${CC} ${CFLAGS} -c $< -o $@
 OBJS = ${SRCS:.c=.o}
 OBJBONUS = ${BONUSSRCS:.c=.o}
+
 all: $(NAME)
+
+%.o : %.c libft.h get_next_line.h
+	${CC} ${CFLAGS} -c $< -o $@
+
 $(NAME): $(OBJS)
 	ar rc $(NAME) $?
 	ranlib $(NAME)
-bonus: ${OBJS} ${OBJBONUS}
+
+bonus: $(OBJBONUS)
 	ar rc ${NAME} $?
 	ranlib ${NAME}
-$(OBJS): libft.h get_next_line.h
+
 test: $(TESTS) bonus
 	$(CC) -g $(TESTS) -L. -lft -o test
 	./test
