@@ -9,7 +9,9 @@ void	init_rt(t_rt *rt)
 	rt->lsrcs.tail = NULL;
 	rt->cams.head = NULL;
 	rt->cams.tail = NULL;
-	rt->shapes.top = 0;
+	rt->shapes.top = 0; 
+	rt->has_lamb = 0;
+	rt->has_res = 0;
 }
 
 void	clean_rt(t_rt *rt)

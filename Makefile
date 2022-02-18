@@ -85,8 +85,13 @@ fclean: clean
 	make fclean -C $(LIBFT)
 	rm -rf ./*.a ./*.dylib a.out $(NAME)
 
+<<<<<<< Updated upstream
 $(NAME): $(OBJ) $(HEADERS) Makefile
 	$(CC) -g -L./libft -lft $(MLXLL) $(SOURCE) $(IFLAG) $(FRM) -fsanitize=address -o $(NAME)
+=======
+$(NAME): $(MLXLL) $(OBJ) $(HEADERS) Makefile
+	$(CC) -g $(LIBAS) $(SOURCE) $(IFLAG) $(FRM) -fsanitize=address -o $(NAME)
+>>>>>>> Stashed changes
 
 %.o: %.c
 	$(CC) $(CFLAGS) -g $(IFLAG) -c $< -o $@
