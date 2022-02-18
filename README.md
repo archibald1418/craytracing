@@ -4,7 +4,7 @@
 
 ## The task
 
-Input file (.rt) - configurations of a 3D scene:
-
+Input file (.rt) - configurations of a 3D scene
+Output - rendered image
 
 
